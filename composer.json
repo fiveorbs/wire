@@ -14,5 +14,18 @@
             "email": "info@ebenefuenf.de"
         }
     ],
-    "require": {}
+    "require": {
+        "psr/container": "^2.0"
+    },
+    "require-dev": {
+        "conia/development": "^1.0",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpunit/phpunit": "^10.4",
+        "vimeo/psalm": "^5.15"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
 }
