@@ -16,6 +16,7 @@ use ReflectionObject;
 use ReflectionParameter;
 use Throwable;
 
+/** @psalm-api */
 class Resolver
 {
     public function __construct(protected readonly ?Container $container = null)
@@ -194,7 +195,7 @@ class Resolver
                 assert(is_string($name));
 
                 if (is_string($value)) {
-                    if ($this->container->has($value)) {
+                    if ($this->container?->has($value)) {
                         $result[$name] = $this->container->get($value);
                     } elseif (class_exists($value)) {
                         $result[$name] = $this->resolve($value);
