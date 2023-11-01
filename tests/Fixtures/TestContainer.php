@@ -15,10 +15,10 @@ class TestContainer implements ContainerInterface
     public function add(string $id, mixed $entry = null): void
     {
         if (is_null($entry)) {
+            $this->entries[$id] = $id;
+        } else {
             $this->entries[$id] = $entry;
         }
-
-        $this->entries[$id] = $id;
     }
 
     public function has(string $id): bool
