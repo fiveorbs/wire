@@ -105,7 +105,6 @@ class Resolver
             "To be resolvable, classes must have fully typed constructor parameters. Source: \n" .
                 $this->getParamInfo($param)
         );
-
     }
 
     public function getParamInfo(ReflectionParameter $param): string
