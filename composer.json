@@ -1,0 +1,18 @@
+{
+    "name": "conia/resolver",
+    "description": "Autowiring argument resolver",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Conia\\Resolver\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ebene fünf GmbH",
+            "email": "info@ebenefuenf.de"
+        }
+    ],
+    "require": {}
+}
