@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Conia\Resolver\Tests;
+namespace Conia\Wire\Tests;
 
-use Conia\Resolver\Resolver;
-use Conia\Resolver\Tests\Fixtures\TestClass;
-use Conia\Resolver\Tests\Fixtures\TestClassApp;
-use Conia\Resolver\Tests\Fixtures\TestClassConstructor;
-use Conia\Resolver\Tests\Fixtures\TestClassContainerArgs;
-use Conia\Resolver\Tests\Fixtures\TestClassDefault;
-use Conia\Resolver\Tests\Fixtures\TestClassMultiConstructor;
+use Conia\Wire\Resolver;
+use Conia\Wire\Tests\Fixtures\TestClass;
+use Conia\Wire\Tests\Fixtures\TestClassApp;
+use Conia\Wire\Tests\Fixtures\TestClassConstructor;
+use Conia\Wire\Tests\Fixtures\TestClassContainerArgs;
+use Conia\Wire\Tests\Fixtures\TestClassDefault;
+use Conia\Wire\Tests\Fixtures\TestClassMultiConstructor;
 
 /**
  * @internal
  */
 final class ResolverTest extends TestCase
 {
-    public function testSimpleAutowiring(): void
+    public function testSimpleResolve(): void
     {
         $resolver = new Resolver($this->container());
 
         $this->assertInstanceOf(TestClassConstructor::class, $resolver->autowire(TestClassConstructor::class));
     }
 
-    public function testAutowiringWithPartialArgs(): void
+    public function testResolveWithPartialArgs(): void
     {
         $resolver = new Resolver($this->container());
         $tc = $resolver->autowire(TestClassMultiConstructor::class, ['name' => 'chuck', 'number' => 73]);
@@ -35,7 +35,7 @@ final class ResolverTest extends TestCase
         $this->assertInstanceOf(TestClass::class, $tc->tc);
     }
 
-    public function testAutowiringWithPartialArgsAndDefaultValues(): void
+    public function testResolveWithPartialArgsAndDefaultValues(): void
     {
         $resolver = new Resolver($this->container());
         $tc = $resolver->autowire(TestClassDefault::class, ['number' => 73]);
@@ -46,7 +46,7 @@ final class ResolverTest extends TestCase
         $this->assertInstanceOf(TestClass::class, $tc->tc);
     }
 
-    public function testAutowiringWithSimpleFactoryMethod(): void
+    public function testResolveWithSimpleFactoryMethod(): void
     {
         $resolver = new Resolver($this->container());
         $tc = $resolver->autowire(TestClassContainerArgs::class, [], 'fromDefaults');
@@ -57,7 +57,7 @@ final class ResolverTest extends TestCase
         $this->assertEquals('fromDefaults', $tc->test);
     }
 
-    public function testAutowiringWithFactoryMethodAndArgs(): void
+    public function testResolveWithFactoryMethodAndArgs(): void
     {
         $resolver = new Resolver($this->container());
         $tc = $resolver->autowire(TestClassContainerArgs::class, ['test' => 'passed', 'app' => 'passed'], 'fromArgs');
@@ -68,7 +68,7 @@ final class ResolverTest extends TestCase
         $this->assertEquals('passed', $tc->test);
     }
 
-    public function testAutowiringWithNonAssocArgsArray(): void
+    public function testResolveWithNonAssocArgsArray(): void
     {
         $resolver = new Resolver($this->container());
         $tc = $resolver->autowire(TestClassContainerArgs::class, [new TestClass('non assoc'), 'passed']);

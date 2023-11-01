@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Conia\Resolver;
+namespace Conia\Wire;
 
 use Closure;
-use Conia\Resolver\ResolverException;
+use Conia\Wire\Exception\WireException;
 use Psr\Container\ContainerInterface as Container;
 use ReflectionClass;
 use ReflectionFunction;
@@ -29,7 +29,7 @@ class Resolver
         ?string $constructor = null
     ): object {
         if (!$this->container) {
-            throw new ResolverException("Autowiring not available.");
+            throw new WireException("Autowiring not available.");
         }
 
         $rc = new ReflectionClass($class);
@@ -50,7 +50,7 @@ class Resolver
 
             return $this->resolveCallAttributes($instance);
         } catch (Throwable $e) {
-            throw new ResolverException(
+            throw new WireException(
                 'Autowiring unresolvable: ' . $class . ' Details: ' . $e::class . ' ' . $e->getMessage()
             );
         }
@@ -94,16 +94,16 @@ class Resolver
                 return $param->getDefaultValue();
             }
 
-            throw new ResolverException('Parameter not resolvable');
+            throw new WireException('Parameter not resolvable');
         } else {
             if ($type) {
-                throw new ResolverException(
+                throw new WireException(
                     "Cannot resolver union or intersection types. Source: \n" .
                         $this->getParamInfo($param)
                 );
             }
 
-            throw new ResolverException(
+            throw new WireException(
                 "Resolvable entities must have typed constructor parameters. Source: \n" .
                     $this->getParamInfo($param)
             );

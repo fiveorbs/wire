@@ -1,5 +1,5 @@
 {
-    "name": "conia/resolver",
+    "name": "conia/wire",
     "description": "Autowiring argument resolver",
     "type": "library",
     "license": "MIT",
@@ -11,12 +11,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Conia\\Resolver\\": "src/"
+            "Conia\\Wire\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Conia\\Resolver\\Tests\\": "tests"
+            "Conia\\Wire\\Tests\\": "tests"
         }
     },
     "require": {

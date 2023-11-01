@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Conia\Resolver\Tests;
+namespace Conia\Wire\Tests;
 
-use Conia\Resolver\Tests\Fixtures\TestContainer;
+use Conia\Wire\Tests\Fixtures\TestContainer;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 /**

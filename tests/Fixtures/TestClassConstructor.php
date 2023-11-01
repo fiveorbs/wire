@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Conia\Resolver\Tests\Fixtures;
+namespace Conia\Wire\Tests\Fixtures;
 
 class TestClassConstructor
 {
