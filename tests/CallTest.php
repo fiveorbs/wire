@@ -19,7 +19,7 @@ final class CallTest extends TestCase
     public function testCallAttributes(): void
     {
         $resolver = new Resolver($this->container());
-        $attr = $resolver->resolve(TestClassCall::class);
+        $attr = $resolver->create(TestClassCall::class);
 
         $this->assertInstanceOf(TestContainer::class, $attr->container);
         $this->assertInstanceOf(TestClassApp::class, $attr->app);
@@ -41,7 +41,7 @@ final class CallTest extends TestCase
         $container->add('injected', new TestClassApp('injected'));
         $resolver = new Resolver($container);
 
-        $obj = $resolver->resolve(TestClassInject::class);
+        $obj = $resolver->create(TestClassInject::class);
 
         $this->assertEquals('injected', $obj->app->app());
         $this->assertEquals('arg1', $obj->arg1);

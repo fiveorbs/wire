@@ -25,13 +25,13 @@ final class ResolverTest extends TestCase
     {
         $resolver = new Resolver($this->container());
 
-        $this->assertInstanceOf(TestClassConstructor::class, $resolver->resolve(TestClassConstructor::class));
+        $this->assertInstanceOf(TestClassConstructor::class, $resolver->create(TestClassConstructor::class));
     }
 
     public function testResolveWithPartialArgs(): void
     {
         $resolver = new Resolver($this->container());
-        $tc = $resolver->resolve(TestClassMultiConstructor::class, ['name' => 'chuck', 'number' => 73]);
+        $tc = $resolver->create(TestClassMultiConstructor::class, ['name' => 'chuck', 'number' => 73]);
 
         $this->assertInstanceOf(TestClassMultiConstructor::class, $tc);
         $this->assertEquals('chuck', $tc->name);
@@ -42,7 +42,7 @@ final class ResolverTest extends TestCase
     public function testResolveWithPartialArgsAndDefaultValues(): void
     {
         $resolver = new Resolver($this->container());
-        $tc = $resolver->resolve(TestClassDefault::class, ['number' => 73]);
+        $tc = $resolver->create(TestClassDefault::class, ['number' => 73]);
 
         $this->assertInstanceOf(TestClassDefault::class, $tc);
         $this->assertEquals('default', $tc->name);
@@ -53,7 +53,7 @@ final class ResolverTest extends TestCase
     public function testResolveWithSimpleFactoryMethod(): void
     {
         $resolver = new Resolver($this->container());
-        $tc = $resolver->resolve(TestClassContainerArgs::class, [], 'fromDefaults');
+        $tc = $resolver->create(TestClassContainerArgs::class, [], 'fromDefaults');
 
         $this->assertEquals(true, $tc->tc instanceof TestClass);
         $this->assertEquals(true, $tc->app instanceof TestClassApp);
@@ -64,7 +64,7 @@ final class ResolverTest extends TestCase
     public function testResolveWithFactoryMethodAndArgs(): void
     {
         $resolver = new Resolver($this->container());
-        $tc = $resolver->resolve(TestClassContainerArgs::class, ['test' => 'passed', 'app' => 'passed'], 'fromArgs');
+        $tc = $resolver->create(TestClassContainerArgs::class, ['test' => 'passed', 'app' => 'passed'], 'fromArgs');
 
         $this->assertEquals(true, $tc->tc instanceof TestClass);
         $this->assertEquals(true, $tc->app instanceof TestClassApp);
@@ -75,7 +75,7 @@ final class ResolverTest extends TestCase
     public function testResolveWithNonAssocArgsArray(): void
     {
         $resolver = new Resolver($this->container());
-        $tc = $resolver->resolve(TestClassContainerArgs::class, [new TestClass('non assoc'), 'passed']);
+        $tc = $resolver->create(TestClassContainerArgs::class, [new TestClass('non assoc'), 'passed']);
 
         $this->assertEquals(true, $tc->tc instanceof TestClass);
         $this->assertEquals('non assoc', $tc->tc->value);
@@ -103,7 +103,7 @@ final class ResolverTest extends TestCase
     public function testGetCallableObjectArgs(): void
     {
         $resolver = new Resolver($this->container());
-        $tc = $resolver->resolve(TestClass::class);
+        $tc = $resolver->create(TestClass::class);
         $args = $resolver->resolveCallableArgs($tc);
 
         $this->assertEquals('default', $args[0]);
@@ -115,7 +115,7 @@ final class ResolverTest extends TestCase
         $this->throws(WireException::class, 'Unresolvable');
 
         $resolver = new Resolver();
-        $resolver->resolve(TestClassDefault::class);
+        $resolver->create(TestClassDefault::class);
     }
 
     public function testRejectClassWithUntypedConstructor(): void
@@ -123,7 +123,7 @@ final class ResolverTest extends TestCase
         $this->throws(WireException::class, 'typed constructor parameters');
 
         $resolver = new Resolver();
-        $resolver->resolve(TestClassUntypedConstructor::class);
+        $resolver->create(TestClassUntypedConstructor::class);
     }
 
     public function testRejectClassWithUnsupportedConstructorUnionTypes(): void
@@ -131,7 +131,7 @@ final class ResolverTest extends TestCase
         $this->throws(WireException::class, 'union or intersection');
 
         $resolver = new Resolver();
-        $resolver->resolve(TestClassUnionTypeConstructor::class);
+        $resolver->create(TestClassUnionTypeConstructor::class);
     }
 
     public function testRejectClassWithUnsupportedConstructorIntersectionTypes(): void
@@ -139,6 +139,6 @@ final class ResolverTest extends TestCase
         $this->throws(WireException::class, 'union or intersection');
 
         $resolver = new Resolver();
-        $resolver->resolve(TestClassIntersectionTypeConstructor::class);
+        $resolver->create(TestClassIntersectionTypeConstructor::class);
     }
 }
