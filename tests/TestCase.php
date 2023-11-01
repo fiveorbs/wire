@@ -7,11 +7,6 @@ namespace Conia\Wire\Tests;
 use Conia\Wire\Tests\Fixtures\TestContainer;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
-/**
- * @internal
- *
- * @coversNothing
- */
 class TestCase extends BaseTestCase
 {
     public function __construct(?string $name = null, array $data = [], $dataName = '')
