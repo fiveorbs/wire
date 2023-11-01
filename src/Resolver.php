@@ -18,7 +18,7 @@ use Throwable;
 
 class Resolver
 {
-    public function __construct(protected readonly Container $container)
+    public function __construct(protected readonly ?Container $container = null)
     {
     }
 
@@ -28,10 +28,6 @@ class Resolver
         array $predefinedArgs = [],
         ?string $constructor = null
     ): object {
-        if (!$this->container) {
-            throw new WireException("Autowiring not available.");
-        }
-
         $rc = new ReflectionClass($class);
 
         try {
@@ -51,7 +47,7 @@ class Resolver
             return $this->resolveCallAttributes($instance);
         } catch (Throwable $e) {
             throw new WireException(
-                'Autowiring unresolvable: ' . $class . ' Details: ' . $e::class . ' ' . $e->getMessage()
+                'Unresolvable: ' . $class . ' Details: ' . $e::class . ' ' . $e->getMessage()
             );
         }
     }
@@ -105,7 +101,7 @@ class Resolver
         }
 
         throw new WireException(
-            "Resolvable entities must have typed constructor parameters. Source: \n" .
+            "To be resolvable, classes must have fully typed constructor parameters. Source: \n" .
                 $this->getParamInfo($param)
         );
 
