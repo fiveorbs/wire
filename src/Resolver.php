@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Conia\Registry;
+namespace Conia\Resolver;
 
 use Closure;
-use Conia\Registry\Exception\ContainerException;
-use Conia\Registry\Exception\NotFoundException;
+use Conia\Resolver\ResolverException;
+use Psr\Container\ContainerInterface as Container;
 use ReflectionClass;
 use ReflectionFunction;
 use ReflectionFunctionAbstract;
@@ -18,7 +18,7 @@ use Throwable;
 
 class Resolver
 {
-    public function __construct(protected readonly Registry $registry)
+    public function __construct(protected readonly Container $container)
     {
     }
 
@@ -28,14 +28,8 @@ class Resolver
         array $predefinedArgs = [],
         ?string $constructor = null
     ): object {
-        if (!$this->registry->autowire) {
-            try {
-                $this->registry->new($class, ...$predefinedArgs);
-            } catch (Throwable $e) {
-                throw new ContainerException(
-                    "Autowiring is turned off. Tried to instantiate class '{$class}'"
-                );
-            }
+        if (!$this->container) {
+            throw new ResolverException("Autowiring not available.");
         }
 
         $rc = new ReflectionClass($class);
@@ -56,8 +50,8 @@ class Resolver
 
             return $this->resolveCallAttributes($instance);
         } catch (Throwable $e) {
-            throw new ContainerException(
-                'Autowiring unresolvable: ' . $class . ' Details: ' . $e->getMessage()
+            throw new ResolverException(
+                'Autowiring unresolvable: ' . $class . ' Details: ' . $e::class . ' ' . $e->getMessage()
             );
         }
     }
@@ -86,25 +80,31 @@ class Resolver
         $type = $param->getType();
 
         if ($type instanceof ReflectionNamedType) {
-            try {
-                return $this->registry->get(ltrim($type->getName(), '?'));
-            } catch (NotFoundException | ContainerException  $e) {
-                if ($param->isDefaultValueAvailable()) {
-                    return $param->getDefaultValue();
-                }
+            $typeName = ltrim($type->getName(), '?');
 
-                throw $e;
+            if ($this->container?->has($typeName)) {
+                return $this->container->get($typeName);
             }
+
+            if (class_exists($typeName)) {
+                return $this->autowire($typeName);
+            }
+
+            if ($param->isDefaultValueAvailable()) {
+                return $param->getDefaultValue();
+            }
+
+            throw new ResolverException('Parameter not resolvable');
         } else {
             if ($type) {
-                throw new ContainerException(
-                    "Autowiring does not support union or intersection types. Source: \n" .
+                throw new ResolverException(
+                    "Cannot resolver union or intersection types. Source: \n" .
                         $this->getParamInfo($param)
                 );
             }
 
-            throw new ContainerException(
-                "Autowired entities need to have typed constructor parameters. Source: \n" .
+            throw new ResolverException(
+                "Resolvable entities must have typed constructor parameters. Source: \n" .
                     $this->getParamInfo($param)
             );
         }
@@ -197,8 +197,8 @@ class Resolver
                 assert(is_string($name));
 
                 if (is_string($value)) {
-                    if ($this->registry->has($value)) {
-                        $result[$name] = $this->registry->get($value);
+                    if ($this->container->has($value)) {
+                        $result[$name] = $this->container->get($value);
                     } elseif (class_exists($value)) {
                         $result[$name] = $this->autowire($value);
                     } else {
