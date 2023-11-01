@@ -95,19 +95,20 @@ class Resolver
             }
 
             throw new WireException('Parameter not resolvable');
-        } else {
-            if ($type) {
-                throw new WireException(
-                    "Cannot resolver union or intersection types. Source: \n" .
-                        $this->getParamInfo($param)
-                );
-            }
+        }
 
+        if ($type) {
             throw new WireException(
-                "Resolvable entities must have typed constructor parameters. Source: \n" .
+                "Cannot resolve union or intersection types. Source: \n" .
                     $this->getParamInfo($param)
             );
         }
+
+        throw new WireException(
+            "Resolvable entities must have typed constructor parameters. Source: \n" .
+                $this->getParamInfo($param)
+        );
+
     }
 
     public function getParamInfo(ReflectionParameter $param): string
