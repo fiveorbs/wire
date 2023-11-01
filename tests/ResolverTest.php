@@ -21,13 +21,13 @@ final class ResolverTest extends TestCase
     {
         $resolver = new Resolver($this->container());
 
-        $this->assertInstanceOf(TestClassConstructor::class, $resolver->autowire(TestClassConstructor::class));
+        $this->assertInstanceOf(TestClassConstructor::class, $resolver->resolve(TestClassConstructor::class));
     }
 
     public function testResolveWithPartialArgs(): void
     {
         $resolver = new Resolver($this->container());
-        $tc = $resolver->autowire(TestClassMultiConstructor::class, ['name' => 'chuck', 'number' => 73]);
+        $tc = $resolver->resolve(TestClassMultiConstructor::class, ['name' => 'chuck', 'number' => 73]);
 
         $this->assertInstanceOf(TestClassMultiConstructor::class, $tc);
         $this->assertEquals('chuck', $tc->name);
@@ -38,7 +38,7 @@ final class ResolverTest extends TestCase
     public function testResolveWithPartialArgsAndDefaultValues(): void
     {
         $resolver = new Resolver($this->container());
-        $tc = $resolver->autowire(TestClassDefault::class, ['number' => 73]);
+        $tc = $resolver->resolve(TestClassDefault::class, ['number' => 73]);
 
         $this->assertInstanceOf(TestClassDefault::class, $tc);
         $this->assertEquals('default', $tc->name);
@@ -49,7 +49,7 @@ final class ResolverTest extends TestCase
     public function testResolveWithSimpleFactoryMethod(): void
     {
         $resolver = new Resolver($this->container());
-        $tc = $resolver->autowire(TestClassContainerArgs::class, [], 'fromDefaults');
+        $tc = $resolver->resolve(TestClassContainerArgs::class, [], 'fromDefaults');
 
         $this->assertEquals(true, $tc->tc instanceof TestClass);
         $this->assertEquals(true, $tc->app instanceof TestClassApp);
@@ -60,7 +60,7 @@ final class ResolverTest extends TestCase
     public function testResolveWithFactoryMethodAndArgs(): void
     {
         $resolver = new Resolver($this->container());
-        $tc = $resolver->autowire(TestClassContainerArgs::class, ['test' => 'passed', 'app' => 'passed'], 'fromArgs');
+        $tc = $resolver->resolve(TestClassContainerArgs::class, ['test' => 'passed', 'app' => 'passed'], 'fromArgs');
 
         $this->assertEquals(true, $tc->tc instanceof TestClass);
         $this->assertEquals(true, $tc->app instanceof TestClassApp);
@@ -71,7 +71,7 @@ final class ResolverTest extends TestCase
     public function testResolveWithNonAssocArgsArray(): void
     {
         $resolver = new Resolver($this->container());
-        $tc = $resolver->autowire(TestClassContainerArgs::class, [new TestClass('non assoc'), 'passed']);
+        $tc = $resolver->resolve(TestClassContainerArgs::class, [new TestClass('non assoc'), 'passed']);
 
         $this->assertEquals(true, $tc->tc instanceof TestClass);
         $this->assertEquals('non assoc', $tc->tc->value);
@@ -99,7 +99,7 @@ final class ResolverTest extends TestCase
     public function testGetCallableObjectArgs(): void
     {
         $resolver = new Resolver($this->container());
-        $tc = $resolver->autowire(TestClass::class);
+        $tc = $resolver->resolve(TestClass::class);
         $args = $resolver->resolveCallableArgs($tc);
 
         $this->assertEquals('default', $args[0]);

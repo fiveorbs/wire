@@ -23,7 +23,7 @@ class Resolver
     }
 
     /** @psalm-param class-string $class */
-    public function autowire(
+    public function resolve(
         string $class,
         array $predefinedArgs = [],
         ?string $constructor = null
@@ -87,7 +87,7 @@ class Resolver
             }
 
             if (class_exists($typeName)) {
-                return $this->autowire($typeName);
+                return $this->resolve($typeName);
             }
 
             if ($param->isDefaultValueAvailable()) {
@@ -201,7 +201,7 @@ class Resolver
                     if ($this->container->has($value)) {
                         $result[$name] = $this->container->get($value);
                     } elseif (class_exists($value)) {
-                        $result[$name] = $this->autowire($value);
+                        $result[$name] = $this->resolve($value);
                     } else {
                         $result[$name] = $value;
                     }
