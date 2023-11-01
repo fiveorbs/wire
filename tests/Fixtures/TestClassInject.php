@@ -6,12 +6,11 @@ namespace Conia\Wire\Tests\Fixtures;
 
 use Conia\Wire\Call;
 use Conia\Wire\Inject;
-use Conia\Wire\Registry;
 
 #[Call('callThis')]
 class TestClassInject
 {
-    public ?Registry $registry = null;
+    public ?TestContainer $container = null;
     public ?TestClassApp $app = null;
     public ?TestClass $tc = null;
     public string $arg1 = '';
@@ -22,12 +21,12 @@ class TestClassInject
     #[Inject(arg2: 13, tc: TestClassExtended::class), Inject(app: 'injected', arg1: 'arg1')]
     public function __construct(
         string $arg1,
-        Registry $registry,
+        TestContainer $container,
         TestClassApp $app,
         int $arg2,
         TestClass $tc,
     ) {
-        $this->registry = $registry;
+        $this->container = $container;
         $this->app = $app;
         $this->arg1 = $arg1;
         $this->arg2 = $arg2;

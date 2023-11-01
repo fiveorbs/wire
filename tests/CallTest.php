@@ -34,4 +34,21 @@ final class CallTest extends TestCase
 
         new Call('method', 'arg');
     }
+
+    public function testInjectAndCallCombined(): void
+    {
+        $container = $this->container();
+        $container->add('injected', new TestClassApp('injected'));
+        $resolver = new Resolver($container);
+
+        $obj = $resolver->resolve(TestClassInject::class);
+
+        $this->assertEquals('injected', $obj->app->app());
+        $this->assertEquals('arg1', $obj->arg1);
+        $this->assertEquals(13, $obj->arg2);
+        $this->assertInstanceOf(TestContainer::class, $obj->container);
+        $this->assertEquals('Stringable extended', (string)$obj->tc);
+        $this->assertEquals('calledArg1', $obj->calledArg1);
+        $this->assertEquals(73, $obj->calledArg2);
+    }
 }
