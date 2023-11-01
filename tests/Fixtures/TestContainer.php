@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace Conia\Resolver\Tests\Fixtures;
 
+use Exception;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface as NotFoundException;
 
 class TestContainer implements ContainerInterface
 {
     protected array $entries = [];
 
-    public function add(string $id, mixed $entry): void
+    public function add(string $id, mixed $entry = null): void
     {
-        $this->entries[$id] = $entry;
+        if (is_null($entry)) {
+            $this->entries[$id] = $entry;
+        }
+
+        $this->entries[$id] = $id;
     }
 
     public function has(string $id): bool
@@ -22,6 +28,10 @@ class TestContainer implements ContainerInterface
 
     public function get(string $id): mixed
     {
-        return $this->entries[$id];
+        if ($this->has($id)) {
+            return $this->entries[$id];
+        }
+
+        throw new class () extends Exception implements NotFoundException {};
     }
 }
