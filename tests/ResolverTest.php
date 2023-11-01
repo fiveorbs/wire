@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Conia\Wire\Tests;
 
+use Conia\Wire\Exception\WireException;
 use Conia\Wire\Resolver;
 use Conia\Wire\Tests\Fixtures\TestClass;
 use Conia\Wire\Tests\Fixtures\TestClassApp;
 use Conia\Wire\Tests\Fixtures\TestClassConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassContainerArgs;
 use Conia\Wire\Tests\Fixtures\TestClassDefault;
+use Conia\Wire\Tests\Fixtures\TestClassIntersectionTypeConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassMultiConstructor;
+use Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor;
+use Conia\Wire\Tests\Fixtures\TestClassUntypedConstructor;
 
 /**
  * @internal
@@ -104,5 +108,37 @@ final class ResolverTest extends TestCase
 
         $this->assertEquals('default', $args[0]);
         $this->assertEquals(13, $args[1]);
+    }
+
+    public function testTryToResolveUnresolvable(): void
+    {
+        $this->throws(WireException::class, 'Unresolvable');
+
+        $resolver = new Resolver();
+        $resolver->resolve(TestClassDefault::class);
+    }
+
+    public function testRejectClassWithUntypedConstructor(): void
+    {
+        $this->throws(WireException::class, 'typed constructor parameters');
+
+        $resolver = new Resolver();
+        $resolver->resolve(TestClassUntypedConstructor::class);
+    }
+
+    public function testRejectClassWithUnsupportedConstructorUnionTypes(): void
+    {
+        $this->throws(WireException::class, 'union or intersection');
+
+        $resolver = new Resolver();
+        $resolver->resolve(TestClassUnionTypeConstructor::class);
+    }
+
+    public function testRejectClassWithUnsupportedConstructorIntersectionTypes(): void
+    {
+        $this->throws(WireException::class, 'union or intersection');
+
+        $resolver = new Resolver();
+        $resolver->resolve(TestClassIntersectionTypeConstructor::class);
     }
 }
