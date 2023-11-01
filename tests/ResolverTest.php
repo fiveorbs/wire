@@ -15,6 +15,8 @@ use Conia\Wire\Tests\Fixtures\TestClassIntersectionTypeConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassMultiConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassUntypedConstructor;
+use ReflectionClass;
+use ReflectionFunction;
 
 /**
  * @internal
@@ -140,5 +142,31 @@ final class ResolverTest extends TestCase
 
         $resolver = new Resolver();
         $resolver->create(TestClassIntersectionTypeConstructor::class);
+    }
+
+    public function testParameterInfoClass(): void
+    {
+        $rc = new ReflectionClass(TestClassUnionTypeConstructor::class);
+        $c = $rc->getConstructor();
+        $p = $c->getParameters()[0];
+        $resolver = new Resolver($this->container());
+        $s = 'Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor::__construct(' .
+            '..., Conia\Wire\Tests\Fixtures\TestClassApp|' .
+            'Conia\Wire\Tests\Fixtures\TestClassRequest $param, ...)';
+
+        $this->assertEquals($s, $resolver->getParamInfo($p));
+    }
+
+    public function testParameterInfoFunction(): void
+    {
+        $rf = new ReflectionFunction(function (TestClassApp $app) {
+            $app->debug();
+        });
+        $p = $rf->getParameters()[0];
+        $resolver = new Resolver($this->container());
+        $s = 'Conia\Wire\Tests\ResolverTest::Conia\Wire\Tests\{closure}' .
+            '(..., Conia\Wire\Tests\Fixtures\TestClassApp $app, ...)';
+
+        $this->assertEquals($s, $resolver->getParamInfo($p));
     }
 }
