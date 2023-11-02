@@ -25,8 +25,29 @@
     "require-dev": {
         "conia/development": "^1.0",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "ernst/coverlyzer": "^0.1.1",
         "phpunit/phpunit": "^10.4",
         "vimeo/psalm": "^5.15"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit --testdox --no-coverage",
+        "typecheck": "./vendor/bin/psalm --no-cache",
+        "typecheck-github": "./vendor/bin/psalm --output-format=github --shepherd",
+        "lint": "./vendor/bin/phpcs -s -p src tests",
+        "coverage": [
+            "./vendor/bin/phpunit --testdox --coverage-text --coverage-php=coverage/cover.php",
+            "./vendor/bin/coverlyzer coverage/cover.php"
+        ],
+        "ci": [
+            "composer coverage",
+            "composer typecheck",
+            "composer lint"
+        ],
+        "github": [
+            "composer test",
+            "composer typecheck-github",
+            "composer lint"
+        ]
     },
     "config": {
         "allow-plugins": {
