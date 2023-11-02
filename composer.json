@@ -30,12 +30,12 @@
         "vimeo/psalm": "^5.15"
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit --testdox --no-coverage",
+        "test": "./vendor/bin/phpunit --testdox --no-coverage --colors=always",
         "typecheck": "./vendor/bin/psalm --no-cache",
         "typecheck-github": "./vendor/bin/psalm --output-format=github --shepherd",
         "lint": "./vendor/bin/phpcs -s -p src tests",
         "coverage": [
-            "./vendor/bin/phpunit --testdox --coverage-text --coverage-php=coverage/cover.php",
+            "./vendor/bin/phpunit --testdox --coverage-text --coverage-php=coverage/cover.php --colors=always",
             "./vendor/bin/coverlyzer coverage/cover.php"
         ],
         "ci": [
