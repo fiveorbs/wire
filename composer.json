@@ -1,7 +1,13 @@
 {
     "name": "conia/wire",
-    "description": "Autowiring argument resolver",
+    "description": "Autowiring object creator and callable argument resolver",
     "type": "library",
+    "keywords": [
+        "autowire",
+        "autowiring",
+        "factory",
+        "ioc"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -31,8 +37,8 @@
     },
     "scripts": {
         "test": "./vendor/bin/phpunit --testdox --no-coverage --colors=always",
-        "typecheck": "./vendor/bin/psalm --no-cache",
-        "typecheck-github": "./vendor/bin/psalm --output-format=github --shepherd",
+        "check": "./vendor/bin/psalm --no-cache",
+        "check-github": "./vendor/bin/psalm --output-format=github --shepherd",
         "lint": "./vendor/bin/phpcs -s -p src tests",
         "coverage": [
             "./vendor/bin/phpunit --testdox --coverage-text --coverage-php=coverage/cover.php --colors=always",
@@ -40,12 +46,12 @@
         ],
         "ci": [
             "composer coverage",
-            "composer typecheck",
+            "composer check",
             "composer lint"
         ],
         "github": [
             "composer coverage",
-            "composer typecheck-github",
+            "composer check-github",
             "composer lint"
         ]
     },
