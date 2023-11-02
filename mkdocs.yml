@@ -1,12 +1,16 @@
-site_name: Conia Registry
+site_name: Conia Wire
 copyright: © 2023 ebene fünf GmbH
 nav:
   - index.md
+  - container.md
+  - call_attribute.md
+  - inject_attribute.md
+  - callables.md
 theme:
     name: conia
-repo_url: https://github.com/coniadev/registry
+repo_url: https://github.com/coniadev/wire
 extra:
-    project: Registry
+    project: Wire
 plugins:
     - search
     - macros:
