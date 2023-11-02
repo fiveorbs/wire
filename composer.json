@@ -53,7 +53,9 @@
             "composer coverage",
             "composer check-github",
             "composer lint"
-        ]
+        ],
+        "docs": "./venv/bin/python ./venv/bin/mkdocs build",
+        "docserve": "./venv/bin/python ./venv/bin/mkdocs serve"
     },
     "config": {
         "allow-plugins": {
