@@ -44,7 +44,7 @@
             "composer lint"
         ],
         "github": [
-            "composer test",
+            "composer coverage",
             "composer typecheck-github",
             "composer lint"
         ]
