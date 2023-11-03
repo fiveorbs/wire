@@ -3,8 +3,8 @@ copyright: © 2023 ebene fünf GmbH
 nav:
   - index.md
   - container.md
-  - call_attribute.md
-  - inject_attribute.md
+  - call-attribute.md
+  - inject-attribute.md
   - callables.md
 theme:
     name: conia
@@ -15,3 +15,6 @@ plugins:
     - search
     - macros:
         module_name: docs/main
+markdown_extensions:
+    - pymdownx.snippets:
+        base_path: ["docs/code"]
