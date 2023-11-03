@@ -11,7 +11,7 @@ arguments of callables such as functions, methods or closures.
 ## A simple getting started example:
 
 ```php
---8<-- "getting-started.php:7:32"
+--8<-- "getting-started.php:7"
 ```
 
 Here the `Resolver` begins with looking up the types of `Model`'s constructor parameters using reflection. 

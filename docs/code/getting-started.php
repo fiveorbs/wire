@@ -30,5 +30,3 @@ $resolver = new Resolver();
 $object = $resolver->create(Model::class);
 
 assert($object->value() === 'From autowired Value instance');
-
-exit(0);

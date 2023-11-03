@@ -36,7 +36,10 @@
         "vimeo/psalm": "^5.15"
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit --testdox --no-coverage --colors=always",
+        "test": [
+            "composer docstest",
+            "./vendor/bin/phpunit --testdox --no-coverage --colors=always"
+        ],
         "check": "./vendor/bin/psalm --no-cache",
         "check-github": "./vendor/bin/psalm --output-format=github --shepherd",
         "lint": "./vendor/bin/phpcs -s -p src tests",
@@ -45,17 +48,23 @@
             "./vendor/bin/coverlyzer coverage/cover.php"
         ],
         "ci": [
+            "composer docstest",
             "composer coverage",
             "composer check",
             "composer lint"
         ],
         "github": [
+            "composer docstest",
             "composer coverage",
             "composer check-github",
             "composer lint"
         ],
-        "docs": "./venv/bin/python ./venv/bin/mkdocs build",
-        "docserve": "./venv/bin/python ./venv/bin/mkdocs serve"
+        "docs": [
+            "composer docstest",
+            "./venv/bin/python ./venv/bin/mkdocs build"
+        ],
+        "docserve": "./venv/bin/python ./venv/bin/mkdocs serve",
+        "docstest": "./vendor/bin/docs-test-runner ./docs/code"
     },
     "config": {
         "allow-plugins": {
