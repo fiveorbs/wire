@@ -11,7 +11,7 @@ use ReflectionObject;
 use Throwable;
 
 /** @psalm-api */
-final class Creator
+class Creator
 {
     public function __construct(protected readonly ?Container $container = null)
     {
@@ -24,23 +24,23 @@ final class Creator
         ?string $constructor = null
     ): object {
         $rc = new ReflectionClass($class);
-        $resolver = new Resolver($this, $this->container);
 
         try {
             if ($constructor) {
                 // Factory method
                 $rm = $rc->getMethod($constructor);
-                $args = $resolver->resolveArgs($rm, $predefinedArgs);
+                $args = (new FunctionResolver($this, $this->container))->resolve($rm, $predefinedArgs);
                 $instance = $rm->invoke(null, ...$args);
             } else {
                 // Regular constructor
-                $args = $resolver->resolveConstructorArgs($rc, $predefinedArgs);
+                $args = (new ConstructorResolver($this, $this->container))
+                    ->resolve($rc, $predefinedArgs);
                 $instance = $rc->newInstance(...$args);
             }
 
             assert(is_object($instance));
 
-            return $this->applyCallAttributes($resolver, $instance);
+            return $this->applyCallAttributes($instance);
         } catch (Throwable $e) {
             throw new WireException(
                 'Unresolvable: ' . $class . ' Details: ' . $e::class . ' ' . $e->getMessage()
@@ -48,7 +48,7 @@ final class Creator
         }
     }
 
-    private function applyCallAttributes(Resolver $resolver, object $instance): object
+    protected function applyCallAttributes(object $instance): object
     {
         $callAttrs = (new ReflectionObject($instance))->getAttributes(Call::class);
 
@@ -60,7 +60,8 @@ final class Creator
 
             /** @psalm-var callable */
             $callable = [$instance, $methodToResolve];
-            $args = $resolver->resolveCallableArgs($callable, $callAttr->args);
+            $args = (new CallableResolver($this, $this->container))
+                ->resolve($callable, $callAttr->args);
             $callable(...$args);
         }
 
