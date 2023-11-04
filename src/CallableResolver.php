@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace Conia\Wire;
 
 use Closure;
-use Psr\Container\ContainerInterface as Container;
 use ReflectionFunction;
 
 /** @psalm-api */
 class CallableResolver
 {
     public function __construct(
-        protected readonly Creator $creator,
-        protected readonly ?Container $container = null
+        protected readonly FunctionResolver $resolver,
     ) {
     }
 
@@ -23,7 +21,6 @@ class CallableResolver
         $callable = Closure::fromCallable($callable);
         $rf = new ReflectionFunction($callable);
 
-        return (new FunctionResolver($this->creator, $this->container))
-            ->resolve($rf, $predefinedArgs);
+        return $this->resolver->resolve($rf, $predefinedArgs);
     }
 }

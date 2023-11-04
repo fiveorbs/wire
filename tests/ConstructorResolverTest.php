@@ -12,7 +12,7 @@ final class ConstructorResolverTest extends TestCase
 {
     public function testGetConstructorArgs(): void
     {
-        $resolver = new ConstructorResolver($this->creator(), $this->container());
+        $resolver = new ConstructorResolver($this->resolver());
         $args = $resolver->resolve(TestClassConstructor::class);
 
         $this->assertInstanceOf(TestClass::class, $args[0]);

@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Conia\Wire;
 
-use Psr\Container\ContainerInterface as Container;
 use ReflectionClass;
 
 /** @psalm-api */
 class ConstructorResolver
 {
     public function __construct(
-        protected readonly Creator $creator,
-        protected readonly ?Container $container = null
+        protected readonly FunctionResolver $resolver,
     ) {
     }
 
@@ -23,8 +21,7 @@ class ConstructorResolver
         $constructor = $rc->getConstructor();
 
         if ($constructor) {
-            return (new FunctionResolver($this->creator, $this->container))
-                ->resolve($constructor, $predefinedArgs);
+            return $this->resolver->resolve($constructor, $predefinedArgs);
         }
 
         return $predefinedArgs;
