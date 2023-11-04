@@ -15,12 +15,7 @@ use Conia\Wire\Tests\Fixtures\TestClassIntersectionTypeConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassMultiConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassUntypedConstructor;
-use ReflectionClass;
-use ReflectionFunction;
 
-/**
- * @internal
- */
 final class CreatorTest extends TestCase
 {
     public function testSimpleResolve(): void

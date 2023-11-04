@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use Conia\Wire\Creator;
+use Conia\Wire\Wire;
 
 class Value
 {
@@ -26,7 +26,7 @@ class Model
     }
 }
 
-$creator = new Creator();
+$creator = Wire::creator();
 $object = $creator->create(Model::class);
 
 assert($object->value() === 'Autowired Value');
