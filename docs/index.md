@@ -34,11 +34,11 @@ Since a `Value` object is necessary to initialize `Model` it is created first an
 then passed to the constructor of `Model`. `Value` does not have constructor
 parameters and can therefore be instantiated safely.
 
-Technically, the resolver uses reflection to look up the types of `Model`'s
-constructor parameters. If a parameter type is a class the resolver attempts to
+Technically, the creator uses reflection to look up the types of `Model`'s
+constructor parameters. If a parameter type is a class the creator attempts to
 instantiate it by analyzing its constructor parameters as well. This works
 recursively until all arguments are resolved or it encounters an unresolvable
 parameter.
 
-Combined with a PSR-11 compatible dependency injection container the resolver
+Combined with a PSR-11 compatible dependency injection container the creator
 can be guided to resolve otherwise unresolvable paramters. See [PSR-11 Containers](container.md).

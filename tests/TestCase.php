@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Conia\Wire\Tests;
 
+use Conia\Wire\Creator;
 use Conia\Wire\Tests\Fixtures\TestContainer;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
@@ -20,6 +21,11 @@ class TestCase extends BaseTestCase
         $container->add(TestContainer::class, $container);
 
         return $container;
+    }
+
+    public function creator(): Creator
+    {
+        return new Creator($this->container());
     }
 
     public function throws(string $exception, string $message = null): void

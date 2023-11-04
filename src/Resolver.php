@@ -14,43 +14,14 @@ use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionObject;
 use ReflectionParameter;
-use Throwable;
 
 /** @psalm-api */
 class Resolver
 {
-    public function __construct(protected readonly ?Container $container = null)
-    {
-    }
-
-    /** @psalm-param class-string $class */
-    public function create(
-        string $class,
-        array $predefinedArgs = [],
-        ?string $constructor = null
-    ): object {
-        $rc = new ReflectionClass($class);
-
-        try {
-            if ($constructor) {
-                // Factory method
-                $rm = $rc->getMethod($constructor);
-                $args = $this->resolveArgs($rm, $predefinedArgs);
-                $instance = $rm->invoke(null, ...$args);
-            } else {
-                // Regular constructor
-                $args = $this->resolveConstructorArgs($rc, $predefinedArgs);
-                $instance = $rc->newInstance(...$args);
-            }
-
-            assert(is_object($instance));
-
-            return $this->resolveCallAttributes($instance);
-        } catch (Throwable $e) {
-            throw new WireException(
-                'Unresolvable: ' . $class . ' Details: ' . $e::class . ' ' . $e->getMessage()
-            );
-        }
+    public function __construct(
+        protected readonly Creator $creator,
+        protected readonly ?Container $container = null
+    ) {
     }
 
     public function resolveCallAttributes(object $instance): object
@@ -84,7 +55,7 @@ class Resolver
             }
 
             if (class_exists($typeName)) {
-                return $this->create($typeName);
+                return $this->creator->create($typeName);
             }
 
             if ($param->isDefaultValueAvailable()) {
@@ -148,7 +119,7 @@ class Resolver
         return $predefinedArgs;
     }
 
-    protected function resolveArgs(
+    public function resolveArgs(
         ?ReflectionFunctionAbstract $rf,
         array $predefinedArgs = [],
     ): array {
@@ -197,7 +168,7 @@ class Resolver
                     if ($this->container?->has($value)) {
                         $result[$name] = $this->container->get($value);
                     } elseif (class_exists($value)) {
-                        $result[$name] = $this->create($value);
+                        $result[$name] = $this->creator->create($value);
                     } else {
                         $result[$name] = $value;
                     }

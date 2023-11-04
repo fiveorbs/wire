@@ -17,7 +17,7 @@ final class InjectTest extends TestCase
     public function testInjectClosureWithAttribute(): void
     {
         $container = $this->container();
-        $resolver = new Resolver($container);
+        $resolver = new Resolver($this->creator(), $container);
         $container->add('injected', new TestClassApp('injected'));
 
         $func = #[Inject(name: 'Chuck', app: 'injected')] function (
@@ -38,7 +38,7 @@ final class InjectTest extends TestCase
     public function testInjectConstructorWithAttribute(): void
     {
         $container = $this->container();
-        $resolver = new Resolver($container);
+        $resolver = new Resolver($this->creator(), $container);
         $container->add('injected', new TestClassApp('injected'));
 
         $args = $resolver->resolveConstructorArgs(TestClassInject::class);

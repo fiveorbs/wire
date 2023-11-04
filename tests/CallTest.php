@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Conia\Wire\Tests;
 
 use Conia\Wire\Call;
+use Conia\Wire\Creator;
 use Conia\Wire\Exception\WireException;
-use Conia\Wire\Resolver;
 use Conia\Wire\Tests\Fixtures\TestClassApp;
 use Conia\Wire\Tests\Fixtures\TestClassCall;
 use Conia\Wire\Tests\Fixtures\TestClassInject;
@@ -18,8 +18,8 @@ final class CallTest extends TestCase
 {
     public function testCallAttributes(): void
     {
-        $resolver = new Resolver($this->container());
-        $attr = $resolver->create(TestClassCall::class);
+        $creator = new Creator($this->container());
+        $attr = $creator->create(TestClassCall::class);
 
         $this->assertInstanceOf(TestContainer::class, $attr->container);
         $this->assertInstanceOf(TestClassApp::class, $attr->app);
@@ -39,9 +39,9 @@ final class CallTest extends TestCase
     {
         $container = $this->container();
         $container->add('injected', new TestClassApp('injected'));
-        $resolver = new Resolver($container);
+        $creator = new Creator($container);
 
-        $obj = $resolver->create(TestClassInject::class);
+        $obj = $creator->create(TestClassInject::class);
 
         $this->assertEquals('injected', $obj->app->app());
         $this->assertEquals('arg1', $obj->arg1);
