@@ -7,7 +7,16 @@ Conia Wire
 [![Psalm level](https://shepherd.dev/github/coniadev/wire/level.svg?)](https://conia.dev/wire)
 [![Quality Score](https://img.shields.io/scrutinizer/g/coniadev/wire.svg)](https://scrutinizer-ci.com/g/coniadev/wire)
 
-An autowiring object creator and function argument resolver.
+***Wire*** provides an autowiring object creator that utilizes PHP's reflection
+capabilities to attempt to automatically resolve constructor arguments
+recursively. It also comes with classes that assist in resolving arguments of
+callables such as functions, methods or closures. 
+
+Documentation can be found on the website: [conia.dev/wire](https://conia.dev/wire/)
+
+## Installation
+
+    composer require conia/wire
 
 ## License
 

@@ -10,7 +10,7 @@ class Value
 {
     public function get(): string
     {
-        return 'From autowired Value instance';
+        return 'Autowired Value';
     }
 }
 
@@ -29,4 +29,4 @@ class Model
 $resolver = new Resolver();
 $object = $resolver->create(Model::class);
 
-assert($object->value() === 'From autowired Value instance');
+assert($object->value() === 'Autowired Value');
