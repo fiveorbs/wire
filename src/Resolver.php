@@ -12,7 +12,6 @@ use ReflectionFunction;
 use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use ReflectionNamedType;
-use ReflectionObject;
 use ReflectionParameter;
 
 /** @psalm-api */
@@ -22,25 +21,6 @@ class Resolver
         protected readonly Creator $creator,
         protected readonly ?Container $container = null
     ) {
-    }
-
-    public function resolveCallAttributes(object $instance): object
-    {
-        $callAttrs = (new ReflectionObject($instance))->getAttributes(Call::class);
-
-        // See if the attribute itself has one or more Call attributes. If so,
-        // resolve/autowire the arguments of the method it states and call it.
-        foreach ($callAttrs as $callAttr) {
-            $callAttr = $callAttr->newInstance();
-            $methodToResolve = $callAttr->method;
-
-            /** @psalm-var callable */
-            $callable = [$instance, $methodToResolve];
-            $args = $this->resolveCallableArgs($callable, $callAttr->args);
-            $callable(...$args);
-        }
-
-        return $instance;
     }
 
     public function resolveParam(ReflectionParameter $param): mixed
