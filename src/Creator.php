@@ -73,7 +73,7 @@ class Creator implements CreatorInterface
         return $this->container;
     }
 
-    protected function creator(): CreatorInterface
+    public function creator(): CreatorInterface
     {
         return $this;
     }

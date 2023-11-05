@@ -26,7 +26,7 @@ class CallableResolver
         return $this->resolveArgs($rf, $predefinedArgs);
     }
 
-    protected function creator(): CreatorInterface
+    public function creator(): CreatorInterface
     {
         return $this->creator;
     }

@@ -29,7 +29,7 @@ class ConstructorResolver
         return $predefinedArgs;
     }
 
-    protected function creator(): CreatorInterface
+    public function creator(): CreatorInterface
     {
         return $this->creator;
     }
