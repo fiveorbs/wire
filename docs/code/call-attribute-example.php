@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require __DIR__ . '/../../vendor/autoload.php';
 
+use Conia\Wire\Call;
 use Conia\Wire\Wire;
 
 class Value
@@ -14,19 +15,18 @@ class Value
     }
 }
 
+#[Call('setValue')]
 class Model
 {
-    public function __construct(protected Value $valueObj)
-    {
-    }
+    public ?Value $value = null;
 
-    public function value(): string
+    public function setValue(Value $value): void
     {
-        return $this->valueObj->get();
+        $this->value = $value;
     }
 }
 
 $creator = Wire::creator();
 $model = $creator->create(Model::class);
 
-assert($model->value() === 'Autowired Value');
+assert($model->value->get() === 'Autowired Value');
