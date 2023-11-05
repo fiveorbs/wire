@@ -75,7 +75,7 @@ final class CreatorTest extends TestCase
         $tc = $creator->create(TestClassContainerArgs::class, [new TestClass('non assoc'), 'passed']);
 
         $this->assertEquals(true, $tc->tc instanceof TestClass);
-        $this->assertEquals('non assoc', $tc->tc->value);
+        $this->assertEquals('non assoc', $tc->tc->str);
         $this->assertEquals('passed', $tc->test);
         $this->assertEquals(true, $tc->app instanceof TestClassApp);
     }

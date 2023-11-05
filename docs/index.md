@@ -22,6 +22,10 @@ functions, methods or closures.
   implementation. See [PSR-11 Containers](container.md).
 * If an object needs additional method calls after instatiation to be properly
   initialized you can use the [`Call`](call-attribute.md) class attribute.
+* ***Wire*** additionally provides argument resolvers for callables and
+  constructors. Simply pass a callable or a class to the appropriate resolver
+  and get a list of instantiated arguments for it in return. See [Argument
+  resolvers](resolvers.md)
 
 ## Basic usage of the object creator
 

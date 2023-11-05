@@ -16,13 +16,13 @@ class Value
 
 class Model
 {
-    public function __construct(protected Value $valueObj)
+    public function __construct(protected Value $value)
     {
     }
 
     public function value(): string
     {
-        return $this->valueObj->get();
+        return $this->value->get();
     }
 }
 

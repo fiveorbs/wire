@@ -19,22 +19,15 @@ class Value
     }
 }
 
-class Model
+function readValue(Value $value): string
 {
-    public function __construct(protected Value $value)
-    {
-    }
-
-    public function get(): string
-    {
-        return $this->value->get();
-    }
+    return $value->get();
 }
 
 $container = new Container();
 $container->add(Value::class, new Value('Model value'));
 
-$creator = Wire::creator($container);
-$model = $creator->create(Model::class);
+$resolver = Wire::callableResolver($container);
+$args = $resolver->resolve('readValue');
 
-assert($model->get() === 'Model value');
+assert(readValue(...$args) === 'Model value');

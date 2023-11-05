@@ -34,7 +34,7 @@ class Model
 $container = new Container();
 $container->add(Value::class, new Value('Model value'));
 
-$creator = Wire::creator($container);
-$model = $creator->create(Model::class);
+$resolver = Wire::constructorResolver($container);
+$args = $resolver->resolve(Model::class);
 
-assert($model->get() === 'Model value');
+assert((new Model(...$args))->get() === 'Model value');

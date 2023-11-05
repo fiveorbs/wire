@@ -17,7 +17,7 @@ Given the following simplified example:
 --8<-- "call-attribute-classes.php:7:30"
 ```
 
-Without autowiring, you must first create a `Model` instance, and then you must
+Manually, you must first create a `Model` instance, and then you must
 call the `setValue` method and pass a `Value` object to it.
 
 ```php

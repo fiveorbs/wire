@@ -6,7 +6,7 @@ namespace Conia\Wire\Tests\Fixtures;
 
 class TestClass implements TestInterface
 {
-    public function __construct(public string $value = '')
+    public function __construct(public string $str = '')
     {
     }
 
@@ -25,8 +25,8 @@ class TestClass implements TestInterface
         return '';
     }
 
-    public function init(string $value): void
+    public function init(string $str): void
     {
-        $this->value = $value;
+        $this->str = $str;
     }
 }

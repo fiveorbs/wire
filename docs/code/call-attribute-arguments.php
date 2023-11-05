@@ -7,18 +7,18 @@ require __DIR__ . '/../../vendor/autoload.php';
 use Conia\Wire\Call;
 use Conia\Wire\Wire;
 
-#[Call('setValue', value: 'Coming from attribute')]
+#[Call('setString', str: 'Coming from attribute')]
 class Model
 {
-    public string $value = '';
+    public string $str = '';
 
-    public function setValue(string $value): void
+    public function setString(string $str): void
     {
-        $this->value = $value;
+        $this->str = $str;
     }
 }
 
 $creator = Wire::creator();
 $model = $creator->create(Model::class);
 
-assert($model->value === 'Coming from attribute');
+assert($model->str === 'Coming from attribute');

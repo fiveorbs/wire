@@ -5,7 +5,7 @@ nav:
   - container.md
   - call-attribute.md
   - inject-attribute.md
-  - callables.md
+  - resolvers.md
 theme:
     name: conia
 repo_url: https://github.com/coniadev/wire
@@ -16,5 +16,6 @@ plugins:
     - macros:
         module_name: docs/main
 markdown_extensions:
+    - admonition
     - pymdownx.snippets:
         base_path: ["docs/code"]

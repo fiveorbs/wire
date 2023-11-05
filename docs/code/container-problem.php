@@ -9,14 +9,14 @@ use Conia\Wire\Wire;
 
 class Value
 {
-    public function __construct(protected string $value)
+    public function __construct(protected string $str)
     {
     }
 }
 
 class Model
 {
-    public function __construct(protected Value $valueObj)
+    public function __construct(protected Value $value)
     {
     }
 }
