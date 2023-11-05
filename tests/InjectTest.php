@@ -9,9 +9,9 @@ use Conia\Wire\ConstructorResolver;
 use Conia\Wire\Creator;
 use Conia\Wire\Exception\WireException;
 use Conia\Wire\Inject;
+use Conia\Wire\Tests\Fixtures\Container;
 use Conia\Wire\Tests\Fixtures\TestClassApp;
 use Conia\Wire\Tests\Fixtures\TestClassInject;
-use Conia\Wire\Tests\Fixtures\TestContainer;
 use Conia\Wire\Tests\TestCase;
 
 final class InjectTest extends TestCase
@@ -24,7 +24,7 @@ final class InjectTest extends TestCase
         $resolver = new CallableResolver($creator);
 
         $func = #[Inject(name: 'Chuck', app: 'injected')] function (
-            TestContainer $r,
+            Container $r,
             TestClassApp $app,
             string $name
         ): array {
@@ -35,7 +35,7 @@ final class InjectTest extends TestCase
 
         $this->assertEquals('injected', $result[0]);
         $this->assertEquals('Chuck', $result[1]);
-        $this->assertInstanceOf(TestContainer::class, $result[2]);
+        $this->assertInstanceOf(Container::class, $result[2]);
     }
 
     public function testInjectConstructorWithAttribute(): void
@@ -51,7 +51,7 @@ final class InjectTest extends TestCase
         $this->assertEquals('injected', $obj->app->app());
         $this->assertEquals('arg1', $obj->arg1);
         $this->assertEquals(13, $obj->arg2);
-        $this->assertInstanceOf(TestContainer::class, $obj->container);
+        $this->assertInstanceOf(Container::class, $obj->container);
         $this->assertEquals('Stringable extended', (string)$obj->tc);
     }
 

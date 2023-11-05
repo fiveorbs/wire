@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Conia\Wire\Tests\Fixtures;
 
 use Conia\Wire\Call;
-use Conia\Wire\Tests\Fixtures\TestContainer;
+use Conia\Wire\Tests\Fixtures\Container;
 
 #[Call('method1'), Call('method2', arg2: 'arg2', arg1: 'arg1')]
 class TestClassCall
 {
-    public ?TestContainer $container = null;
+    public ?Container $container = null;
     public ?TestClassApp $app = null;
     public ?TestClassRequest $request = null;
     public string $arg1 = '';
     public string $arg2 = '';
 
-    public function method1(TestContainer $container, TestClassApp $app): void
+    public function method1(Container $container, TestClassApp $app): void
     {
         $this->container = $container;
         $this->app = $app;

@@ -10,7 +10,7 @@ use Conia\Wire\Inject;
 #[Call('callThis')]
 class TestClassInject
 {
-    public ?TestContainer $container = null;
+    public ?Container $container = null;
     public ?TestClassApp $app = null;
     public ?TestClass $tc = null;
     public string $arg1 = '';
@@ -21,7 +21,7 @@ class TestClassInject
     #[Inject(arg2: 13, tc: TestClassExtended::class), Inject(app: 'injected', arg1: 'arg1')]
     public function __construct(
         string $arg1,
-        TestContainer $container,
+        Container $container,
         TestClassApp $app,
         int $arg2,
         TestClass $tc,

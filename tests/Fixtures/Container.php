@@ -8,7 +8,7 @@ use Exception;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface as NotFoundException;
 
-class TestContainer implements ContainerInterface
+class Container implements ContainerInterface
 {
     protected array $entries = [];
 

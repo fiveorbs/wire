@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Conia\Wire\Tests;
 
 use Conia\Wire\Creator;
-use Conia\Wire\Tests\Fixtures\TestContainer;
+use Conia\Wire\Tests\Fixtures\Container;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
@@ -15,10 +15,10 @@ class TestCase extends BaseTestCase
         parent::__construct($name, $data, $dataName);
     }
 
-    public function container(): TestContainer
+    public function container(): Container
     {
-        $container = new TestContainer();
-        $container->add(TestContainer::class, $container);
+        $container = new Container();
+        $container->add(Container::class, $container);
 
         return $container;
     }
