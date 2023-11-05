@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Conia\Wire\Tests;
 
+use Conia\Wire\CallableResolver;
+use Conia\Wire\ConstructorResolver;
 use Conia\Wire\Creator;
 use Conia\Wire\Wire;
+use Psr\Container\ContainerInterface as Container;
 
 final class WireTest extends TestCase
 {
@@ -14,12 +17,49 @@ final class WireTest extends TestCase
         $creator = Wire::creator();
 
         $this->assertInstanceOf(Creator::class, $creator);
+        $this->assertEquals(null, $creator->creator()->container());
     }
 
     public function testCreatorFactoryWithContainer(): void
     {
-        $creator = Wire::creator($this->container());
+        $container = $this->container();
+        $creator = Wire::creator($container);
 
         $this->assertInstanceOf(Creator::class, $creator);
+        $this->assertInstanceOf(Container::class, $creator->creator()->container());
+    }
+
+    public function testCallableResolverFactory(): void
+    {
+        $callableResolver = Wire::callableResolver();
+
+        $this->assertInstanceOf(CallableResolver::class, $callableResolver);
+        $this->assertEquals(null, $callableResolver->creator()->container());
+    }
+
+    public function testCallableResolverFactoryWithContainer(): void
+    {
+        $container = $this->container();
+        $callableResolver = Wire::callableResolver($container);
+
+        $this->assertInstanceOf(CallableResolver::class, $callableResolver);
+        $this->assertInstanceOf(Container::class, $callableResolver->creator()->container());
+    }
+
+    public function testConstructorResolverFactory(): void
+    {
+        $constructorResolver = Wire::constructorResolver();
+
+        $this->assertInstanceOf(ConstructorResolver::class, $constructorResolver);
+        $this->assertEquals(null, $constructorResolver->creator()->container());
+    }
+
+    public function testConstructorResolverFactoryWithContainer(): void
+    {
+        $container = $this->container();
+        $constructorResolver = Wire::constructorResolver($container);
+
+        $this->assertInstanceOf(ConstructorResolver::class, $constructorResolver);
+        $this->assertInstanceOf(Container::class, $constructorResolver->creator()->container());
     }
 }
