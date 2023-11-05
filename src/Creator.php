@@ -11,13 +11,12 @@ use ReflectionObject;
 use Throwable;
 
 /** @psalm-api */
-class Creator
+class Creator implements CreatorInterface
 {
-    protected FunctionResolver $resolver;
+    use ResolvesAbstractFunctions;
 
     public function __construct(protected readonly ?Container $container = null)
     {
-        $this->resolver = new FunctionResolver($this, $container);
     }
 
     /** @psalm-param class-string $class */
@@ -32,11 +31,11 @@ class Creator
             if ($constructor) {
                 // Factory method
                 $rm = $rc->getMethod($constructor);
-                $args = $this->resolver->resolve($rm, $predefinedArgs);
+                $args = $this->resolveArgs($rm, $predefinedArgs);
                 $instance = $rm->invoke(null, ...$args);
             } else {
                 // Regular constructor
-                $args = (new ConstructorResolver($this->resolver))->resolve($rc, $predefinedArgs);
+                $args = (new ConstructorResolver($this))->resolve($rc, $predefinedArgs);
                 $instance = $rc->newInstance(...$args);
             }
 
@@ -62,10 +61,20 @@ class Creator
 
             /** @psalm-var callable */
             $callable = [$instance, $methodToResolve];
-            $args = (new CallableResolver($this->resolver))->resolve($callable, $callAttr->args);
+            $args = (new CallableResolver($this))->resolve($callable, $callAttr->args);
             $callable(...$args);
         }
 
         return $instance;
+    }
+
+    public function container(): ?Container
+    {
+        return $this->container;
+    }
+
+    protected function creator(): CreatorInterface
+    {
+        return $this;
     }
 }

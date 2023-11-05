@@ -5,21 +5,16 @@ declare(strict_types=1);
 namespace Conia\Wire;
 
 use Conia\Wire\Exception\WireException;
-use Psr\Container\ContainerInterface as Container;
 use ReflectionFunctionAbstract;
 use ReflectionNamedType;
 use ReflectionParameter;
 
 /** @psalm-api */
-class FunctionResolver
+trait ResolvesAbstractFunctions
 {
-    public function __construct(
-        protected readonly Creator $creator,
-        protected readonly ?Container $container = null
-    ) {
-    }
+    abstract protected function creator(): CreatorInterface;
 
-    public function resolve(
+    public function resolveArgs(
         ReflectionFunctionAbstract $rf,
         array $predefinedArgs = [],
     ): array {
@@ -55,14 +50,16 @@ class FunctionResolver
         $type = $param->getType();
 
         if ($type instanceof ReflectionNamedType) {
+            $creator = $this->creator();
+            $container = $creator->container();
             $typeName = ltrim($type->getName(), '?');
 
-            if ($this->container?->has($typeName)) {
-                return $this->container->get($typeName);
+            if ($container?->has($typeName)) {
+                return $container->get($typeName);
             }
 
             if (class_exists($typeName)) {
-                return $this->creator->create($typeName);
+                return $creator->create($typeName);
             }
 
             if ($param->isDefaultValueAvailable()) {
@@ -99,10 +96,13 @@ class FunctionResolver
                 assert(is_string($name));
 
                 if (is_string($value)) {
-                    if ($this->container?->has($value)) {
-                        $result[$name] = $this->container->get($value);
+                    $creator = $this->creator();
+                    $container = $creator->container();
+
+                    if ($container?->has($value)) {
+                        $result[$name] = $container->get($value);
                     } elseif (class_exists($value)) {
-                        $result[$name] = $this->creator->create($value);
+                        $result[$name] = $creator->create($value);
                     } else {
                         $result[$name] = $value;
                     }

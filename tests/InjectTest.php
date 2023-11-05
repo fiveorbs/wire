@@ -8,7 +8,6 @@ use Conia\Wire\CallableResolver;
 use Conia\Wire\ConstructorResolver;
 use Conia\Wire\Creator;
 use Conia\Wire\Exception\WireException;
-use Conia\Wire\FunctionResolver;
 use Conia\Wire\Inject;
 use Conia\Wire\Tests\Fixtures\TestClassApp;
 use Conia\Wire\Tests\Fixtures\TestClassInject;
@@ -22,7 +21,7 @@ final class InjectTest extends TestCase
         $container = $this->container();
         $container->add('injected', new TestClassApp('injected'));
         $creator = new Creator($container);
-        $resolver = new CallableResolver(new FunctionResolver($creator, $container));
+        $resolver = new CallableResolver($creator);
 
         $func = #[Inject(name: 'Chuck', app: 'injected')] function (
             TestContainer $r,
@@ -44,7 +43,7 @@ final class InjectTest extends TestCase
         $container = $this->container();
         $container->add('injected', new TestClassApp('injected'));
         $creator = new Creator($container);
-        $resolver = new ConstructorResolver(new FunctionResolver($creator, $container));
+        $resolver = new ConstructorResolver($creator);
 
         $args = $resolver->resolve(TestClassInject::class);
         $obj = new TestClassInject(...$args);

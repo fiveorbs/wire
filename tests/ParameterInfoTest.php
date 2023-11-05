@@ -7,9 +7,11 @@ namespace Conia\Wire\Tests;
 use Conia\Wire\ParameterInfo;
 use Conia\Wire\Tests\Fixtures\TestClassApp;
 use Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor;
+use PHPUnit\Framework\Attributes\CoversClass;
 use ReflectionClass;
 use ReflectionFunction;
 
+#[CoversClass(ParameterInfo::class)]
 final class ParameterInfoTest extends TestCase
 {
     public function testParameterInfoClass(): void

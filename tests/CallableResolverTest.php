@@ -11,7 +11,7 @@ final class CallableResolverTest extends TestCase
 {
     public function testGetClosureArgs(): void
     {
-        $resolver = new CallableResolver($this->resolver());
+        $resolver = new CallableResolver($this->creator());
         $args = $resolver->resolve(function (Testclass $tc, int $number = 13) {});
 
         $this->assertInstanceOf(TestClass::class, $args[0]);
@@ -20,7 +20,7 @@ final class CallableResolverTest extends TestCase
 
     public function testGetCallableObjectArgs(): void
     {
-        $resolver = new CallableResolver($this->resolver());
+        $resolver = new CallableResolver($this->creator());
         $tc = $this->creator()->create(TestClass::class);
         $args = $resolver->resolve($tc);
 

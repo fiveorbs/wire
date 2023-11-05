@@ -10,8 +10,10 @@ use ReflectionFunction;
 /** @psalm-api */
 class CallableResolver
 {
+    use ResolvesAbstractFunctions;
+
     public function __construct(
-        protected readonly FunctionResolver $resolver,
+        protected readonly CreatorInterface $creator,
     ) {
     }
 
@@ -21,6 +23,11 @@ class CallableResolver
         $callable = Closure::fromCallable($callable);
         $rf = new ReflectionFunction($callable);
 
-        return $this->resolver->resolve($rf, $predefinedArgs);
+        return $this->resolveArgs($rf, $predefinedArgs);
+    }
+
+    protected function creator(): CreatorInterface
+    {
+        return $this->creator;
     }
 }

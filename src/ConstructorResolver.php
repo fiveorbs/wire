@@ -9,8 +9,10 @@ use ReflectionClass;
 /** @psalm-api */
 class ConstructorResolver
 {
+    use ResolvesAbstractFunctions;
+
     public function __construct(
-        protected readonly FunctionResolver $resolver,
+        protected readonly CreatorInterface $creator,
     ) {
     }
 
@@ -21,9 +23,14 @@ class ConstructorResolver
         $constructor = $rc->getConstructor();
 
         if ($constructor) {
-            return $this->resolver->resolve($constructor, $predefinedArgs);
+            return $this->resolveArgs($constructor, $predefinedArgs);
         }
 
         return $predefinedArgs;
+    }
+
+    protected function creator(): CreatorInterface
+    {
+        return $this->creator;
     }
 }
