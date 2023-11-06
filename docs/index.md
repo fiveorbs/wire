@@ -8,15 +8,13 @@ Conia Wire
 capabilities to automatically resolve constructor arguments recursively. It
 also comes with classes that assist in resolving arguments of callables such as
 functions, methods or closures and class constructors. It can be combined with 
-a dependency injection container.
+a PSR-11 dependency injection container.
 
 ## Installation
 
     composer require conia/wire
 
-## Basic usage
-
-### How to create objects
+## How to create objects
 
 To create an object without knowing its classes constructor arguments, simply
 instantiate a [`Creator`](creator.md) instance and pass the fully qualified class name to its
@@ -30,7 +28,7 @@ resolver method:
  For a complete introduction and fully working examples, see
 [The Creator](creator.md)
 
-### How to resolve arguments
+## How to resolve arguments
 
 To get a list of instantiated arguments for a callable or a constructor you can
 use one of the resolvers. Here you can see simplified example on how to use the

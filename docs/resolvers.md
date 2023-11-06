@@ -74,7 +74,7 @@ The constructor resolver works the same way:
 ## Using a PSR-11 container
 
 Like the creator, resolvers can be initialized with a container to help with
-unresolvabale parameter arguments. (See also: [PSR-11
+unresolvable parameter arguments. (See also: [PSR-11
 Containers](containers.md)) 
 
 ```
