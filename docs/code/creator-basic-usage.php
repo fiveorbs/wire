@@ -26,7 +26,7 @@ class Model
     }
 }
 
-$creator = Wire::creator();
+$creator = Wire::creator(); // creates a `Creator` instance
 $model = $creator->create(Model::class);
 
 assert($model instanceof Model);

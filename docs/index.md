@@ -21,8 +21,8 @@ create a [`Creator`](creator.md) instance and pass the fully qualified class
 name to its resolver method:
 
 ```
---8<-- "basic-usage-creator.php:7:8"
---8<-- "basic-usage-creator.php:29:32"
+--8<-- "creator-basic-usage.php:7:8"
+--8<-- "creator-basic-usage.php:29:32"
 ```
 
  For a complete introduction and fully working examples, see
