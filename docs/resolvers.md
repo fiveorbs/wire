@@ -1,13 +1,13 @@
 ---
-title: Argument resolvers
+title: Argument Resolvers
 ---
-Resolve arguments of callables and constructors
-===============================================
+Argument Resolvers
+==================
 
 ***Wire*** provides two different autowiring argument resolvers, one for
-[callables](#resolve-callable-arguments) like functions, closures, etc and one
-for [constructors](#resolve-constructor-arguments). These resolvers are used
-internally by the creator.
+[callables](#resolve-callable-arguments) like functions, closures, etc and
+another for [constructors](#resolve-constructor-arguments). These resolvers
+are used internally by the creator.
 
 ## Resolve callable arguments
 
@@ -19,7 +19,8 @@ callable via the `...` operator, for example.
 ### Functions
 
 ```
---8<-- "resolver-callable-function.php:7"
+--8<-- "resolver-callable-function.php:7:21"
+--8<-- "resolver-callable-function.php:24"
 ```
 
 ### Closures

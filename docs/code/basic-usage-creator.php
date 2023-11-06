@@ -29,4 +29,5 @@ class Model
 $creator = Wire::creator();
 $model = $creator->create(Model::class);
 
+assert($model instanceof Model);
 assert($model->value() === 'Autowired Value');

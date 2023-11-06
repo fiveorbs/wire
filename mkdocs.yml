@@ -2,10 +2,11 @@ site_name: Conia Wire
 copyright: © 2023 ebene fünf GmbH
 nav:
   - index.md
+  - creator.md
+  - resolvers.md
   - container.md
   - call-attribute.md
   - inject-attribute.md
-  - resolvers.md
 theme:
     name: conia
 repo_url: https://github.com/coniadev/wire

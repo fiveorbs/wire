@@ -19,4 +19,6 @@ function readValue(Value $value): string
 $resolver = Wire::callableResolver();
 $args = $resolver->resolve('readValue');
 
+readValue(...$args);
+
 assert(readValue(...$args) === 'value property');
