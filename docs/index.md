@@ -6,9 +6,9 @@ Conia Wire
 
 ***Wire*** provides an autowiring object creator that utilizes PHP's reflection
 capabilities to automatically resolve constructor arguments recursively. It
-also comes with classes that assist in resolving arguments of callables such as
-functions, methods or closures and class constructors. It can be combined with 
-a PSR-11 dependency injection container.
+additionally comes with classes that assist in resolving arguments of callables
+such as functions, methods, closures or class constructors. It can be combined
+with a PSR-11 dependency injection container.
 
 ## Installation
 
@@ -17,8 +17,8 @@ a PSR-11 dependency injection container.
 ## How to create objects
 
 To create an object without knowing its classes constructor arguments, simply
-instantiate a [`Creator`](creator.md) instance and pass the fully qualified class name to its
-resolver method:
+create a [`Creator`](creator.md) instance and pass the fully qualified class
+name to its resolver method:
 
 ```
 --8<-- "basic-usage-creator.php:7:8"

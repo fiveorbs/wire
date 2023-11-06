@@ -45,7 +45,7 @@ The methods are called in the same order as the attributes are defined.
 
 ## Provide arguments
 
-If an argument for a method can not be autowired (for example literal values
+If an argument for a method cannot be autowired (for example literal values
 like strings or numbers), you can pass them as named arguments as a hint for
 the autowiring mechanism to the `Call` attribute. The name must match the
 parameter name of the method:

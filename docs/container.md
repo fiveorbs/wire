@@ -5,19 +5,28 @@ The Role of PSR-11 Containers
 =================
 
 Autowiring works if all constructor parameters in the entire tree of a class's
-dependencies are objects of classes that don't expect literals like strings,
-arrays or numbers as constructor arguments. But there is a workaround: The
-constructor and all resolvers can be initialized with a PSR-11 container . It
-is used internally to resolve arguments that can not otherwise be determined by
-reflection. Entries in the container take precedence. This means that
-reflection is only used if the type of an argument does not exist as an entry
-in the container.
+dependencies are objects of classes that don't expect literals such as strings,
+arrays, or numbers as constructor arguments. Dependencies that expect objects
+that are instances of abstract types, such as interfaces or abstract classes,
+are also not supported.
+
+These are obviously huge limitations. But there is a solution: The creator and
+all resolvers can be initialized with a PSR-11 compatible container. It is used
+internally to resolve arguments that cannot be determined otherwise. Entries in
+the container have priority. This means: additional autowiring down the
+dependency tree will only be used if the type of a parameter does not exist as
+an entry in the container.
+
+!!! warn "Do not refuse to use the container" 
+    Only in the simplest cases is a container not necessary. If only one of
+    your dependencies requires a literal argument, you are doomed. So it is
+    a good idea to always combine ***Wire*** with a container implementation.
 
 ## The Problem
 
 In the following example, the resolver would not be able to autowire the `Value`
 class because an argument to its constructor parameter `$value` that is of type
-`string` can not be determined: 
+`string` cannot be determined: 
 
 ```
 --8<-- "container-problem.php:7"
@@ -31,6 +40,16 @@ longer exists. As shown in the code block below:
 
 ```
 --8<-- "container-example.php:7"
+```
+
+### Abstract types
+
+If there are abstract types like interfaces or abstract classes expected in the
+constructor of a class or its dependencies you also have to work with
+a container:
+
+```
+--8<-- "container-abstract-example.php:7"
 ```
 
 ## Resolvers and containers
