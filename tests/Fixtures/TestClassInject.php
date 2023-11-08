@@ -18,7 +18,10 @@ class TestClassInject
     public string $calledArg1 = '';
     public int $calledArg2 = 0;
 
-    #[Inject(arg2: 13, tc: TestClassExtended::class), Inject(app: 'injected', arg1: 'arg1')]
+    #[
+        Inject(arg2: 13, tc: TestClassExtended::class),
+        Inject(app: 'injected', arg1: ['arg1', Inject::Literal])
+    ]
     public function __construct(
         string $arg1,
         Container $container,
@@ -33,7 +36,7 @@ class TestClassInject
         $this->tc = $tc;
     }
 
-    #[Inject(calledArg2: 73, calledArg1: 'calledArg1')]
+    #[Inject(calledArg2: 73, calledArg1: ['calledArg1', Inject::Literal])]
     public function callThis(string $calledArg1, int $calledArg2): void
     {
         $this->calledArg1 = $calledArg1;

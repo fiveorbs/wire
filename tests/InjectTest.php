@@ -23,7 +23,7 @@ final class InjectTest extends TestCase
         $creator = new Creator($container);
         $resolver = new CallableResolver($creator);
 
-        $func = #[Inject(name: 'Chuck', app: 'injected')] function (
+        $func = #[Inject(name: ['Chuck', Inject::Literal], app: 'injected')] function (
             Container $r,
             TestClassApp $app,
             string $name

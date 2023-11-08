@@ -93,19 +93,10 @@ trait ResolvesAbstractFunctions
 
             /** @psalm-suppress MixedAssignment */
             foreach ($instance->args as $name => $value) {
-                assert(is_string($name));
-
                 if (is_string($value)) {
-                    $creator = $this->creator();
-                    $container = $creator->container();
-
-                    if ($container?->has($value)) {
-                        $result[$name] = $container->get($value);
-                    } elseif (class_exists($value)) {
-                        $result[$name] = $creator->create($value);
-                    } else {
-                        $result[$name] = $value;
-                    }
+                    $result[$name] = InjectedString::value($this->creator(), $value);
+                } elseif (is_array($value)) {
+                    $result[$name] = InjectedArray::value($this->creator(), $value);
                 } else {
                     $result[$name] = $value;
                 }
