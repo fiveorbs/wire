@@ -6,7 +6,7 @@ namespace Conia\Wire;
 
 class InjectedString
 {
-    public static function value(Creator $creator, string $value): mixed
+    public static function value(CreatorInterface $creator, string $value): mixed
     {
         $container = $creator->container();
 
