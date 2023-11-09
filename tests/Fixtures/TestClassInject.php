@@ -36,10 +36,68 @@ class TestClassInject
         $this->tc = $tc;
     }
 
-    #[Inject(calledArg2: 73, calledArg1: ['calledArg1', Inject::Literal])]
+    #[Inject(calledArg2: 73, calledArg1: 'calledArg1')]
     public function callThis(string $calledArg1, int $calledArg2): void
     {
         $this->calledArg1 = $calledArg1;
         $this->calledArg2 = $calledArg2;
+    }
+
+    #[Inject(
+        literal: ['the-entry', Inject::Literal],
+        create: [TestClass::class, Inject::Create],
+        entry: ['the-entry', Inject::Entry],
+        env: ['TEST_ENV_VAR', Inject::Env],
+    )]
+    public static function injectTypes(string $literal, object $create, object $entry, string $env): array
+    {
+        return [
+            'literal' => $literal,
+            'create' => $create,
+            'entry' => $entry,
+            'env' => $env,
+        ];
+    }
+
+    #[Inject(literal: 'no-entry-or-class')]
+    public static function injectSimpleString(string $literal): string
+    {
+        return $literal;
+    }
+
+    #[Inject(literal2Values: [13, 23], literalMoreValues: [13, 17, 23, 29, 31])]
+    public static function injectSimpleArray(array $literal2Values, array $literalMoreValues): array
+    {
+        return [$literal2Values, $literalMoreValues];
+    }
+
+    #[Inject(entry: [666, Inject::Entry])]
+    public static function injectEntryNoString(object $entry): object
+    {
+        return $entry;
+    }
+
+    #[Inject(entry: ['no-container', Inject::Entry])]
+    public static function injectEntryWithoutContainer(object $entry): object
+    {
+        return $entry;
+    }
+
+    #[Inject(entry: [666, Inject::Create])]
+    public static function injectCreateNoString(object $create): object
+    {
+        return $create;
+    }
+
+    #[Inject(entry: ['no-class', Inject::Create])]
+    public static function injectCreateNoClass(object $create): object
+    {
+        return $create;
+    }
+
+    #[Inject(env: [666, Inject::Env])]
+    public static function injectEnvVarNoString(string $env): string
+    {
+        return $env;
     }
 }
