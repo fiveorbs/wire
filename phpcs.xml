@@ -5,6 +5,8 @@
     <rule ref="PSR12">
         <!-- Allow empty constructors with curly brackets on the same line -->
         <exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore"/>
+        <!-- Why do we have to shout CONSTANTS? -->
+        <exclude name="Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase"/>
     </rule>
 
     <rule ref="Generic.Files.LineLength">
