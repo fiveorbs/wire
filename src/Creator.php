@@ -25,9 +25,9 @@ class Creator implements CreatorInterface
         array $predefinedArgs = [],
         ?string $constructor = null
     ): object {
-        $rc = new ReflectionClass($class);
-
         try {
+            $rc = new ReflectionClass($class);
+
             if ($constructor) {
                 // Factory method
                 $rm = $rc->getMethod($constructor);
