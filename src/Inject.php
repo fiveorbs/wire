@@ -11,11 +11,6 @@ use Conia\Wire\Exception\WireException;
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_FUNCTION | Attribute::TARGET_METHOD)]
 class Inject
 {
-    public const Literal = 'Conia-Wire-Inject-Literal';
-    public const Env = 'Conia-Wire-Inject-Env';
-    public const Create = 'Conia-Wire-Inject-Create';
-    public const Entry = 'Conia-Wire-Inject-Entry';
-
     public array $args;
 
     public function __construct(mixed ...$args)

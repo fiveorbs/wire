@@ -10,13 +10,12 @@ class InjectedArray
 {
     public static function value(CreatorInterface $creator, array $value): mixed
     {
-        if (count($value) === 2 && array_is_list($value)) {
+        if (count($value) === 2 && array_is_list($value) && $value[1] instanceof Type) {
             return match ($value[1]) {
-                Inject::Literal => $value[0],
-                Inject::Create => self::getObject($creator, $value[0]),
-                Inject::Entry => self::getEntry($creator, $value[0]),
-                Inject::Env => self::getEnvVar($value[0]),
-                default => $value,
+                Type::Literal => $value[0],
+                Type::Create => self::getObject($creator, $value[0]),
+                Type::Entry => self::getEntry($creator, $value[0]),
+                Type::Env => self::getEnvVar($value[0]),
             };
         }
 

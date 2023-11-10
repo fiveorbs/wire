@@ -14,6 +14,7 @@ use Conia\Wire\Tests\Fixtures\TestClass;
 use Conia\Wire\Tests\Fixtures\TestClassApp;
 use Conia\Wire\Tests\Fixtures\TestClassInject;
 use Conia\Wire\Tests\TestCase;
+use Conia\Wire\Type;
 
 final class InjectTest extends TestCase
 {
@@ -24,7 +25,7 @@ final class InjectTest extends TestCase
         $creator = new Creator($container);
         $resolver = new CallableResolver($creator);
 
-        $func = #[Inject(name: ['Chuck', Inject::Literal], app: 'injected')] function (
+        $func = #[Inject(name: ['Chuck', Type::Literal], app: 'injected')] function (
             Container $r,
             TestClassApp $app,
             string $name

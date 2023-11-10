@@ -6,6 +6,7 @@ namespace Conia\Wire\Tests\Fixtures;
 
 use Conia\Wire\Call;
 use Conia\Wire\Inject;
+use Conia\Wire\Type;
 
 #[Call('callThis')]
 class TestClassInject
@@ -20,7 +21,7 @@ class TestClassInject
 
     #[
         Inject(arg2: 13, tc: TestClassExtended::class),
-        Inject(app: 'injected', arg1: ['arg1', Inject::Literal])
+        Inject(app: 'injected', arg1: ['arg1', Type::Literal])
     ]
     public function __construct(
         string $arg1,
@@ -44,10 +45,10 @@ class TestClassInject
     }
 
     #[Inject(
-        literal: ['the-entry', Inject::Literal],
-        create: [TestClass::class, Inject::Create],
-        entry: ['the-entry', Inject::Entry],
-        env: ['TEST_ENV_VAR', Inject::Env],
+        literal: ['the-entry', Type::Literal],
+        create: [TestClass::class, Type::Create],
+        entry: ['the-entry', Type::Entry],
+        env: ['TEST_ENV_VAR', Type::Env],
     )]
     public static function injectTypes(string $literal, object $create, object $entry, string $env): array
     {
@@ -71,31 +72,31 @@ class TestClassInject
         return [$literal2Values, $literalMoreValues];
     }
 
-    #[Inject(entry: [666, Inject::Entry])]
+    #[Inject(entry: [666, Type::Entry])]
     public static function injectEntryNoString(object $entry): object
     {
         return $entry;
     }
 
-    #[Inject(entry: ['no-container', Inject::Entry])]
+    #[Inject(entry: ['no-container', Type::Entry])]
     public static function injectEntryWithoutContainer(object $entry): object
     {
         return $entry;
     }
 
-    #[Inject(entry: [666, Inject::Create])]
+    #[Inject(entry: [666, Type::Create])]
     public static function injectCreateNoString(object $create): object
     {
         return $create;
     }
 
-    #[Inject(entry: ['no-class', Inject::Create])]
+    #[Inject(entry: ['no-class', Type::Create])]
     public static function injectCreateNoClass(object $create): object
     {
         return $create;
     }
 
-    #[Inject(env: [666, Inject::Env])]
+    #[Inject(env: [666, Type::Env])]
     public static function injectEnvVarNoString(string $env): string
     {
         return $env;
