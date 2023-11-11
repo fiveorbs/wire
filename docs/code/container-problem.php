@@ -9,16 +9,12 @@ use Conia\Wire\Wire;
 
 class Value
 {
-    public function __construct(protected string $str)
-    {
-    }
+    public function __construct(protected string $str) {}
 }
 
 class Model
 {
-    public function __construct(protected Value $value)
-    {
-    }
+    public function __construct(protected Value $value) {}
 }
 
 $creator = Wire::creator();

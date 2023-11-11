@@ -22,9 +22,7 @@ class Value implements ValueInterface
 
 class Model
 {
-    public function __construct(public ValueInterface $value)
-    {
-    }
+    public function __construct(public ValueInterface $value) {}
 }
 
 $container = new Container();

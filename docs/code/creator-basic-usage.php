@@ -16,9 +16,7 @@ class Value
 
 class Model
 {
-    public function __construct(protected Value $value)
-    {
-    }
+    public function __construct(protected Value $value) {}
 
     public function value(): string
     {

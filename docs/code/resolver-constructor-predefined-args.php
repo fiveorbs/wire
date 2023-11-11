@@ -13,9 +13,7 @@ class Value
 
 class Model
 {
-    public function __construct(public string $str, public Value $value)
-    {
-    }
+    public function __construct(public string $str, public Value $value) {}
 }
 
 $resolver = Wire::constructorResolver();
