@@ -99,6 +99,14 @@ final class InjectTest extends TestCase
         $this->assertEquals([13, 17, 23, 29, 31], $result[1]);
     }
 
+    public function testInjectEnvVarDoesNotExist(): void
+    {
+        $resolver = new CallableResolver(new Creator());
+        $args = $resolver->resolve([TestClassInject::class, 'injectEnvVarDoesNotExist']);
+
+        $this->assertEquals(false, $args[0]);
+    }
+
     public function testInjectEntryWithoutContainer(): void
     {
         $this->throws(WireException::class, 'No container');

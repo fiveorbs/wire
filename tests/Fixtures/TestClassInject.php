@@ -50,7 +50,7 @@ class TestClassInject
         entry: ['the-entry', Type::Entry],
         env: ['TEST_ENV_VAR', Type::Env],
     )]
-    public static function injectTypes(string $literal, object $create, object $entry, string $env): array
+    public static function injectTypes(string $literal, object $create, object $entry, string|bool $env): array
     {
         return [
             'literal' => $literal,
@@ -97,7 +97,13 @@ class TestClassInject
     }
 
     #[Inject(env: [666, Type::Env])]
-    public static function injectEnvVarNoString(string $env): string
+    public static function injectEnvVarNoString(string|bool $env): string
+    {
+        return $env;
+    }
+
+    #[Inject(env: ['CONIA_ENV_VAR_DOES_NOT_EXIST', Type::Env])]
+    public static function injectEnvVarDoesNotExist(string|bool $env): string|bool
     {
         return $env;
     }
