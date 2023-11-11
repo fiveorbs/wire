@@ -16,7 +16,7 @@ with a PSR-11 dependency injection container.
 
 ## How to create objects
 
-To create an object without knowing its classes constructor arguments, simply
+To create an object without knowing its classes' constructor arguments, simply
 create a [`Creator`](creator.md) instance and pass the fully qualified class
 name to its resolver method:
 
@@ -38,8 +38,9 @@ use one of the resolvers. Here you can see simplified example on how to use the
 --8<-- "resolver-callable-function.php:14:22"
 ```
 
-More information on callable and constructor argument resolvers and fully
-functioning examples can be found here: [Argument resolvers](resolvers.md)
+More information on callable and constructor argument resolvers together with
+fully functioning examples can be found here: [Argument
+resolvers](resolvers.md)
 
 ## Other features
 
@@ -50,3 +51,6 @@ functioning examples can be found here: [Argument resolvers](resolvers.md)
   implementation. See [PSR-11 Containers](container.md).
 * If an object needs additional method calls after instantiation to be properly
   initialized you can use the [`Call`](call-attribute.md) class attribute.
+* To override or change the default behaviour of the resolvers, or to handle
+  literal values, you can annotate callables and constructros with the [Inject
+  Attribute](inject-attribute.md).
