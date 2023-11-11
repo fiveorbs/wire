@@ -8,15 +8,46 @@ Conia Wire
 [![Quality Score](https://img.shields.io/scrutinizer/g/coniadev/wire.svg)](https://scrutinizer-ci.com/g/coniadev/wire)
 
 ***Wire*** provides an autowiring object creator that utilizes PHP's reflection
-capabilities to attempt to automatically resolve constructor arguments
-recursively. It also comes with classes that assist in resolving arguments of
-callables such as functions, methods or closures. 
+capabilities to automatically resolve constructor arguments recursively. It
+additionally comes with classes that assist in resolving arguments of callables
+such as functions, methods, closures or class constructors. It can be combined
+with a PSR-11 dependency injection container.
 
 Documentation can be found on the website: [conia.dev/wire](https://conia.dev/wire/)
 
 ## Installation
 
     composer require conia/wire
+
+## Basic usage
+
+```php
+use Conia\Wire\Wire;
+
+class Value
+{
+    public function get(): string
+    {
+        return 'Autowired Value';
+    }
+}
+
+class Model
+{
+    public function __construct(protected Value $value) {}
+
+    public function value(): string
+    {
+        return $this->value->get();
+    }
+}
+
+$creator = Wire::creator();
+$model = $creator->create(Model::class);
+
+assert($model instanceof Model);
+assert($model->value() === 'Autowired Value');
+```
 
 ## License
 
