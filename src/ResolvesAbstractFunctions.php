@@ -12,9 +12,9 @@ use ReflectionParameter;
 /** @psalm-api */
 trait ResolvesAbstractFunctions
 {
-    abstract public function creator(): CreatorInterface;
+    abstract protected function creator(): CreatorInterface;
 
-    public function resolveArgs(
+    protected function resolveArgs(
         ReflectionFunctionAbstract $rf,
         array $predefinedArgs = [],
     ): array {
