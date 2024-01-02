@@ -17,13 +17,16 @@ class ConstructorResolver
     }
 
     /** @psalm-param ReflectionClass|class-string $class */
-    public function resolve(ReflectionClass|string $class, array $predefinedArgs = []): array
-    {
+    public function resolve(
+        ReflectionClass|string $class,
+        array $predefinedArgs = [],
+        array $adhoc = [],
+    ): array {
         $rc = is_string($class) ? new ReflectionClass($class) : $class;
         $constructor = $rc->getConstructor();
 
         if ($constructor) {
-            return $this->resolveArgs($constructor, $predefinedArgs);
+            return $this->resolveArgs($constructor, $predefinedArgs, $adhoc);
         }
 
         return $predefinedArgs;

@@ -16,7 +16,8 @@ trait ResolvesAbstractFunctions
 
     protected function resolveArgs(
         ReflectionFunctionAbstract $rf,
-        array $predefinedArgs = [],
+        array $predefinedArgs,
+        array $adhoc,
     ): array {
         $combinedArgs = array_merge($this->resolveInjectedArgs($rf), $predefinedArgs);
 
@@ -38,14 +39,14 @@ trait ResolvesAbstractFunctions
                 $args[] = $combinedArgs[$name];
             } else {
                 /** @psalm-var list<mixed> */
-                $args[] = $this->resolveParam($param);
+                $args[] = $this->resolveParam($param, $adhoc);
             }
         }
 
         return $args;
     }
 
-    protected function resolveParam(ReflectionParameter $param): mixed
+    protected function resolveParam(ReflectionParameter $param, array $adhoc): mixed
     {
         $type = $param->getType();
 
@@ -53,6 +54,10 @@ trait ResolvesAbstractFunctions
             $creator = $this->creator();
             $container = $creator->container();
             $typeName = ltrim($type->getName(), '?');
+
+            if (isset($adhoc[$typeName])) {
+                return $adhoc[$typeName];
+            }
 
             if ($container?->has($typeName)) {
                 return $container->get($typeName);

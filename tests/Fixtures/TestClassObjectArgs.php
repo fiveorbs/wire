@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Conia\Wire\Tests\Fixtures;
 
-class TestClassContainerArgs
+class TestClassObjectArgs
 {
     public function __construct(
         public readonly TestClass $tc,
