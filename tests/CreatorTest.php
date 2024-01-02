@@ -31,8 +31,8 @@ final class CreatorTest extends TestCase
         $tc = $creator->create(TestClassMultiConstructor::class, ['name' => 'chuck', 'number' => 73]);
 
         $this->assertInstanceOf(TestClassMultiConstructor::class, $tc);
-        $this->assertEquals('chuck', $tc->name);
-        $this->assertEquals(73, $tc->number);
+        $this->assertSame('chuck', $tc->name);
+        $this->assertSame(73, $tc->number);
         $this->assertInstanceOf(TestClass::class, $tc->tc);
     }
 
@@ -42,8 +42,8 @@ final class CreatorTest extends TestCase
         $tc = $creator->create(TestClassDefault::class, ['number' => 73]);
 
         $this->assertInstanceOf(TestClassDefault::class, $tc);
-        $this->assertEquals('default', $tc->name);
-        $this->assertEquals(73, $tc->number);
+        $this->assertSame('default', $tc->name);
+        $this->assertSame(73, $tc->number);
         $this->assertInstanceOf(TestClass::class, $tc->tc);
     }
 
@@ -52,10 +52,10 @@ final class CreatorTest extends TestCase
         $creator = new Creator($this->container());
         $tc = $creator->create(TestClassContainerArgs::class, [], 'fromDefaults');
 
-        $this->assertEquals(true, $tc->tc instanceof TestClass);
-        $this->assertEquals(true, $tc->app instanceof TestClassApp);
-        $this->assertEquals('fromDefaults', $tc->app->app());
-        $this->assertEquals('fromDefaults', $tc->test);
+        $this->assertSame(true, $tc->tc instanceof TestClass);
+        $this->assertSame(true, $tc->app instanceof TestClassApp);
+        $this->assertSame('fromDefaults', $tc->app->app());
+        $this->assertSame('fromDefaults', $tc->test);
     }
 
     public function testResolveWithFactoryMethodAndArgs(): void
@@ -63,10 +63,10 @@ final class CreatorTest extends TestCase
         $creator = new Creator($this->container());
         $tc = $creator->create(TestClassContainerArgs::class, ['test' => 'passed', 'app' => 'passed'], 'fromArgs');
 
-        $this->assertEquals(true, $tc->tc instanceof TestClass);
-        $this->assertEquals(true, $tc->app instanceof TestClassApp);
-        $this->assertEquals('passed', $tc->app->app());
-        $this->assertEquals('passed', $tc->test);
+        $this->assertSame(true, $tc->tc instanceof TestClass);
+        $this->assertSame(true, $tc->app instanceof TestClassApp);
+        $this->assertSame('passed', $tc->app->app());
+        $this->assertSame('passed', $tc->test);
     }
 
     public function testResolveWithNonAssocArgsArray(): void
@@ -74,10 +74,10 @@ final class CreatorTest extends TestCase
         $creator = new Creator($this->container());
         $tc = $creator->create(TestClassContainerArgs::class, [new TestClass('non assoc'), 'passed']);
 
-        $this->assertEquals(true, $tc->tc instanceof TestClass);
-        $this->assertEquals('non assoc', $tc->tc->str);
-        $this->assertEquals('passed', $tc->test);
-        $this->assertEquals(true, $tc->app instanceof TestClassApp);
+        $this->assertSame(true, $tc->tc instanceof TestClass);
+        $this->assertSame('non assoc', $tc->tc->str);
+        $this->assertSame('passed', $tc->test);
+        $this->assertSame(true, $tc->app instanceof TestClassApp);
     }
 
     public function testTryToResolveUnresolvable(): void

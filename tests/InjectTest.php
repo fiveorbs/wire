@@ -35,8 +35,8 @@ final class InjectTest extends TestCase
 
         $result = $func(...$resolver->resolve($func));
 
-        $this->assertEquals('injected', $result[0]);
-        $this->assertEquals('Chuck', $result[1]);
+        $this->assertSame('injected', $result[0]);
+        $this->assertSame('Chuck', $result[1]);
         $this->assertInstanceOf(Container::class, $result[2]);
     }
 
@@ -50,11 +50,11 @@ final class InjectTest extends TestCase
         $args = $resolver->resolve(TestClassInject::class);
         $obj = new TestClassInject(...$args);
 
-        $this->assertEquals('injected', $obj->app->app());
-        $this->assertEquals('arg1', $obj->arg1);
-        $this->assertEquals(13, $obj->arg2);
+        $this->assertSame('injected', $obj->app->app());
+        $this->assertSame('arg1', $obj->arg1);
+        $this->assertSame(13, $obj->arg2);
         $this->assertInstanceOf(Container::class, $obj->container);
-        $this->assertEquals('Stringable extended', (string)$obj->tc);
+        $this->assertSame('Stringable extended', (string)$obj->tc);
     }
 
     public function testInjectAttributeDoesNotAllowUnnamedArgs(): void
@@ -74,10 +74,10 @@ final class InjectTest extends TestCase
         $args = $resolver->resolve([TestClassInject::class, 'injectTypes']);
         $result = TestClassInject::injectTypes(...$args);
 
-        $this->assertEquals('the-entry', $result['literal']);
+        $this->assertSame('the-entry', $result['literal']);
         $this->assertInstanceOf(TestClass::class, $result['create']);
-        $this->assertEquals('the-entry', $result['entry']->app());
-        $this->assertEquals('test-env-value', $result['env']);
+        $this->assertSame('the-entry', $result['entry']->app());
+        $this->assertSame('test-env-value', $result['env']);
     }
 
     public function testInjectSimpleString(): void
@@ -86,7 +86,7 @@ final class InjectTest extends TestCase
         $args = $resolver->resolve([TestClassInject::class, 'injectSimpleString']);
         $result = TestClassInject::injectSimpleString(...$args);
 
-        $this->assertEquals('no-entry-or-class', $result);
+        $this->assertSame('no-entry-or-class', $result);
     }
 
     public function testInjectSimpleArray(): void
@@ -95,8 +95,8 @@ final class InjectTest extends TestCase
         $args = $resolver->resolve([TestClassInject::class, 'injectSimpleArray']);
         $result = TestClassInject::injectSimpleArray(...$args);
 
-        $this->assertEquals([13, 23], $result[0]);
-        $this->assertEquals([13, 17, 23, 29, 31], $result[1]);
+        $this->assertSame([13, 23], $result[0]);
+        $this->assertSame([13, 17, 23, 29, 31], $result[1]);
     }
 
     public function testInjectEnvVarDoesNotExist(): void
@@ -104,7 +104,7 @@ final class InjectTest extends TestCase
         $resolver = new CallableResolver(new Creator());
         $args = $resolver->resolve([TestClassInject::class, 'injectEnvVarDoesNotExist']);
 
-        $this->assertEquals(false, $args[0]);
+        $this->assertSame(false, $args[0]);
     }
 
     public function testInjectEntryWithoutContainer(): void

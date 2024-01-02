@@ -24,8 +24,8 @@ final class CallTest extends TestCase
         $this->assertInstanceOf(Container::class, $attr->container);
         $this->assertInstanceOf(TestClassApp::class, $attr->app);
         $this->assertInstanceOf(TestClassRequest::class, $attr->request);
-        $this->assertEquals('arg1', $attr->arg1);
-        $this->assertEquals('arg2', $attr->arg2);
+        $this->assertSame('arg1', $attr->arg1);
+        $this->assertSame('arg2', $attr->arg2);
     }
 
     public function testCallAttributeDoesNotAllowUnnamedArgs(): void
@@ -43,12 +43,12 @@ final class CallTest extends TestCase
 
         $obj = $creator->create(TestClassInject::class);
 
-        $this->assertEquals('injected', $obj->app->app());
-        $this->assertEquals('arg1', $obj->arg1);
-        $this->assertEquals(13, $obj->arg2);
+        $this->assertSame('injected', $obj->app->app());
+        $this->assertSame('arg1', $obj->arg1);
+        $this->assertSame(13, $obj->arg2);
         $this->assertInstanceOf(Container::class, $obj->container);
-        $this->assertEquals('Stringable extended', (string)$obj->tc);
-        $this->assertEquals('calledArg1', $obj->calledArg1);
-        $this->assertEquals(73, $obj->calledArg2);
+        $this->assertSame('Stringable extended', (string)$obj->tc);
+        $this->assertSame('calledArg1', $obj->calledArg1);
+        $this->assertSame(73, $obj->calledArg2);
     }
 }

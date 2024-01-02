@@ -17,7 +17,7 @@ final class WireTest extends TestCase
         $creator = Wire::creator();
 
         $this->assertInstanceOf(Creator::class, $creator);
-        $this->assertEquals(null, $creator->creator()->container());
+        $this->assertSame(null, $creator->creator()->container());
     }
 
     public function testCreatorFactoryWithContainer(): void
@@ -34,7 +34,7 @@ final class WireTest extends TestCase
         $callableResolver = Wire::callableResolver();
 
         $this->assertInstanceOf(CallableResolver::class, $callableResolver);
-        $this->assertEquals(null, $callableResolver->creator()->container());
+        $this->assertSame(null, $callableResolver->creator()->container());
     }
 
     public function testCallableResolverFactoryWithContainer(): void
@@ -51,7 +51,7 @@ final class WireTest extends TestCase
         $constructorResolver = Wire::constructorResolver();
 
         $this->assertInstanceOf(ConstructorResolver::class, $constructorResolver);
-        $this->assertEquals(null, $constructorResolver->creator()->container());
+        $this->assertSame(null, $constructorResolver->creator()->container());
     }
 
     public function testConstructorResolverFactoryWithContainer(): void

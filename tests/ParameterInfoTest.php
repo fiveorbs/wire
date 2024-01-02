@@ -23,7 +23,7 @@ final class ParameterInfoTest extends TestCase
             '..., Conia\Wire\Tests\Fixtures\TestClassApp|' .
             'Conia\Wire\Tests\Fixtures\TestClassRequest $param, ...)';
 
-        $this->assertEquals($s, ParameterInfo::info($p));
+        $this->assertSame($s, ParameterInfo::info($p));
     }
 
     public function testParameterInfoFunction(): void
@@ -35,6 +35,6 @@ final class ParameterInfoTest extends TestCase
         $s = 'Conia\Wire\Tests\ParameterInfoTest::Conia\Wire\Tests\{closure}' .
             '(..., Conia\Wire\Tests\Fixtures\TestClassApp $app, ...)';
 
-        $this->assertEquals($s, ParameterInfo::info($p));
+        $this->assertSame($s, ParameterInfo::info($p));
     }
 }
