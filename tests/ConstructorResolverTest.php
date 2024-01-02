@@ -17,4 +17,12 @@ final class ConstructorResolverTest extends TestCase
 
         $this->assertInstanceOf(TestClass::class, $args[0]);
     }
+
+    public function testGetConstructorArgs(): void
+    {
+        $resolver = new ConstructorResolver($this->creator());
+        $args = $resolver->resolve(TestClassConstructor::class);
+
+        $this->assertInstanceOf(TestClass::class, $args[0]);
+    }
 }

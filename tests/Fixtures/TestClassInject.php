@@ -60,6 +60,22 @@ class TestClassInject
         ];
     }
 
+    #[Inject(entry: ['the-entry', Type::Entry])]
+    public static function injectAdhocEntry(object $entry): array
+    {
+        return [
+            'entry' => $entry,
+        ];
+    }
+
+    #[Inject(entry: 'the-adhoc-entry')]
+    public static function injectAdhocStringEntry(object $entry): array
+    {
+        return [
+            'entry' => $entry,
+        ];
+    }
+
     #[Inject(literal: 'no-entry-or-class')]
     public static function injectSimpleString(string $literal): string
     {
@@ -72,22 +88,10 @@ class TestClassInject
         return [$literal2Values, $literalMoreValues];
     }
 
-    #[Inject(entry: [666, Type::Entry])]
-    public static function injectEntryNoString(object $entry): object
-    {
-        return $entry;
-    }
-
     #[Inject(entry: ['no-container', Type::Entry])]
     public static function injectEntryWithoutContainer(object $entry): object
     {
         return $entry;
-    }
-
-    #[Inject(entry: [666, Type::Create])]
-    public static function injectCreateNoString(object $create): object
-    {
-        return $create;
     }
 
     #[Inject(entry: ['no-class', Type::Create])]

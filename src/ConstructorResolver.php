@@ -20,13 +20,13 @@ class ConstructorResolver
     public function resolve(
         ReflectionClass|string $class,
         array $predefinedArgs = [],
-        array $adhoc = [],
+        array $adhocEntries = [],
     ): array {
         $rc = is_string($class) ? new ReflectionClass($class) : $class;
         $constructor = $rc->getConstructor();
 
         if ($constructor) {
-            return $this->resolveArgs($constructor, $predefinedArgs, $adhoc);
+            return $this->resolveArgs($constructor, $predefinedArgs, $adhocEntries);
         }
 
         return $predefinedArgs;
