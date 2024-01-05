@@ -53,4 +53,4 @@ assert($model->value() === 'Autowired Value');
 
 Conia Wire is released under the MIT [license](LICENSE.md).
 
-Copyright © 2023 ebene fünf GmbH. All rights reserved.
+Copyright © 2023-2024 ebene fünf GmbH. All rights reserved.

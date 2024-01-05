@@ -14,3 +14,13 @@ Initial release.
 - The `Inject` attribute.
 - The `Call` attribute.
 - The ability to be combined with PSR-11 containers.
+
+## [0.2.0](https://github.com/coniadev/wire/releases/tag/0.2.0) - 2024-01-05
+
+Add predefined types.
+
+### Added
+
+- The `predefinedTypes` parameter to `Creator::create`.
+- The `predefinedTypes` parameter to `CallableResolver::resolve`.
+- The `predefinedTypes` parameter to `ConstructorResolver::resolve`.
