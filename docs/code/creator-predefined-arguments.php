@@ -19,7 +19,8 @@ class Model
     public function __construct(
         protected string $str,
         protected Value $value
-    ) {}
+    ) {
+    }
 
     public function value(): string
     {
@@ -28,7 +29,7 @@ class Model
 }
 
 $creator = Wire::creator();
-$model = $creator->create(Model::class, ['str' => 'and str']);
+$model = $creator->create(Model::class, predefinedArgs: ['str' => 'and str']);
 
 assert($model instanceof Model);
 assert($model->value() === 'Autowired Value and str');

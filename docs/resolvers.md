@@ -53,11 +53,16 @@ You simply pass the fully qualified class name to the `resolve` method of the
     If you have a class with a factory method you can use the callable resolver as
     shown in the [static methods](#static-methods) example.
 
-## Passing predefined arguments
+## Assist resolvers with arguments that are already available
 
 If you have some of the necessary arguments already at hand, you can pass them
-converted to an associative array as second argument to the `resolve` method.
-The array's keys must match the names of the parameters.
+converted to an associative array to the `resolve` method's `predefinedArgs`
+and/or `predefinedTypes` parameters. The array's keys must match the names or types of
+the parameters of the callable to be resolved.  
+For more information, especially the difference between
+`predefinedArgs` and `predefinedTypes`, see [`Creator`'s section about the same
+topic](/creator/#assist-the-creator-with-arguments-that-are-already-available),
+which works in a similar way.
 
 An example using the callable resolver:
 
@@ -68,7 +73,7 @@ An example using the callable resolver:
 The constructor resolver works the same way:
 
 ```
---8<-- "resolver-constructor-predefined-args.php:21:26"
+--8<-- "resolver-constructor-predefined-args.php:7"
 ```
 
 ## Using a PSR-11 container

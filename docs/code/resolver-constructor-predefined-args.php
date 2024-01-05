@@ -13,15 +13,22 @@ class Value
 
 class Model
 {
-    public function __construct(public string $str, public Value $value) {}
+    public function __construct(
+        public string $arg,
+        public string $type,
+        public Value $value
+    ) {
+    }
 }
 
 $resolver = Wire::constructorResolver();
 $args = $resolver->resolve(
     Model::class,
-    ['str' => 'predefined string']
+    predefinedArgs: ['arg' => 'predefined argument'],
+    predefinedTypes: ['string' => 'predefined type']
 );
 $model = new Model(...$args);
 
 assert($model->value->str === 'value property');
-assert($model->str === 'predefined string');
+assert($model->arg === 'predefined argument');
+assert($model->type === 'predefined type');
