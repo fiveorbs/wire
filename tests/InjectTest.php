@@ -99,6 +99,33 @@ final class InjectTest extends TestCase
         $this->assertSame([13, 17, 23, 29, 31], $result[1]);
     }
 
+    public function testInjectPredefinedType(): void
+    {
+        $container = $this->container();
+        $creator = new Creator($container);
+        $resolver = new CallableResolver($creator);
+        $args = $resolver->resolve(
+            [TestClassInject::class, 'injectPredefinedType'],
+            predefinedTypes: ['the-type' => new TestClassApp('the-predefined-value')]
+        );
+        $result = TestClassInject::injectPredefinedType(...$args);
+
+        $this->assertSame('the-predefined-value', $result['value']->app());
+    }
+
+    public function testInjectPredefinedTypeString(): void
+    {
+        $creator = new Creator();
+        $resolver = new CallableResolver($creator);
+        $args = $resolver->resolve(
+            [TestClassInject::class, 'injectPredefinedTypeString'],
+            predefinedTypes: ['the-predefined-type' => new TestClassApp('the-predefined-value')]
+        );
+        $result = TestClassInject::injectPredefinedTypeString(...$args);
+
+        $this->assertSame('the-predefined-value', $result['value']->app());
+    }
+
     public function testInjectEnvVarDoesNotExist(): void
     {
         $resolver = new CallableResolver(new Creator());
@@ -113,23 +140,6 @@ final class InjectTest extends TestCase
 
         $resolver = new CallableResolver(new Creator());
         $resolver->resolve([TestClassInject::class, 'injectEntryWithoutContainer']);
-    }
-
-    public function testInjectEntryNoString(): void
-    {
-        $this->throws(WireException::class, 'No valid container entry id');
-
-        $container = $this->container();
-        $resolver = new CallableResolver(new Creator($container));
-        $resolver->resolve([TestClassInject::class, 'injectEntryNoString']);
-    }
-
-    public function testInjectCreateNoString(): void
-    {
-        $this->throws(WireException::class, 'No valid class string "666"');
-
-        $resolver = new CallableResolver(new Creator());
-        $resolver->resolve([TestClassInject::class, 'injectCreateNoString']);
     }
 
     public function testInjectCreateNoClass(): void

@@ -7,16 +7,22 @@ require __DIR__ . '/../../vendor/autoload.php';
 use Conia\Wire\Inject;
 use Conia\Wire\Wire;
 
-class Model {}
+class Model
+{
+}
 
-class SubModel extends Model {}
+class SubModel extends Model
+{
+}
 
-function expectsModel(Model $model): Model {
+function expectsModel(Model $model): Model
+{
     return $model;
 }
 
 #[Inject(model: SubModel::class)]
-function alsoExpectsModel(Model $model): Model {
+function alsoExpectsModel(Model $model): Model
+{
     return $model;
 }
 

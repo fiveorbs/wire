@@ -14,13 +14,15 @@ class Value
 class Model
 {
     public Value $value;
-    public string $str;
+    public string $arg;
+    public string $type;
 
-    public static function create(string $str, Value $value)
+    public static function create(string $arg, string $type, Value $value)
     {
         $model = new self();
         $model->value = $value;
-        $model->str = $str;
+        $model->arg = $arg;
+        $model->type = $type;
 
         return $model;
     }
@@ -29,9 +31,11 @@ class Model
 $resolver = Wire::callableResolver();
 $args = $resolver->resolve(
     [Model::class, 'create'],
-    ['str' => 'predefined string']
+    predefinedArgs: ['arg' => 'predefined argument'],
+    predefinedTypes: ['string' => 'predefined type'],
 );
 $model = Model::create(...$args);
 
 assert($model->value->str === 'value property');
-assert($model->str === 'predefined string');
+assert($model->arg === 'predefined argument');
+assert($model->type === 'predefined type');

@@ -60,6 +60,22 @@ class TestClassInject
         ];
     }
 
+    #[Inject(value: ['the-type', Type::Entry])]
+    public static function injectPredefinedType(object $value): array
+    {
+        return [
+            'value' => $value,
+        ];
+    }
+
+    #[Inject(value: 'the-predefined-type')]
+    public static function injectPredefinedTypeString(object $value): array
+    {
+        return [
+            'value' => $value,
+        ];
+    }
+
     #[Inject(literal: 'no-entry-or-class')]
     public static function injectSimpleString(string $literal): string
     {
@@ -72,22 +88,10 @@ class TestClassInject
         return [$literal2Values, $literalMoreValues];
     }
 
-    #[Inject(entry: [666, Type::Entry])]
-    public static function injectEntryNoString(object $entry): object
-    {
-        return $entry;
-    }
-
     #[Inject(entry: ['no-container', Type::Entry])]
     public static function injectEntryWithoutContainer(object $entry): object
     {
         return $entry;
-    }
-
-    #[Inject(entry: [666, Type::Create])]
-    public static function injectCreateNoString(object $create): object
-    {
-        return $create;
     }
 
     #[Inject(entry: ['no-class', Type::Create])]

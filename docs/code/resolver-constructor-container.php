@@ -9,7 +9,9 @@ use Conia\Wire\Wire;
 
 class Value
 {
-    public function __construct(protected string $str) {}
+    public function __construct(protected string $str)
+    {
+    }
 
     public function get(): string
     {
@@ -19,7 +21,9 @@ class Value
 
 class Model
 {
-    public function __construct(protected Value $value) {}
+    public function __construct(protected Value $value)
+    {
+    }
 
     public function get(): string
     {

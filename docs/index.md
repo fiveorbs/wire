@@ -22,7 +22,7 @@ name to its resolver method:
 
 ```
 --8<-- "creator-basic-usage.php:7:8"
---8<-- "creator-basic-usage.php:29:32"
+--8<-- "creator-basic-usage.php:29:30"
 ```
 
  For a complete introduction and fully working examples, see
@@ -51,6 +51,6 @@ resolvers](resolvers.md)
   implementation. See [PSR-11 Containers](container.md).
 * If an object needs additional method calls after instantiation to be properly
   initialized you can use the [`Call`](call-attribute.md) class attribute.
-* To override or change the default behaviour of the resolvers, or to handle
+* To override or change the default behaviour of the resolvers, or handle
   literal values, you can annotate callables and constructros with the [Inject
   Attribute](inject-attribute.md).

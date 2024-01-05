@@ -9,10 +9,10 @@ use Conia\Wire\Exception\WireException;
 use Conia\Wire\Tests\Fixtures\TestClass;
 use Conia\Wire\Tests\Fixtures\TestClassApp;
 use Conia\Wire\Tests\Fixtures\TestClassConstructor;
-use Conia\Wire\Tests\Fixtures\TestClassContainerArgs;
 use Conia\Wire\Tests\Fixtures\TestClassDefault;
 use Conia\Wire\Tests\Fixtures\TestClassIntersectionTypeConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassMultiConstructor;
+use Conia\Wire\Tests\Fixtures\TestClassObjectArgs;
 use Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassUntypedConstructor;
 
@@ -36,6 +36,21 @@ final class CreatorTest extends TestCase
         $this->assertInstanceOf(TestClass::class, $tc->tc);
     }
 
+    public function testResolveWithPredefinedTypes(): void
+    {
+        $creator = new Creator();
+        $tc = $creator->create(
+            TestClassObjectArgs::class,
+            predefinedArgs: ['test' => 'teststring'],
+            predefinedTypes: [TestClass::class => new TestClass('predefined')]
+        );
+
+        $this->assertInstanceOf(TestClassObjectArgs::class, $tc);
+        $this->assertInstanceOf(TestClass::class, $tc->tc);
+        $this->assertSame('teststring', $tc->test);
+        $this->assertSame('predefined', $tc->tc->str);
+    }
+
     public function testResolveWithPartialArgsAndDefaultValues(): void
     {
         $creator = new Creator($this->container());
@@ -50,7 +65,7 @@ final class CreatorTest extends TestCase
     public function testResolveWithSimpleFactoryMethod(): void
     {
         $creator = new Creator($this->container());
-        $tc = $creator->create(TestClassContainerArgs::class, [], 'fromDefaults');
+        $tc = $creator->create(TestClassObjectArgs::class, constructor: 'fromDefaults');
 
         $this->assertSame(true, $tc->tc instanceof TestClass);
         $this->assertSame(true, $tc->app instanceof TestClassApp);
@@ -61,7 +76,11 @@ final class CreatorTest extends TestCase
     public function testResolveWithFactoryMethodAndArgs(): void
     {
         $creator = new Creator($this->container());
-        $tc = $creator->create(TestClassContainerArgs::class, ['test' => 'passed', 'app' => 'passed'], 'fromArgs');
+        $tc = $creator->create(
+            TestClassObjectArgs::class,
+            ['test' => 'passed', 'app' => 'passed'],
+            constructor: 'fromArgs'
+        );
 
         $this->assertSame(true, $tc->tc instanceof TestClass);
         $this->assertSame(true, $tc->app instanceof TestClassApp);
@@ -72,7 +91,7 @@ final class CreatorTest extends TestCase
     public function testResolveWithNonAssocArgsArray(): void
     {
         $creator = new Creator($this->container());
-        $tc = $creator->create(TestClassContainerArgs::class, [new TestClass('non assoc'), 'passed']);
+        $tc = $creator->create(TestClassObjectArgs::class, [new TestClass('non assoc'), 'passed']);
 
         $this->assertSame(true, $tc->tc instanceof TestClass);
         $this->assertSame('non assoc', $tc->tc->str);

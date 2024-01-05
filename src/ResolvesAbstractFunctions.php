@@ -16,9 +16,10 @@ trait ResolvesAbstractFunctions
 
     protected function resolveArgs(
         ReflectionFunctionAbstract $rf,
-        array $predefinedArgs = [],
+        array $predefinedArgs,
+        array $predefinedTypes,
     ): array {
-        $combinedArgs = array_merge($this->resolveInjectedArgs($rf), $predefinedArgs);
+        $combinedArgs = array_merge($this->resolveInjectedArgs($rf, $predefinedTypes), $predefinedArgs);
 
         $args = [];
         $parameters = $rf->getParameters();
@@ -38,14 +39,14 @@ trait ResolvesAbstractFunctions
                 $args[] = $combinedArgs[$name];
             } else {
                 /** @psalm-var list<mixed> */
-                $args[] = $this->resolveParam($param);
+                $args[] = $this->resolveParam($param, $predefinedTypes);
             }
         }
 
         return $args;
     }
 
-    protected function resolveParam(ReflectionParameter $param): mixed
+    protected function resolveParam(ReflectionParameter $param, array $predefinedTypes): mixed
     {
         $type = $param->getType();
 
@@ -54,12 +55,16 @@ trait ResolvesAbstractFunctions
             $container = $creator->container();
             $typeName = ltrim($type->getName(), '?');
 
+            if (isset($predefinedTypes[$typeName])) {
+                return $predefinedTypes[$typeName];
+            }
+
             if ($container?->has($typeName)) {
                 return $container->get($typeName);
             }
 
             if (class_exists($typeName)) {
-                return $creator->create($typeName);
+                return $creator->create($typeName, predefinedTypes: $predefinedTypes);
             }
 
             if ($param->isDefaultValueAvailable()) {
@@ -82,7 +87,7 @@ trait ResolvesAbstractFunctions
         );
     }
 
-    protected function resolveInjectedArgs(ReflectionFunctionAbstract $rf): array
+    protected function resolveInjectedArgs(ReflectionFunctionAbstract $rf, array $predefinedTypes): array
     {
         /** @psalm-var array<non-empty-string, mixed> */
         $result = [];
@@ -94,9 +99,9 @@ trait ResolvesAbstractFunctions
             /** @psalm-suppress MixedAssignment */
             foreach ($instance->args as $name => $value) {
                 if (is_string($value)) {
-                    $result[$name] = InjectedString::value($this->creator(), $value);
+                    $result[$name] = InjectedString::value($this->creator(), $value, $predefinedTypes);
                 } elseif (is_array($value)) {
-                    $result[$name] = InjectedArray::value($this->creator(), $value);
+                    $result[$name] = InjectedArray::value($this->creator(), $value, $predefinedTypes);
                 } else {
                     $result[$name] = $value;
                 }

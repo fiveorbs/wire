@@ -18,12 +18,15 @@ class CallableResolver
     }
 
     /** @psalm-param callable-array|callable $callable */
-    public function resolve(array|callable $callable, array $predefinedArgs = []): array
-    {
+    public function resolve(
+        array|callable $callable,
+        array $predefinedArgs = [],
+        array $predefinedTypes = [],
+    ): array {
         $callable = Closure::fromCallable($callable);
         $rf = new ReflectionFunction($callable);
 
-        return $this->resolveArgs($rf, $predefinedArgs);
+        return $this->resolveArgs($rf, $predefinedArgs, $predefinedTypes);
     }
 
     public function creator(): CreatorInterface

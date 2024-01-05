@@ -32,13 +32,13 @@ resolved, or until it encounters an unresolvable parameter.
     unresolvable.  
     See [PSR-11 Containers](container.md).
 
-## Passing already known arguments
+## Factory methods
 
-If you already have some or all of the arguments available to you, you can pass
-them to the create method by using an associative array like this:
+If a class uses a static factory method to create an instance, you can pass the 
+name of the method to `Creator::create`:
 
 ```
---8<-- "creator-arguments.php:7"
+--8<-- "creator-factory-method.php:7"
 ```
 
 ## Parameters with default values
@@ -48,6 +48,36 @@ value is used:
 
 ```
 --8<-- "creator-default-values.php:7"
+```
+
+## Assist the creator with arguments that are already available
+
+### Predefined arguments
+
+If you already have some or all of the arguments available to you, you can pass
+them to the create method by using an associative array. Predefined arguments
+are matched by name. When the name of the parameter to be resolved is the same
+as a key in the associative array, the value of that key is passed as the
+argument.
+
+```
+--8<-- "creator-predefined-arguments.php:7"
+```
+
+### Predefined types
+
+These are very similar to predefined arguments. But instead of using
+a parameter's name to find a match in the associative array, it uses its type.
+Additionally, they are also used deeper down the object tree:
+
+```
+--8<-- "creator-predefined-types.php:7"
+```
+
+You can also combine predefined types with the [`Inject` attribute](inject-attribute.md):
+
+```
+--8<-- "creator-predefined-inject.php:7"
 ```
 
 ## Creating the creator without the `Wire` factory
