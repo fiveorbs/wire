@@ -19,7 +19,7 @@ final class ConstructorResolverTest extends TestCase
         $this->assertSame('default', $args[1]);
     }
 
-    public function testGetArgsWithPredefinedParams(): void
+    public function testGetArgsWithPredefinedArgs(): void
     {
         $resolver = new ConstructorResolver($this->creator());
         $args = $resolver->resolve(
@@ -31,16 +31,16 @@ final class ConstructorResolverTest extends TestCase
         $this->assertSame('predefined', $args[1]);
     }
 
-    public function testGetArgsWithAdhocEntries(): void
+    public function testGetArgsWithPredefinedTypes(): void
     {
         $resolver = new ConstructorResolver($this->creator());
         $args = $resolver->resolve(TestClassConstructor::class);
         $args = $resolver->resolve(
             TestClassConstructor::class,
-            adhocEntries: ['string' => 'adhoc'],
+            predefinedTypes: ['string' => 'predefined'],
         );
 
         $this->assertInstanceOf(TestClass::class, $args[0]);
-        $this->assertSame('adhoc', $args[1]);
+        $this->assertSame('predefined', $args[1]);
     }
 }

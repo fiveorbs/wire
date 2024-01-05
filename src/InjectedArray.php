@@ -8,13 +8,13 @@ use Conia\Wire\Exception\WireException;
 
 class InjectedArray
 {
-    public static function value(CreatorInterface $creator, array $value, array $adhocEntries): mixed
+    public static function value(CreatorInterface $creator, array $value, array $predefinedTypes): mixed
     {
         if (count($value) === 2 && array_is_list($value) && $value[1] instanceof Type) {
             return match ($value[1]) {
                 Type::Literal => $value[0],
                 Type::Create => self::getObject($creator, $value[0]),
-                Type::Entry => self::getEntry($creator, (string)$value[0], $adhocEntries),
+                Type::Entry => self::getEntry($creator, (string)$value[0], $predefinedTypes),
                 Type::Env => self::getEnvVar($value[0]),
             };
         }
@@ -22,10 +22,10 @@ class InjectedArray
         return $value;
     }
 
-    protected static function getEntry(CreatorInterface $creator, string $value, array $adhocEntries): mixed
+    protected static function getEntry(CreatorInterface $creator, string $value, array $predefinedTypes): mixed
     {
-        if (isset($adhocEntries[$value])) {
-            return $adhocEntries[$value];
+        if (isset($predefinedTypes[$value])) {
+            return $predefinedTypes[$value];
         }
 
         $container = $creator->container();

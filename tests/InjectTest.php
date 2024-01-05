@@ -99,31 +99,31 @@ final class InjectTest extends TestCase
         $this->assertSame([13, 17, 23, 29, 31], $result[1]);
     }
 
-    public function testInjectAdhocEntry(): void
+    public function testInjectPredefinedType(): void
     {
         $container = $this->container();
         $creator = new Creator($container);
         $resolver = new CallableResolver($creator);
         $args = $resolver->resolve(
-            [TestClassInject::class, 'injectAdhocEntry'],
-            adhocEntries: ['the-entry' => new TestClassApp('the-adhoc-entry')]
+            [TestClassInject::class, 'injectPredefinedType'],
+            predefinedTypes: ['the-type' => new TestClassApp('the-predefined-value')]
         );
-        $result = TestClassInject::injectAdhocEntry(...$args);
+        $result = TestClassInject::injectPredefinedType(...$args);
 
-        $this->assertSame('the-adhoc-entry', $result['entry']->app());
+        $this->assertSame('the-predefined-value', $result['value']->app());
     }
 
-    public function testInjectAdhocString(): void
+    public function testInjectPredefinedTypeString(): void
     {
         $creator = new Creator();
         $resolver = new CallableResolver($creator);
         $args = $resolver->resolve(
-            [TestClassInject::class, 'injectAdhocStringEntry'],
-            adhocEntries: ['the-adhoc-entry' => new TestClassApp('the-adhoc-entry')]
+            [TestClassInject::class, 'injectPredefinedTypeString'],
+            predefinedTypes: ['the-predefined-type' => new TestClassApp('the-predefined-value')]
         );
-        $result = TestClassInject::injectAdhocEntry(...$args);
+        $result = TestClassInject::injectPredefinedTypeString(...$args);
 
-        $this->assertSame('the-adhoc-entry', $result['entry']->app());
+        $this->assertSame('the-predefined-value', $result['value']->app());
     }
 
     public function testInjectEnvVarDoesNotExist(): void

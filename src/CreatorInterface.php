@@ -12,7 +12,7 @@ interface CreatorInterface
     public function create(
         string $class,
         array $predefinedArgs = [],
-        array $adhocEntries = [],
+        array $predefinedTypes = [],
         ?string $constructor = null
     ): object;
 

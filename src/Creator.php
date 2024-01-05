@@ -23,7 +23,7 @@ class Creator implements CreatorInterface
     public function create(
         string $class,
         array $predefinedArgs = [],
-        array $adhocEntries = [],
+        array $predefinedTypes = [],
         ?string $constructor = null
     ): object {
         try {
@@ -32,11 +32,11 @@ class Creator implements CreatorInterface
             if ($constructor) {
                 // Factory method
                 $rm = $rc->getMethod($constructor);
-                $args = $this->resolveArgs($rm, $predefinedArgs, $adhocEntries);
+                $args = $this->resolveArgs($rm, $predefinedArgs, $predefinedTypes);
                 $instance = $rm->invoke(null, ...$args);
             } else {
                 // Regular constructor
-                $args = (new ConstructorResolver($this))->resolve($rc, $predefinedArgs, $adhocEntries);
+                $args = (new ConstructorResolver($this))->resolve($rc, $predefinedArgs, $predefinedTypes);
                 $instance = $rc->newInstance(...$args);
             }
 

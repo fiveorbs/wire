@@ -36,19 +36,19 @@ final class CreatorTest extends TestCase
         $this->assertInstanceOf(TestClass::class, $tc->tc);
     }
 
-    public function testResolveWithAdhocEntries(): void
+    public function testResolveWithPredefinedTypes(): void
     {
         $creator = new Creator();
         $tc = $creator->create(
             TestClassObjectArgs::class,
             predefinedArgs: ['test' => 'teststring'],
-            adhocEntries: [TestClass::class => new TestClass('adhoc')]
+            predefinedTypes: [TestClass::class => new TestClass('predefined')]
         );
 
         $this->assertInstanceOf(TestClassObjectArgs::class, $tc);
         $this->assertInstanceOf(TestClass::class, $tc->tc);
         $this->assertSame('teststring', $tc->test);
-        $this->assertSame('adhoc', $tc->tc->str);
+        $this->assertSame('predefined', $tc->tc->str);
     }
 
     public function testResolveWithPartialArgsAndDefaultValues(): void

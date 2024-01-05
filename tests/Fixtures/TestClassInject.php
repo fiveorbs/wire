@@ -60,19 +60,19 @@ class TestClassInject
         ];
     }
 
-    #[Inject(entry: ['the-entry', Type::Entry])]
-    public static function injectAdhocEntry(object $entry): array
+    #[Inject(value: ['the-type', Type::Entry])]
+    public static function injectPredefinedType(object $value): array
     {
         return [
-            'entry' => $entry,
+            'value' => $value,
         ];
     }
 
-    #[Inject(entry: 'the-adhoc-entry')]
-    public static function injectAdhocStringEntry(object $entry): array
+    #[Inject(value: 'the-predefined-type')]
+    public static function injectPredefinedTypeString(object $value): array
     {
         return [
-            'entry' => $entry,
+            'value' => $value,
         ];
     }
 

@@ -6,10 +6,10 @@ namespace Conia\Wire;
 
 class InjectedString
 {
-    public static function value(CreatorInterface $creator, string $value, array $adhocEntries): mixed
+    public static function value(CreatorInterface $creator, string $value, array $predefinedTypes): mixed
     {
-        if (isset($adhocEntries[$value])) {
-            return $adhocEntries[$value];
+        if (isset($predefinedTypes[$value])) {
+            return $predefinedTypes[$value];
         }
 
         $container = $creator->container();

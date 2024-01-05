@@ -17,9 +17,9 @@ trait ResolvesAbstractFunctions
     protected function resolveArgs(
         ReflectionFunctionAbstract $rf,
         array $predefinedArgs,
-        array $adhocEntries,
+        array $predefinedTypes,
     ): array {
-        $combinedArgs = array_merge($this->resolveInjectedArgs($rf, $adhocEntries), $predefinedArgs);
+        $combinedArgs = array_merge($this->resolveInjectedArgs($rf, $predefinedTypes), $predefinedArgs);
 
         $args = [];
         $parameters = $rf->getParameters();
@@ -39,14 +39,14 @@ trait ResolvesAbstractFunctions
                 $args[] = $combinedArgs[$name];
             } else {
                 /** @psalm-var list<mixed> */
-                $args[] = $this->resolveParam($param, $adhocEntries);
+                $args[] = $this->resolveParam($param, $predefinedTypes);
             }
         }
 
         return $args;
     }
 
-    protected function resolveParam(ReflectionParameter $param, array $adhocEntries): mixed
+    protected function resolveParam(ReflectionParameter $param, array $predefinedTypes): mixed
     {
         $type = $param->getType();
 
@@ -55,8 +55,8 @@ trait ResolvesAbstractFunctions
             $container = $creator->container();
             $typeName = ltrim($type->getName(), '?');
 
-            if (isset($adhocEntries[$typeName])) {
-                return $adhocEntries[$typeName];
+            if (isset($predefinedTypes[$typeName])) {
+                return $predefinedTypes[$typeName];
             }
 
             if ($container?->has($typeName)) {
@@ -87,7 +87,7 @@ trait ResolvesAbstractFunctions
         );
     }
 
-    protected function resolveInjectedArgs(ReflectionFunctionAbstract $rf, array $adhocEntries): array
+    protected function resolveInjectedArgs(ReflectionFunctionAbstract $rf, array $predefinedTypes): array
     {
         /** @psalm-var array<non-empty-string, mixed> */
         $result = [];
@@ -99,9 +99,9 @@ trait ResolvesAbstractFunctions
             /** @psalm-suppress MixedAssignment */
             foreach ($instance->args as $name => $value) {
                 if (is_string($value)) {
-                    $result[$name] = InjectedString::value($this->creator(), $value, $adhocEntries);
+                    $result[$name] = InjectedString::value($this->creator(), $value, $predefinedTypes);
                 } elseif (is_array($value)) {
-                    $result[$name] = InjectedArray::value($this->creator(), $value, $adhocEntries);
+                    $result[$name] = InjectedArray::value($this->creator(), $value, $predefinedTypes);
                 } else {
                     $result[$name] = $value;
                 }

@@ -28,7 +28,7 @@ final class CallableResolverTest extends TestCase
         $this->assertSame(13, $args[1]);
     }
 
-    public function testGetArgsWithPredefinedParams(): void
+    public function testGetArgsWithPredefinedArgs(): void
     {
         $resolver = new CallableResolver($this->creator());
         $args = $resolver->resolve(
@@ -40,12 +40,12 @@ final class CallableResolverTest extends TestCase
         $this->assertSame(17, $args[1]);
     }
 
-    public function testGetArgsWithAdhocEntries(): void
+    public function testGetArgsWithPredefinedTypes(): void
     {
         $resolver = new CallableResolver($this->creator());
         $args = $resolver->resolve(
             function (Testclass $tc, int $number) {},
-            adhocEntries: ['int' => 23],
+            predefinedTypes: ['int' => 23],
         );
 
         $this->assertInstanceOf(TestClass::class, $args[0]);
