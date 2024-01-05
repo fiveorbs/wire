@@ -10,7 +10,7 @@ use Conia\Wire\Tests\Fixtures\TestClassConstructor;
 
 final class ConstructorResolverTest extends TestCase
 {
-    public function testGetConstructorArgs(): void
+    public function testGetArgs(): void
     {
         $resolver = new ConstructorResolver($this->creator());
         $args = $resolver->resolve(TestClassConstructor::class);
@@ -19,7 +19,7 @@ final class ConstructorResolverTest extends TestCase
         $this->assertSame('default', $args[1]);
     }
 
-    public function testGetConstructorArgsWithPredefinedParams(): void
+    public function testGetArgsWithPredefinedParams(): void
     {
         $resolver = new ConstructorResolver($this->creator());
         $args = $resolver->resolve(
@@ -31,7 +31,7 @@ final class ConstructorResolverTest extends TestCase
         $this->assertSame('predefined', $args[1]);
     }
 
-    public function testGetConstructorArgsWithAdhocEntries(): void
+    public function testGetArgsWithAdhocEntries(): void
     {
         $resolver = new ConstructorResolver($this->creator());
         $args = $resolver->resolve(TestClassConstructor::class);

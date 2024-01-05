@@ -27,4 +27,28 @@ final class CallableResolverTest extends TestCase
         $this->assertSame('default', $args[0]);
         $this->assertSame(13, $args[1]);
     }
+
+    public function testGetArgsWithPredefinedParams(): void
+    {
+        $resolver = new CallableResolver($this->creator());
+        $args = $resolver->resolve(
+            function (Testclass $tc, int $number) {},
+            predefinedArgs: ['number' => 17],
+        );
+
+        $this->assertInstanceOf(TestClass::class, $args[0]);
+        $this->assertSame(17, $args[1]);
+    }
+
+    public function testGetArgsWithAdhocEntries(): void
+    {
+        $resolver = new CallableResolver($this->creator());
+        $args = $resolver->resolve(
+            function (Testclass $tc, int $number) {},
+            adhocEntries: ['int' => 23],
+        );
+
+        $this->assertInstanceOf(TestClass::class, $args[0]);
+        $this->assertSame(23, $args[1]);
+    }
 }
