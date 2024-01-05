@@ -64,7 +64,7 @@ trait ResolvesAbstractFunctions
             }
 
             if (class_exists($typeName)) {
-                return $creator->create($typeName);
+                return $creator->create($typeName, predefinedTypes: $predefinedTypes);
             }
 
             if ($param->isDefaultValueAvailable()) {
