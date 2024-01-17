@@ -87,24 +87,19 @@ trait ResolvesAbstractFunctions
         );
     }
 
+    /** @return array<non-empty-string, mixed> */
     protected function resolveInjectedArgs(ReflectionFunctionAbstract $rf, array $predefinedTypes): array
     {
-        /** @psalm-var array<non-empty-string, mixed> */
+        /** @var array<non-empty-string, mixed> */
         $result = [];
-        $injectAttrs = $rf->getAttributes(Inject::class);
 
-        foreach ($injectAttrs as $injectAttr) {
-            $instance = $injectAttr->newInstance();
+        foreach ($rf->getParameters() as $param) {
+            $injectAttr = $param->getAttributes(Inject::class)[0] ?? null;
 
-            /** @psalm-suppress MixedAssignment */
-            foreach ($instance->args as $name => $value) {
-                if (is_string($value)) {
-                    $result[$name] = InjectedString::value($this->creator(), $value, $predefinedTypes);
-                } elseif (is_array($value)) {
-                    $result[$name] = InjectedArray::value($this->creator(), $value, $predefinedTypes);
-                } else {
-                    $result[$name] = $value;
-                }
+            if ($injectAttr) {
+                $instance = $injectAttr->newInstance();
+                /** @psalm-suppress MixedAssignment */
+                $result[$param->name] = Injected::value($instance, $this->creator(), $predefinedTypes);
             }
         }
 

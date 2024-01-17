@@ -19,15 +19,15 @@ class TestClassInject
     public string $calledArg1 = '';
     public int $calledArg2 = 0;
 
-    #[
-        Inject(arg2: 13, tc: TestClassExtended::class),
-        Inject(app: 'injected', arg1: ['arg1', Type::Literal])
-    ]
     public function __construct(
+        #[Inject('arg1', Type::Literal)]
         string $arg1,
         Container $container,
+        #[Inject('injected')]
         TestClassApp $app,
+        #[Inject(13)]
         int $arg2,
+        #[Inject(TestClassExtended::class)]
         TestClass $tc,
     ) {
         $this->container = $container;
@@ -37,21 +37,26 @@ class TestClassInject
         $this->tc = $tc;
     }
 
-    #[Inject(calledArg2: 73, calledArg1: 'calledArg1')]
-    public function callThis(string $calledArg1, int $calledArg2): void
-    {
+    public function callThis(
+        #[Inject('calledArg1')]
+        string $calledArg1,
+        #[Inject(73)]
+        int $calledArg2
+    ): void {
         $this->calledArg1 = $calledArg1;
         $this->calledArg2 = $calledArg2;
     }
 
-    #[Inject(
-        literal: ['the-entry', Type::Literal],
-        create: [TestClass::class, Type::Create],
-        entry: ['the-entry', Type::Entry],
-        env: ['TEST_ENV_VAR', Type::Env],
-    )]
-    public static function injectTypes(string $literal, object $create, object $entry, string|bool $env): array
-    {
+    public static function injectTypes(
+        #[Inject('the-entry', Type::Literal)]
+        string $literal,
+        #[Inject(TestClass::class, Type::Create)]
+        object $create,
+        #[Inject('the-entry', Type::Entry)]
+        object $entry,
+        #[Inject('TEST_ENV_VAR', Type::Env)]
+        string|bool $env
+    ): array {
         return [
             'literal' => $literal,
             'create' => $create,
@@ -60,55 +65,53 @@ class TestClassInject
         ];
     }
 
-    #[Inject(value: ['the-type', Type::Entry])]
-    public static function injectPredefinedType(object $value): array
+    public static function injectPredefinedType(#[Inject('the-type', Type::Entry)] object $value): array
     {
         return [
             'value' => $value,
         ];
     }
 
-    #[Inject(value: 'the-predefined-type')]
-    public static function injectPredefinedTypeString(object $value): array
+    public static function injectPredefinedTypeString(#[Inject('the-predefined-type')] object $value): array
     {
         return [
             'value' => $value,
         ];
     }
 
-    #[Inject(literal: 'no-entry-or-class')]
-    public static function injectSimpleString(string $literal): string
+    public static function injectSimpleString(#[Inject('no-entry-or-class')] string $literal): string
     {
         return $literal;
     }
 
-    #[Inject(literal2Values: [13, 23], literalMoreValues: [13, 17, 23, 29, 31])]
-    public static function injectSimpleArray(array $literal2Values, array $literalMoreValues): array
-    {
+    public static function injectSimpleArray(
+        #[Inject([13, 23])]
+        array $literal2Values,
+        #[Inject([13, 17, 23, 29, 31])]
+        array $literalMoreValues
+    ): array {
         return [$literal2Values, $literalMoreValues];
     }
 
-    #[Inject(entry: ['no-container', Type::Entry])]
-    public static function injectEntryWithoutContainer(object $entry): object
+    public static function injectEntryWithoutContainer(#[Inject('no-container', Type::Entry)] object $entry): object
     {
         return $entry;
     }
 
-    #[Inject(entry: ['no-class', Type::Create])]
-    public static function injectCreateNoClass(object $create): object
+    public static function injectCreateNoClass(#[Inject('no-class', Type::Create)] object $create): object
     {
         return $create;
     }
 
-    #[Inject(env: [666, Type::Env])]
-    public static function injectEnvVarNoString(string|bool $env): string
+    public static function injectEnvVarNoString(#[Inject(666, Type::Env)] string|bool $env): string
     {
         return $env;
     }
 
-    #[Inject(env: ['CONIA_ENV_VAR_DOES_NOT_EXIST', Type::Env])]
-    public static function injectEnvVarDoesNotExist(string|bool $env): string|bool
-    {
+    public static function injectEnvVarDoesNotExist(
+        #[Inject('CONIA_ENV_VAR_DOES_NOT_EXIST', Type::Env)]
+        string|bool $env
+    ): string|bool {
         return $env;
     }
 }

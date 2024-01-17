@@ -15,9 +15,11 @@ use Conia\Wire\Tests\Fixtures\TestClassApp;
 use Conia\Wire\Tests\Fixtures\TestClassInject;
 use Conia\Wire\Tests\TestCase;
 use Conia\Wire\Type;
+use PHPUnit\Framework\Attributes\Group as G;
 
 final class InjectTest extends TestCase
 {
+    #[G('only')]
     public function testInjectClosureWithAttribute(): void
     {
         $container = $this->container();
@@ -25,9 +27,11 @@ final class InjectTest extends TestCase
         $creator = new Creator($container);
         $resolver = new CallableResolver($creator);
 
-        $func = #[Inject(name: ['Chuck', Type::Literal], app: 'injected')] function (
+        $func =  function (
             Container $r,
+            #[Inject('injected')]
             TestClassApp $app,
+            #[Inject('Chuck', Type::Literal)]
             string $name
         ): array {
             return [$app->app, $name, $r];
@@ -55,13 +59,6 @@ final class InjectTest extends TestCase
         $this->assertSame(13, $obj->arg2);
         $this->assertInstanceOf(Container::class, $obj->container);
         $this->assertSame('Stringable extended', (string)$obj->tc);
-    }
-
-    public function testInjectAttributeDoesNotAllowUnnamedArgs(): void
-    {
-        $this->throws(WireException::class, 'Arguments for Inject');
-
-        new Inject('arg');
     }
 
     public function testInjectTypedArguments(): void
