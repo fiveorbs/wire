@@ -33,7 +33,12 @@ class Creator implements CreatorInterface
             if ($constructor) {
                 // Factory method
                 $rm = $rc->getMethod($constructor);
-                $args = $this->resolveArgs($rm, $predefinedArgs, $predefinedTypes, $injectCallback);
+                $args = $this->resolveArgs(
+                    $rm,
+                    predefinedArgs: $predefinedArgs,
+                    predefinedTypes: $predefinedTypes,
+                    injectCallback: $injectCallback
+                );
                 $instance = $rm->invoke(null, ...$args);
             } else {
                 // Regular constructor
@@ -48,7 +53,7 @@ class Creator implements CreatorInterface
 
             assert(is_object($instance));
 
-            return $this->applyCallAttributes($instance);
+            return $this->applyCallAttributes($instance, $predefinedTypes, $injectCallback);
         } catch (Throwable $e) {
             throw new WireException(
                 'Unresolvable: ' . $class . ' Details: ' . $e::class . ' ' . $e->getMessage()
@@ -56,8 +61,11 @@ class Creator implements CreatorInterface
         }
     }
 
-    protected function applyCallAttributes(object $instance): object
-    {
+    protected function applyCallAttributes(
+        object $instance,
+        array $predefinedTypes = [],
+        ?callable $injectCallback = null,
+    ): object {
         $callAttrs = (new ReflectionObject($instance))->getAttributes(Call::class);
 
         // See if the attribute itself has one or more Call attributes. If so,
@@ -68,7 +76,12 @@ class Creator implements CreatorInterface
 
             /** @psalm-var callable */
             $callable = [$instance, $methodToResolve];
-            $args = (new CallableResolver($this))->resolve($callable, $callAttr->args);
+            $args = (new CallableResolver($this))->resolve(
+                $callable,
+                predefinedArgs: $callAttr->args,
+                predefinedTypes: $predefinedTypes,
+                injectCallback: $injectCallback,
+            );
             $callable(...$args);
         }
 

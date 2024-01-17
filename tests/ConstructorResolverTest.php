@@ -9,6 +9,7 @@ use Conia\Wire\Inject;
 use Conia\Wire\Tests\Fixtures\TestClass;
 use Conia\Wire\Tests\Fixtures\TestClassConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassInjectCallback;
+use Conia\Wire\Tests\Fixtures\TestClassUsingNested;
 
 final class ConstructorResolverTest extends TestCase
 {
@@ -57,5 +58,21 @@ final class ConstructorResolverTest extends TestCase
         );
 
         $this->assertSame('callback injected id', $args[0]);
+    }
+
+    public function testNestedClassesWithPredefinedAndInject(): void
+    {
+        $resolver = new ConstructorResolver($this->creator());
+        $args = $resolver->resolve(
+            TestClassUsingNested::class,
+            injectCallback: function (Inject $inject): mixed {
+                return $inject->value . ' ' . $inject->meta['id'];
+            },
+            predefinedTypes: ['string' => 'predefined-value'],
+        );
+        $result = new TestClassUsingNested(...$args);
+
+        $this->assertSame('callback injected id', $result->tcn->callback);
+        $this->assertSame('predefined-value', $result->tcn->predefined->value);
     }
 }

@@ -17,6 +17,7 @@ use Conia\Wire\Tests\Fixtures\TestClassMultiConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassObjectArgs;
 use Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassUntypedConstructor;
+use Conia\Wire\Tests\Fixtures\TestClassUsingNested;
 
 final class CreatorTest extends TestCase
 {
@@ -126,6 +127,37 @@ final class CreatorTest extends TestCase
         $this->assertSame('non assoc', $tc->tc->str);
         $this->assertSame('passed', $tc->test);
         $this->assertSame(true, $tc->app instanceof TestClassApp);
+    }
+
+    public function testResolveNestedClassesWithPredefinedAndInject(): void
+    {
+        $creator = new Creator($this->container());
+        $tcun = $creator->create(
+            TestClassUsingNested::class,
+            injectCallback: function (Inject $inject): mixed {
+                return $inject->value . ' construct ' . $inject->meta['id'];
+            },
+            predefinedTypes: ['string' => 'predefined-value'],
+        );
+
+        $this->assertSame('callback construct injected id', $tcun->tcn->callback);
+        $this->assertSame('predefined-value', $tcun->tcn->predefined->value);
+    }
+
+    public function testResolveNestedClassesWithPredefinedInjectAndConstructor(): void
+    {
+        $creator = new Creator($this->container());
+        $tcun = $creator->create(
+            TestClassUsingNested::class,
+            constructor: 'create',
+            injectCallback: function (Inject $inject): mixed {
+                return $inject->value . ' create ' . $inject->meta['id'];
+            },
+            predefinedTypes: ['string' => 'predefined-value'],
+        );
+
+        $this->assertSame('callback create injected id', $tcun->tcn->callback);
+        $this->assertSame('predefined-value', $tcun->tcn->predefined->value);
     }
 
     public function testTryToResolveUnresolvable(): void
