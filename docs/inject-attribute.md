@@ -48,6 +48,24 @@ class="hljs-params">Model <span
 class="hljs-variable">$model</span></span><br>): <span
 class="hljs-title">Model</span> </span>{ <span class="dots">...</span> </code>
 
+## The `Inject` instance
+
+The first parameter `$value` of the `Inject` constructor is required and of
+type mixed. The second parameter `$type` is optional and of type
+`Conia\Wire\Type` which is a enum. Both are availabe as public instance
+properties. Every additional argument is avalable via the
+`meta` property.
+
+```
+--8<-- "inject-instance.php:7"
+```
+
+!!! info "Info" 
+    In most cases, you will only work directly with an `Inject` instance if you
+    use the Inject type `Type::Callback`. See [below](#coniawiretypecallback).
+
+    
+
 ## How injected argument values are determined
 
 The resolvers behave differently depending on the type of value that you want
@@ -116,7 +134,7 @@ be of the data type `Conia\Wire\Type`:
 #[Inject('value', Conia\Wire\Type::Literal)]
 ```
 
-Supported types are:
+The available types are:
 
 ### `Conia\Wire\Type::Literal`  
 
@@ -174,3 +192,14 @@ public function myCallable(
     // $value has now the content of the environment variable PATH
 }
 ``` 
+### `Conia\Wire\Type::Callback`  
+
+All resolving methods, like `Creator::create` or `CallableResolver::resolve`,
+accept a callback function for the parameter `$injectCallback` that
+will be passed all `Inject` attributes of type `Type::Callback`. The returned value
+of the callback is then used for the annotated parameter.
+
+
+```
+--8<-- "inject-callback.php:7"
+```
