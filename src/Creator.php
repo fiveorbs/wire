@@ -37,7 +37,12 @@ class Creator implements CreatorInterface
                 $instance = $rm->invoke(null, ...$args);
             } else {
                 // Regular constructor
-                $args = (new ConstructorResolver($this))->resolve($rc, $predefinedArgs, $predefinedTypes, $injectCallback);
+                $args = (new ConstructorResolver($this))->resolve(
+                    $rc,
+                    $predefinedArgs,
+                    $predefinedTypes,
+                    $injectCallback
+                );
                 $instance = $rc->newInstance(...$args);
             }
 

@@ -20,7 +20,10 @@ trait ResolvesAbstractFunctions
         array $predefinedTypes,
         ?callable $injectCallback,
     ): array {
-        $combinedArgs = array_merge($this->resolveInjectedArgs($rf, $predefinedTypes, $injectCallback), $predefinedArgs);
+        $combinedArgs = array_merge(
+            $this->resolveInjectedArgs($rf, $predefinedTypes, $injectCallback),
+            $predefinedArgs
+        );
 
         $args = [];
         $parameters = $rf->getParameters();

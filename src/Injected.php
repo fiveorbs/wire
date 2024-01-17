@@ -17,7 +17,7 @@ readonly class Injected
         return match ($inject->type) {
             Type::Literal => $inject->value,
             Type::Create => self::getObject($creator, $inject->value, $predefinedTypes, $injectCallback),
-            Type::Entry => self::getEntry($creator, (string)$inject->value, $predefinedTypes, $injectCallback),
+            Type::Entry => self::getEntry($creator, (string)$inject->value, $predefinedTypes),
             Type::Env => self::getEnvVar($inject->value),
             Type::Callback => self::getFromCallback($inject, $injectCallback),
             null => self::getValue($creator, $inject->value, $predefinedTypes, $injectCallback),

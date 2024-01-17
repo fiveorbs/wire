@@ -6,10 +6,12 @@ namespace Conia\Wire\Tests;
 
 use Conia\Wire\Creator;
 use Conia\Wire\Exception\WireException;
+use Conia\Wire\Inject;
 use Conia\Wire\Tests\Fixtures\TestClass;
 use Conia\Wire\Tests\Fixtures\TestClassApp;
 use Conia\Wire\Tests\Fixtures\TestClassConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassDefault;
+use Conia\Wire\Tests\Fixtures\TestClassInjectCallback;
 use Conia\Wire\Tests\Fixtures\TestClassIntersectionTypeConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassMultiConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassObjectArgs;
@@ -49,6 +51,33 @@ final class CreatorTest extends TestCase
         $this->assertInstanceOf(TestClass::class, $tc->tc);
         $this->assertSame('teststring', $tc->test);
         $this->assertSame('predefined', $tc->tc->str);
+    }
+
+    public function testResolveWithInjectCallback(): void
+    {
+        $creator = new Creator();
+        $tc = $creator->create(
+            TestClassInjectCallback::class,
+            injectCallback: function (Inject $inject): mixed {
+                return $inject->value . ' ' . $inject->meta['id'];
+            },
+        );
+
+        $this->assertSame('callback injected id', $tc->callback);
+    }
+
+    public function testResolveConstructorWithInjectCallback(): void
+    {
+        $creator = new Creator();
+        $tc = $creator->create(
+            TestClassInjectCallback::class,
+            constructor: 'create',
+            injectCallback: function (Inject $inject): mixed {
+                return $inject->value . ' ' . $inject->meta['id'];
+            },
+        );
+
+        $this->assertSame('create callback injected id', $tc->callback);
     }
 
     public function testResolveWithPartialArgsAndDefaultValues(): void
