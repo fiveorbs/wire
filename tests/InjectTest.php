@@ -18,6 +18,29 @@ use Conia\Wire\Type;
 
 final class InjectTest extends TestCase
 {
+    public function testInjectInstance(): void
+    {
+        $inject = new Inject('value', Type::Literal, text: 'string', number: 13);
+
+        $this->assertSame($inject->value, 'value');
+        $this->assertSame($inject->type, Type::Literal);
+        $this->assertSame($inject->meta['text'], 'string');
+        $this->assertSame($inject->meta['number'], 13);
+
+        $inject = new Inject('value', text: 'string', number: 13);
+
+        $this->assertSame($inject->value, 'value');
+        $this->assertSame($inject->type, null);
+        $this->assertSame($inject->meta['text'], 'string');
+        $this->assertSame($inject->meta['number'], 13);
+
+        $inject = new Inject('value', null, 1, 2, 'text');
+
+        $this->assertSame($inject->value, 'value');
+        $this->assertSame($inject->type, null);
+        $this->assertSame($inject->meta, [1, 2, 'text']);
+    }
+
     public function testInjectClosureWithAttribute(): void
     {
         $container = $this->container();
@@ -179,12 +202,5 @@ final class InjectTest extends TestCase
 
         $resolver = new CallableResolver(new Creator());
         $resolver->resolve([TestClassInject::class, 'injectEnvVarNoString']);
-    }
-
-    public function testInjectAttributeDoesNotAllowUnnamedMeta(): void
-    {
-        $this->throws(WireException::class, 'Meta arguments for Inject');
-
-        new Inject('arg', Type::Literal, 'wrong-arg');
     }
 }
