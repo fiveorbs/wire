@@ -18,8 +18,9 @@ trait ResolvesAbstractFunctions
         ReflectionFunctionAbstract $rf,
         array $predefinedArgs,
         array $predefinedTypes,
+        ?callable $injectCallback,
     ): array {
-        $combinedArgs = array_merge($this->resolveInjectedArgs($rf, $predefinedTypes), $predefinedArgs);
+        $combinedArgs = array_merge($this->resolveInjectedArgs($rf, $predefinedTypes, $injectCallback), $predefinedArgs);
 
         $args = [];
         $parameters = $rf->getParameters();
@@ -88,8 +89,11 @@ trait ResolvesAbstractFunctions
     }
 
     /** @return array<non-empty-string, mixed> */
-    protected function resolveInjectedArgs(ReflectionFunctionAbstract $rf, array $predefinedTypes): array
-    {
+    protected function resolveInjectedArgs(
+        ReflectionFunctionAbstract $rf,
+        array $predefinedTypes,
+        ?callable $injectCallback,
+    ): array {
         /** @var array<non-empty-string, mixed> */
         $result = [];
 
@@ -99,7 +103,12 @@ trait ResolvesAbstractFunctions
             if ($injectAttr) {
                 $instance = $injectAttr->newInstance();
                 /** @psalm-suppress MixedAssignment */
-                $result[$param->name] = Injected::value($instance, $this->creator(), $predefinedTypes);
+                $result[$param->name] = Injected::value(
+                    $instance,
+                    $this->creator(),
+                    $predefinedTypes,
+                    $injectCallback
+                );
             }
         }
 

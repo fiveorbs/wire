@@ -13,7 +13,8 @@ interface CreatorInterface
         string $class,
         array $predefinedArgs = [],
         array $predefinedTypes = [],
-        ?string $constructor = null
+        ?callable $injectCallback = null,
+        ?string $constructor = null,
     ): object;
 
     public function container(): ?Container;

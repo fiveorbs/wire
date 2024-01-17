@@ -21,12 +21,13 @@ class ConstructorResolver
         ReflectionClass|string $class,
         array $predefinedArgs = [],
         array $predefinedTypes = [],
+        ?callable $injectCallback = null,
     ): array {
         $rc = is_string($class) ? new ReflectionClass($class) : $class;
         $constructor = $rc->getConstructor();
 
         if ($constructor) {
-            return $this->resolveArgs($constructor, $predefinedArgs, $predefinedTypes);
+            return $this->resolveArgs($constructor, $predefinedArgs, $predefinedTypes, $injectCallback);
         }
 
         return $predefinedArgs;

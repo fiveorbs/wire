@@ -123,6 +123,23 @@ final class InjectTest extends TestCase
         $this->assertSame('the-predefined-value', $result['value']->app());
     }
 
+    public function testInjectWithCallback(): void
+    {
+        $creator = new Creator();
+        $resolver = new CallableResolver($creator);
+        $args = $resolver->resolve(
+            [TestClassInject::class, 'injectWithCallback'],
+            injectCallback: function (Inject $inject): mixed {
+                return [
+                    'test' => ['first' => 'first-val', 'second' => 'second-val'],
+                ][$inject->value][$inject->meta['id']];
+            }
+        );
+        $result = TestClassInject::injectWithCallback(...$args);
+
+        $this->assertSame('second-val', $result);
+    }
+
     public function testInjectEnvVarDoesNotExist(): void
     {
         $resolver = new CallableResolver(new Creator());

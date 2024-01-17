@@ -114,4 +114,11 @@ class TestClassInject
     ): string|bool {
         return $env;
     }
+
+    public static function injectWithCallback(
+        #[Inject('test', Type::Callback, id: 'second')]
+        string $value
+    ): string|bool {
+        return $value;
+    }
 }

@@ -22,11 +22,12 @@ class CallableResolver
         array|callable $callable,
         array $predefinedArgs = [],
         array $predefinedTypes = [],
+        ?callable $injectCallback = null,
     ): array {
         $callable = Closure::fromCallable($callable);
         $rf = new ReflectionFunction($callable);
 
-        return $this->resolveArgs($rf, $predefinedArgs, $predefinedTypes);
+        return $this->resolveArgs($rf, $predefinedArgs, $predefinedTypes, $injectCallback);
     }
 
     public function creator(): CreatorInterface

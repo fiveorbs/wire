@@ -24,6 +24,7 @@ class Creator implements CreatorInterface
         string $class,
         array $predefinedArgs = [],
         array $predefinedTypes = [],
+        ?callable $injectCallback = null,
         ?string $constructor = null
     ): object {
         try {
@@ -32,11 +33,11 @@ class Creator implements CreatorInterface
             if ($constructor) {
                 // Factory method
                 $rm = $rc->getMethod($constructor);
-                $args = $this->resolveArgs($rm, $predefinedArgs, $predefinedTypes);
+                $args = $this->resolveArgs($rm, $predefinedArgs, $predefinedTypes, $injectCallback);
                 $instance = $rm->invoke(null, ...$args);
             } else {
                 // Regular constructor
-                $args = (new ConstructorResolver($this))->resolve($rc, $predefinedArgs, $predefinedTypes);
+                $args = (new ConstructorResolver($this))->resolve($rc, $predefinedArgs, $predefinedTypes, $injectCallback);
                 $instance = $rc->newInstance(...$args);
             }
 

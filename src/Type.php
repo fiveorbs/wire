@@ -10,4 +10,5 @@ enum Type
     case Env;
     case Create;
     case Entry;
+    case Callback;
 }
