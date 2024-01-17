@@ -11,6 +11,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Changed the `Inject` attribute so that is is now annotated to parameters
   instead of functions or methods.
 
+### Added
+
+- Add `Type::Callback`.
+- The optional `injectCallback` parameter to `Creator::create`.
+- The optional `injectCallback` parameter to `CallableResolver::resolve`.
+- The optional `injectCallback` parameter to `ConstructorResolver::resolve`.
+
 ###
 
 ## [0.2.0](https://github.com/coniadev/wire/releases/tag/0.2.0) - 2024-01-05
