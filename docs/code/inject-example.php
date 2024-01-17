@@ -20,9 +20,10 @@ function expectsModel(Model $model): Model
     return $model;
 }
 
-#[Inject(model: SubModel::class)]
-function alsoExpectsModel(Model $model): Model
-{
+function alsoExpectsModel(
+    #[Inject(SubModel::class)]
+    Model $model
+): Model {
     return $model;
 }
 

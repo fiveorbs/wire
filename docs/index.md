@@ -52,5 +52,5 @@ resolvers](resolvers.md)
 * If an object needs additional method calls after instantiation to be properly
   initialized you can use the [`Call`](call-attribute.md) class attribute.
 * To override or change the default behaviour of the resolvers, or handle
-  literal values, you can annotate callables and constructros with the [Inject
-  Attribute](inject-attribute.md).
+  literal values, you can annotate parameters of callables and constructors
+  with the [Inject Attribute](inject-attribute.md).

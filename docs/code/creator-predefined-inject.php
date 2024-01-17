@@ -24,9 +24,9 @@ class AnotherValue
 
 class Model
 {
-    #[Inject(another: 'use-this-id')]
     public function __construct(
         public readonly Value $value,
+        #[Inject('use-this-id')]
         public readonly AnotherValue $another,
     ) {
     }
