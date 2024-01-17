@@ -20,7 +20,7 @@ readonly class Inject
     ) {
         if (count($meta) > 0) {
             if (is_int(array_key_first($meta))) {
-                throw new WireException('Arguments for Inject must be named arguments');
+                throw new WireException('Meta arguments for Inject must be named arguments');
             }
         }
 

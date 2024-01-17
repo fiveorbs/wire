@@ -15,11 +15,9 @@ use Conia\Wire\Tests\Fixtures\TestClassApp;
 use Conia\Wire\Tests\Fixtures\TestClassInject;
 use Conia\Wire\Tests\TestCase;
 use Conia\Wire\Type;
-use PHPUnit\Framework\Attributes\Group as G;
 
 final class InjectTest extends TestCase
 {
-    #[G('only')]
     public function testInjectClosureWithAttribute(): void
     {
         $container = $this->container();
@@ -140,6 +138,17 @@ final class InjectTest extends TestCase
         $this->assertSame('second-val', $result);
     }
 
+    public function testInjectCallbackWithoutCallback(): void
+    {
+        $this->throws(WireException::class, 'Inject callback not available');
+
+        $creator = new Creator();
+        $resolver = new CallableResolver($creator);
+        $resolver->resolve(
+            [TestClassInject::class, 'injectWithCallback'],
+        );
+    }
+
     public function testInjectEnvVarDoesNotExist(): void
     {
         $resolver = new CallableResolver(new Creator());
@@ -170,5 +179,12 @@ final class InjectTest extends TestCase
 
         $resolver = new CallableResolver(new Creator());
         $resolver->resolve([TestClassInject::class, 'injectEnvVarNoString']);
+    }
+
+    public function testInjectAttributeDoesNotAllowUnnamedMeta(): void
+    {
+        $this->throws(WireException::class, 'Meta arguments for Inject');
+
+        new Inject('arg', Type::Literal, 'wrong-arg');
     }
 }
