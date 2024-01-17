@@ -29,4 +29,9 @@ class TestClass implements TestInterface
     {
         $this->str = $str;
     }
+
+    public static function nested(TestClassNested $tcn): TestClassNested
+    {
+        return $tcn;
+    }
 }

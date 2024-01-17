@@ -40,15 +40,18 @@ trait ResolvesAbstractFunctions
                 $args[] = $combinedArgs[$name];
             } else {
                 /** @psalm-var list<mixed> */
-                $args[] = $this->resolveParam($param, $predefinedTypes);
+                $args[] = $this->resolveParam($param, $predefinedTypes, $injectCallback);
             }
         }
 
         return $args;
     }
 
-    protected function resolveParam(ReflectionParameter $param, array $predefinedTypes): mixed
-    {
+    protected function resolveParam(
+        ReflectionParameter $param,
+        array $predefinedTypes,
+        ?callable $injectCallback
+    ): mixed {
         $type = $param->getType();
 
         if ($type instanceof ReflectionNamedType) {
@@ -65,7 +68,7 @@ trait ResolvesAbstractFunctions
             }
 
             if (class_exists($typeName)) {
-                return $creator->create($typeName, predefinedTypes: $predefinedTypes);
+                return $creator->create($typeName, predefinedTypes: $predefinedTypes, injectCallback: $injectCallback);
             }
 
             if ($param->isDefaultValueAvailable()) {

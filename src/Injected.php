@@ -28,6 +28,7 @@ readonly class Injected
         CreatorInterface $creator,
         mixed $value,
         array $predefinedTypes,
+        ?callable $injectCallback,
     ): mixed {
         if (is_string($value)) {
             if (isset($predefinedTypes[$value])) {
@@ -41,7 +42,7 @@ readonly class Injected
             }
 
             if (class_exists($value)) {
-                return $creator->create($value);
+                return $creator->create($value, predefinedTypes: $predefinedTypes, injectCallback: $injectCallback);
             }
         }
 

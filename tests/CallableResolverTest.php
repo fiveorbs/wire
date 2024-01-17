@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Conia\Wire\Tests;
 
 use Conia\Wire\CallableResolver;
+use Conia\Wire\Inject;
 use Conia\Wire\Tests\Fixtures\TestClass;
 
 final class CallableResolverTest extends TestCase
@@ -50,5 +51,21 @@ final class CallableResolverTest extends TestCase
 
         $this->assertInstanceOf(TestClass::class, $args[0]);
         $this->assertSame(23, $args[1]);
+    }
+
+    public function testNestedClassesWithPredefinedAndInject(): void
+    {
+        $resolver = new CallableResolver($this->creator());
+        $args = $resolver->resolve(
+            [TestClass::class, 'nested'],
+            injectCallback: function (Inject $inject): mixed {
+                return $inject->value . ' ' . $inject->meta['id'];
+            },
+            predefinedTypes: ['string' => 'predefined-value'],
+        );
+        $result = TestClass::nested(...$args);
+
+        $this->assertSame('callback injected id', $result->callback);
+        $this->assertSame('predefined-value', $result->predefined->value);
     }
 }
