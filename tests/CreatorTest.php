@@ -18,6 +18,7 @@ use Conia\Wire\Tests\Fixtures\TestClassObjectArgs;
 use Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassUntypedConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassUsingNested;
+use Conia\Wire\Tests\Fixtures\TestInterface;
 
 final class CreatorTest extends TestCase
 {
@@ -158,6 +159,17 @@ final class CreatorTest extends TestCase
 
         $this->assertSame('callback create injected id', $tcun->tcn->callback);
         $this->assertSame('predefined-value', $tcun->tcn->predefined->value);
+    }
+
+    public function testResolveFromContainer(): void
+    {
+        $container = $this->container();
+        $container->add(TestInterface::class, new TestClass('text'));
+        $creator = new Creator($container);
+        $tc = $creator->create(TestInterface::class);
+
+        $this->assertInstanceof(TestClass::class, $tc);
+        $this->assertSame('text', $tc->str);
     }
 
     public function testTryToResolveUnresolvable(): void

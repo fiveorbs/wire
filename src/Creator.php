@@ -28,11 +28,9 @@ class Creator implements CreatorInterface
         ?string $constructor = null
     ): object {
         try {
-            $rc = new ReflectionClass($class);
-
             if ($constructor) {
                 // Factory method
-                $rm = $rc->getMethod($constructor);
+                $rm = (new ReflectionClass($class))->getMethod($constructor);
                 $args = $this->resolveArgs(
                     $rm,
                     predefinedArgs: $predefinedArgs,
@@ -40,13 +38,18 @@ class Creator implements CreatorInterface
                     injectCallback: $injectCallback
                 );
                 $instance = $rm->invoke(null, ...$args);
+            } elseif ($this->container && $this->container->has($class)) {
+                /** @psalm-suppress MixedAssignment */
+                $instance = $this->container->get($class);
             } else {
+                $rc = new ReflectionClass($class);
+
                 // Regular constructor
                 $args = (new ConstructorResolver($this))->resolve(
                     $rc,
-                    $predefinedArgs,
-                    $predefinedTypes,
-                    $injectCallback
+                    predefinedArgs: $predefinedArgs,
+                    predefinedTypes: $predefinedTypes,
+                    injectCallback: $injectCallback
                 );
                 $instance = $rc->newInstance(...$args);
             }

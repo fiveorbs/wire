@@ -60,11 +60,9 @@ properties. Every additional argument is avalable via the
 --8<-- "inject-instance.php:7"
 ```
 
-!!! info "Info" 
+!!! info "Note" 
     In most cases, you will only work directly with an `Inject` instance if you
     use the Inject type `Type::Callback`. See [below](#coniawiretypecallback).
-
-    
 
 ## How injected argument values are determined
 

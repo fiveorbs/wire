@@ -17,6 +17,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - The optional `injectCallback` parameter to `Creator::create`.
 - The optional `injectCallback` parameter to `CallableResolver::resolve`.
 - The optional `injectCallback` parameter to `ConstructorResolver::resolve`.
+- `Creator` now returns the container entry of the requested class if it
+  exists. This way it supports instantiating interfaces if they are registered
+  in the container.
 
 ###
 
