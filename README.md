@@ -2,10 +2,10 @@ Conia Wire
 ==========
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/coniadev/wire.svg)](https://scrutinizer-ci.com/g/coniadev/wire/code-structure)
-[![Psalm coverage](https://shepherd.dev/github/coniadev/wire/coverage.svg?)](https://shepherd.dev/github/coniadev/wire)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e0fec62285124af1bea3a00d64c120df)](https://app.codacy.com/gh/coniadev/wire/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/e0fec62285124af1bea3a00d64c120df)](https://app.codacy.com/gh/coniadev/wire/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Psalm level](https://shepherd.dev/github/coniadev/wire/level.svg?)](https://conia.dev/wire)
-[![Quality Score](https://img.shields.io/scrutinizer/g/coniadev/wire.svg)](https://scrutinizer-ci.com/g/coniadev/wire)
+[![Psalm coverage](https://shepherd.dev/github/coniadev/wire/coverage.svg?)](https://shepherd.dev/github/coniadev/wire)
 
 ***Wire*** provides an autowiring object creator that utilizes PHP's reflection
 capabilities to automatically resolve constructor arguments recursively. It
