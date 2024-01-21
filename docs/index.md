@@ -23,8 +23,8 @@ create a [`Creator`](creator.md) instance and pass the fully qualified class
 name to its resolver method:
 
 ```
---8<-- "creator-basic-usage.php:9:11"
---8<-- "creator-basic-usage.php:31:32"
+--8<-- "creator-basic-usage.php:7:9"
+--8<-- "creator-basic-usage.php:29:30"
 ```
 
  For a complete introduction and fully working examples, see
@@ -38,7 +38,7 @@ use one of the resolvers. Here you can see simplified example on how to use the
 [`CallableResolver`](resolvers.md):
 
 ```
---8<-- "resolver-callable-function.php:16:22"
+--8<-- "resolver-callable-function.php:14:20"
 ```
 
 More information on callable and constructor argument resolvers together with

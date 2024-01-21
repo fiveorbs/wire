@@ -16,14 +16,14 @@ Without annotation
 Given the following simplified example:
 
 ```php
---8<-- "call-attribute-classes.php:9:32"
+--8<-- "call-attribute-classes.php:7:30"
 ```
 
 Without ***Wire***'s help, you need to create a `Model` instance, and then call
 the `setValue` method, passing a `Value` object as an argument.
 
 ```php
---8<-- "call-attribute-without.php:9"
+--8<-- "call-attribute-without.php:7"
 ```
 
 Annotated with the `Call` attribute
@@ -35,7 +35,7 @@ specified in the attribute(s) as the first argument.
 
 
 ```php
---8<-- "call-attribute-example.php:9"
+--8<-- "call-attribute-example.php:7"
 ```
 
 Multiple method calls
@@ -45,7 +45,7 @@ As mentioned before, you can annotate a class with multiple `Call` attributes.
 The methods are invoked in the same order in which the attributes are defined.
 
 ```php
---8<-- "call-attribute-multiple.php:9"
+--8<-- "call-attribute-multiple.php:7"
 ```
 
 Provide arguments
@@ -57,5 +57,5 @@ attribute. This serves as a hint for the autowiring mechanism. The names must
 match the parameter names of the callable:
 
 ```php
---8<-- "call-attribute-arguments.php:9"
+--8<-- "call-attribute-arguments.php:7"
 ```

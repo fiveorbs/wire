@@ -43,7 +43,7 @@ because it cannot determine the value for the constructor parameter `$value`,
 which is of type `string`:
 
 ```
---8<-- "container-problem.php:9"
+--8<-- "container-problem.php:7"
 ```
 
 Solving the problem
@@ -55,7 +55,7 @@ creator with that container, the problem no longer exists. As shown in the
 code block below:
 
 ```
---8<-- "container-example.php:9"
+--8<-- "container-example.php:7"
 ```
 
 ### Abstract types
@@ -65,7 +65,7 @@ constructor of a class or its dependencies you will also need to work with
 a container:
 
 ```
---8<-- "container-abstract-example.php:9"
+--8<-- "container-abstract-example.php:7"
 ```
 
 Resolvers and containers
@@ -75,7 +75,7 @@ Since the resolvers are the guts and the bones of the creator they work the
 same way:
 
 ```
---8<-- "resolver-callable-container.php:9"
+--8<-- "resolver-callable-container.php:7"
 ```
 
 !!! warn "Note" 

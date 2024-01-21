@@ -20,7 +20,7 @@ receives a `SubModel` instance, which is a subclass of `Model`. The following
 example shows how to accomplish that:
 
 ```
---8<-- "inject-example.php:9"
+--8<-- "inject-example.php:7"
 ```
 
 You can control the behavior of the function (in this case, `alsoExpectsModel`)
@@ -60,7 +60,7 @@ properties. Every additional argument is avalable via the
 `meta` property.
 
 ```
---8<-- "inject-instance.php:9"
+--8<-- "inject-instance.php:7"
 ```
 
 !!! info "Note" 
@@ -203,5 +203,5 @@ of the callback is then used for the annotated parameter.
 
 
 ```
---8<-- "inject-callback.php:9"
+--8<-- "inject-callback.php:7"
 ```
