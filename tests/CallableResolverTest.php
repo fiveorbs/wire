@@ -14,7 +14,9 @@ final class CallableResolverTest extends TestCase
     public function testGetClosureArgs(): void
     {
         $resolver = new CallableResolver($this->creator());
-        $args = $resolver->resolve(function (Testclass $testobj, int $number = 13) {});
+        $args = $resolver->resolve(function (Testclass $testobj, int $number = 13): string {
+            return $testobj::class . (string)$number;
+        });
 
         $this->assertInstanceOf(TestClass::class, $args[0]);
         $this->assertSame(13, $args[1]);
@@ -34,7 +36,7 @@ final class CallableResolverTest extends TestCase
     {
         $resolver = new CallableResolver($this->creator());
         $args = $resolver->resolve(
-            function (Testclass $testobj, int $number) {},
+            fn (Testclass $testobj, int $number): string => $testobj::class . (string)$number,
             predefinedArgs: ['number' => 17],
         );
 
@@ -46,7 +48,7 @@ final class CallableResolverTest extends TestCase
     {
         $resolver = new CallableResolver($this->creator());
         $args = $resolver->resolve(
-            function (Testclass $testobj, int $number) {},
+            fn (Testclass $testobj, int $number): string => $testobj::class . (string)$number,
             predefinedTypes: ['int' => 23],
         );
 
