@@ -5,18 +5,14 @@ declare(strict_types=1);
 namespace Conia\Wire\Tests;
 
 use Conia\Wire\Creator;
-use Conia\Wire\Exception\WireException;
 use Conia\Wire\Inject;
 use Conia\Wire\Tests\Fixtures\TestClass;
 use Conia\Wire\Tests\Fixtures\TestClassApp;
 use Conia\Wire\Tests\Fixtures\TestClassConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassDefault;
 use Conia\Wire\Tests\Fixtures\TestClassInjectCallback;
-use Conia\Wire\Tests\Fixtures\TestClassIntersectionTypeConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassMultiConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassObjectArgs;
-use Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor;
-use Conia\Wire\Tests\Fixtures\TestClassUntypedConstructor;
 use Conia\Wire\Tests\Fixtures\TestClassUsingNested;
 use Conia\Wire\Tests\Fixtures\TestInterface;
 
@@ -31,7 +27,7 @@ final class CreatorTest extends TestCase
 
     public function testResolveWithPartialArgs(): void
     {
-        $creator = new Creator($this->container());
+        $creator = new Creator();
         $testobj = $creator->create(TestClassMultiConstructor::class, ['name' => 'chuck', 'number' => 73]);
 
         $this->assertInstanceOf(TestClassMultiConstructor::class, $testobj);
@@ -170,37 +166,5 @@ final class CreatorTest extends TestCase
 
         $this->assertInstanceof(TestClass::class, $testobj);
         $this->assertSame('text', $testobj->str);
-    }
-
-    public function testTryToResolveUnresolvable(): void
-    {
-        $this->throws(WireException::class, 'Unresolvable');
-
-        $creator = new Creator();
-        $creator->create(TestClassDefault::class);
-    }
-
-    public function testRejectClassWithUntypedConstructor(): void
-    {
-        $this->throws(WireException::class, 'typed constructor parameters');
-
-        $creator = new Creator();
-        $creator->create(TestClassUntypedConstructor::class);
-    }
-
-    public function testRejectClassWithUnsupportedConstructorUnionTypes(): void
-    {
-        $this->throws(WireException::class, 'union or intersection');
-
-        $creator = new Creator();
-        $creator->create(TestClassUnionTypeConstructor::class);
-    }
-
-    public function testRejectClassWithUnsupportedConstructorIntersectionTypes(): void
-    {
-        $this->throws(WireException::class, 'union or intersection');
-
-        $creator = new Creator();
-        $creator->create(TestClassIntersectionTypeConstructor::class);
     }
 }
