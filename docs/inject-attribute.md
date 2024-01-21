@@ -11,7 +11,8 @@ default. This means that you can use it to override ***Wire***'s default
 behavior, for example when you want to choose one of several alternatives or
 when there are literal arguments such as strings, numbers or arrays expected.
 
-## Example
+Example
+-------
 
 Let's assume you have two different functions, each of which requires a `Model`
 object as input. But you want to ensure that one of the functions always
@@ -19,7 +20,7 @@ receives a `SubModel` instance, which is a subclass of `Model`. The following
 example shows how to accomplish that:
 
 ```
---8<-- "inject-example.php:7"
+--8<-- "inject-example.php:9"
 ```
 
 You can control the behavior of the function (in this case, `alsoExpectsModel`)
@@ -27,7 +28,8 @@ by annotating the parameter it with an `Inject` attribute. If the parameter is
 not annotated, the resolver would create an object of the base class `Model`
 because the type of the parameter `$model` is `Model`.
 
-## How to use
+How to use
+----------
 
 Simply add the `Inject` attribute to a parameter of a callable or constructor that you want
 to control. You pass a mandatory argument with
@@ -48,7 +50,8 @@ class="hljs-params">Model <span
 class="hljs-variable">$model</span></span><br>): <span
 class="hljs-title">Model</span> </span>{ <span class="dots">...</span> </code>
 
-## The `Inject` instance
+The `Inject` instance
+---------------------
 
 The first parameter `$value` of the `Inject` constructor is required and of
 type mixed. The second parameter `$type` is optional and of type
@@ -57,14 +60,15 @@ properties. Every additional argument is avalable via the
 `meta` property.
 
 ```
---8<-- "inject-instance.php:7"
+--8<-- "inject-instance.php:9"
 ```
 
 !!! info "Note" 
     In most cases, you will only work directly with an `Inject` instance if you
     use the Inject type `Type::Callback`. See [below](#coniawiretypecallback).
 
-## How injected argument values are determined
+How injected argument values are determined
+-------------------------------------------
 
 The resolvers behave differently depending on the type of value that you want
 to be injected. 
@@ -117,7 +121,8 @@ function withLiteralParams(
 ) { ...
 ```
 
-## Don't follow the rules
+Don't follow the rules
+----------------------
 
 If you want to bypass the string rules or be explicit about the values you
 inject, you can specifiy the type of the injected value.
@@ -182,7 +187,6 @@ read the environment variable using PHP's internal function `getenv` and then
 returns its value.
 
 ``` php
-
 public function myCallable(
     #[Inject('PATH', Type::Env)]
     string|bool $value
@@ -199,5 +203,5 @@ of the callback is then used for the annotated parameter.
 
 
 ```
---8<-- "inject-callback.php:7"
+--8<-- "inject-callback.php:9"
 ```

@@ -15,11 +15,13 @@ with a PSR-11 dependency injection container.
 
 Documentation can be found on the website: [conia.dev/wire](https://conia.dev/wire/)
 
-## Installation
+Installation
+------------
 
     composer require conia/wire
 
-## Basic usage
+Basic usage
+-----------
 
 ```php
 use Conia\Wire\Wire;
@@ -49,7 +51,8 @@ assert($model instanceof Model);
 assert($model->value() === 'Autowired Value');
 ```
 
-## License
+License
+-------
 
 Conia Wire is released under the MIT [license](LICENSE.md).
 

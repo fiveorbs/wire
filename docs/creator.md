@@ -9,10 +9,11 @@ which you don't have their constructor arguments at hand. It attempts to obtain
 or gather all the required values by analyzing the types of the constructor
 parameters of the class. 
 
-## Basic usage of the object creator
+Basic usage of the object creator
+---------------------------------
 
 ```
---8<-- "creator-basic-usage.php:7"
+--8<-- "creator-basic-usage.php:9"
 ```
 
 Behind the scenes, Wire will create both the `Value` and the `Model` objects.
@@ -32,25 +33,28 @@ resolved, or until it encounters an unresolvable parameter.
     unresolvable.  
     See [PSR-11 Containers](container.md).
 
-## Factory methods
+Factory methods
+---------------
 
 If a class uses a static factory method to create an instance, you can pass the 
 name of the method to `Creator::create`:
 
 ```
---8<-- "creator-factory-method.php:7"
+--8<-- "creator-factory-method.php:9"
 ```
 
-## Parameters with default values
+Parameters with default values
+------------------------------
 
 If a parameter has a default value and is otherwise unresolvable, the default
 value is used:
 
 ```
---8<-- "creator-default-values.php:7"
+--8<-- "creator-default-values.php:9"
 ```
 
-## Assist the creator with arguments that are already available
+Assist the creator with arguments that are already available
+------------------------------------------------------------
 
 ### Predefined arguments
 
@@ -61,7 +65,7 @@ as a key in the associative array, the value of that key is passed as the
 argument.
 
 ```
---8<-- "creator-predefined-arguments.php:7"
+--8<-- "creator-predefined-arguments.php:9"
 ```
 
 ### Predefined types
@@ -71,19 +75,20 @@ a parameter's name to find a match in the associative array, it uses its type.
 Additionally, they are also used deeper down the object tree:
 
 ```
---8<-- "creator-predefined-types.php:7"
+--8<-- "creator-predefined-types.php:9"
 ```
 
 You can also combine predefined types with the [`Inject` attribute](inject-attribute.md):
 
 ```
---8<-- "creator-predefined-inject.php:7"
+--8<-- "creator-predefined-inject.php:9"
 ```
 
-## Creating the creator without the `Wire` factory
+Creating the creator without the `Wire` factory
+-----------------------------------------------
 
 Internally the `Wire` factory initializes the creator like shown here:
 
 ```
---8<-- "creator-without-factory.php:7"
+--8<-- "creator-without-factory.php:9"
 ```

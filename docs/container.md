@@ -35,17 +35,19 @@ already registered in the container.
     leverage its functionality to retrieve values that cannot be resolved by
     ***Wire***.
 
-## The Problem
+The Problem
+-----------
 
 In the following example, the resolver cannot autowire the `Value` class
 because it cannot determine the value for the constructor parameter `$value`,
 which is of type `string`:
 
 ```
---8<-- "container-problem.php:7"
+--8<-- "container-problem.php:9"
 ```
 
-## Solving the problem
+Solving the problem
+-------------------
 
 By adding the parameter type that was causing the issue to a container
 implementation that is compatible with PSR-11, and then initializing the
@@ -53,7 +55,7 @@ creator with that container, the problem no longer exists. As shown in the
 code block below:
 
 ```
---8<-- "container-example.php:7"
+--8<-- "container-example.php:9"
 ```
 
 ### Abstract types
@@ -63,16 +65,17 @@ constructor of a class or its dependencies you will also need to work with
 a container:
 
 ```
---8<-- "container-abstract-example.php:7"
+--8<-- "container-abstract-example.php:9"
 ```
 
-## Resolvers and containers
+Resolvers and containers
+------------------------
 
 Since the resolvers are the guts and the bones of the creator they work the
 same way:
 
 ```
---8<-- "resolver-callable-container.php:7"
+--8<-- "resolver-callable-container.php:9"
 ```
 
 !!! warn "Note" 
