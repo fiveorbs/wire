@@ -25,10 +25,10 @@ class Creator implements CreatorInterface
         array $predefinedArgs = [],
         array $predefinedTypes = [],
         ?callable $injectCallback = null,
-        ?string $constructor = null
+        string $constructor = ''
     ): object {
         try {
-            if ($constructor) {
+            if ($constructor !== '') {
                 // Factory method
                 $rm = (new ReflectionClass($class))->getMethod($constructor);
                 $args = $this->resolveArgs(
