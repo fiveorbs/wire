@@ -47,7 +47,7 @@ final class CallTest extends TestCase
         $this->assertSame('arg1', $obj->arg1);
         $this->assertSame(13, $obj->arg2);
         $this->assertInstanceOf(Container::class, $obj->container);
-        $this->assertSame('Stringable extended', (string)$obj->tc);
+        $this->assertSame('Stringable extended', (string)$obj->testobj);
         $this->assertSame('calledArg1', $obj->calledArg1);
         $this->assertSame(73, $obj->calledArg2);
     }

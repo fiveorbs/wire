@@ -23,8 +23,8 @@ class ConstructorResolver
         array $predefinedTypes = [],
         ?callable $injectCallback = null,
     ): array {
-        $rc = is_string($class) ? new ReflectionClass($class) : $class;
-        $constructor = $rc->getConstructor();
+        $rcls = is_string($class) ? new ReflectionClass($class) : $class;
+        $constructor = $rcls->getConstructor();
 
         if ($constructor) {
             return $this->resolveArgs($constructor, $predefinedArgs, $predefinedTypes, $injectCallback);

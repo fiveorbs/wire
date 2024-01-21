@@ -6,7 +6,7 @@ namespace Conia\Wire\Tests\Fixtures;
 
 class TestClassIntersectionTypeConstructor
 {
-    public function __construct(TestClassApp&TestClassRequest $param)
+    public function __construct(public TestClassApp&TestClassRequest $param)
     {
     }
 }

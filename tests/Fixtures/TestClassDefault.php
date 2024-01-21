@@ -8,7 +8,7 @@ class TestClassDefault
 {
     public function __construct(
         public readonly int $number,
-        public readonly TestClass $tc,
+        public readonly TestClass $testobj,
         public readonly string $name = 'default',
     ) {
     }

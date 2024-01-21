@@ -12,15 +12,15 @@ class ParameterInfo
     public static function info(ReflectionParameter $param): string
     {
         $type = $param->getType();
-        $rf = $param->getDeclaringFunction();
-        $rc = null;
+        $rfn = $param->getDeclaringFunction();
+        $rcls = null;
 
-        if ($rf instanceof ReflectionMethod) {
-            $rc = $rf->getDeclaringClass();
+        if ($rfn instanceof ReflectionMethod) {
+            $rcls = $rfn->getDeclaringClass();
         }
 
-        return ($rc ? $rc->getName() . '::' : '') .
-            ($rf->getName() . '(..., ') .
+        return ($rcls ? $rcls->getName() . '::' : '') .
+            ($rfn->getName() . '(..., ') .
             ($type ? (string)$type . ' ' : '') .
             '$' . $param->getName() . ', ...)';
     }

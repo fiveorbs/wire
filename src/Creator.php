@@ -30,28 +30,28 @@ class Creator implements CreatorInterface
         try {
             if ($constructor !== '') {
                 // Factory method
-                $rm = (new ReflectionClass($class))->getMethod($constructor);
+                $rmethod = (new ReflectionClass($class))->getMethod($constructor);
                 $args = $this->resolveArgs(
-                    $rm,
+                    $rmethod,
                     predefinedArgs: $predefinedArgs,
                     predefinedTypes: $predefinedTypes,
                     injectCallback: $injectCallback
                 );
-                $instance = $rm->invoke(null, ...$args);
+                $instance = $rmethod->invoke(null, ...$args);
             } elseif ($this->container && $this->container->has($class)) {
                 /** @psalm-suppress MixedAssignment */
                 $instance = $this->container->get($class);
             } else {
-                $rc = new ReflectionClass($class);
+                $rcls = new ReflectionClass($class);
 
                 // Regular constructor
                 $args = (new ConstructorResolver($this))->resolve(
-                    $rc,
+                    $rcls,
                     predefinedArgs: $predefinedArgs,
                     predefinedTypes: $predefinedTypes,
                     injectCallback: $injectCallback
                 );
-                $instance = $rc->newInstance(...$args);
+                $instance = $rcls->newInstance(...$args);
             }
 
             assert(is_object($instance));

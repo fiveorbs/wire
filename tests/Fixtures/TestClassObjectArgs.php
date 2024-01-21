@@ -7,7 +7,7 @@ namespace Conia\Wire\Tests\Fixtures;
 class TestClassObjectArgs
 {
     public function __construct(
-        public readonly TestClass $tc,
+        public readonly TestClass $testobj,
         public readonly string $test,
         public readonly ?TestClassApp $app = null,
     ) {
@@ -18,8 +18,8 @@ class TestClassObjectArgs
         return new self(new TestClass(), 'fromDefaults', new TestClassApp('fromDefaults'));
     }
 
-    public static function fromArgs(TestClass $tc, string $test, string $app): static
+    public static function fromArgs(TestClass $testobj, string $test, string $app): static
     {
-        return new self($tc, $test, new TestClassApp($app));
+        return new self($testobj, $test, new TestClassApp($app));
     }
 }

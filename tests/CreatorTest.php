@@ -32,46 +32,46 @@ final class CreatorTest extends TestCase
     public function testResolveWithPartialArgs(): void
     {
         $creator = new Creator($this->container());
-        $tc = $creator->create(TestClassMultiConstructor::class, ['name' => 'chuck', 'number' => 73]);
+        $testobj = $creator->create(TestClassMultiConstructor::class, ['name' => 'chuck', 'number' => 73]);
 
-        $this->assertInstanceOf(TestClassMultiConstructor::class, $tc);
-        $this->assertSame('chuck', $tc->name);
-        $this->assertSame(73, $tc->number);
-        $this->assertInstanceOf(TestClass::class, $tc->tc);
+        $this->assertInstanceOf(TestClassMultiConstructor::class, $testobj);
+        $this->assertSame('chuck', $testobj->name);
+        $this->assertSame(73, $testobj->number);
+        $this->assertInstanceOf(TestClass::class, $testobj->testobj);
     }
 
     public function testResolveWithPredefinedTypes(): void
     {
         $creator = new Creator();
-        $tc = $creator->create(
+        $testobj = $creator->create(
             TestClassObjectArgs::class,
             predefinedArgs: ['test' => 'teststring'],
             predefinedTypes: [TestClass::class => new TestClass('predefined')]
         );
 
-        $this->assertInstanceOf(TestClassObjectArgs::class, $tc);
-        $this->assertInstanceOf(TestClass::class, $tc->tc);
-        $this->assertSame('teststring', $tc->test);
-        $this->assertSame('predefined', $tc->tc->str);
+        $this->assertInstanceOf(TestClassObjectArgs::class, $testobj);
+        $this->assertInstanceOf(TestClass::class, $testobj->testobj);
+        $this->assertSame('teststring', $testobj->test);
+        $this->assertSame('predefined', $testobj->testobj->str);
     }
 
     public function testResolveWithInjectCallback(): void
     {
         $creator = new Creator();
-        $tc = $creator->create(
+        $testobj = $creator->create(
             TestClassInjectCallback::class,
             injectCallback: function (Inject $inject): mixed {
                 return $inject->value . ' ' . $inject->meta['id'];
             },
         );
 
-        $this->assertSame('callback injected id', $tc->callback);
+        $this->assertSame('callback injected id', $testobj->callback);
     }
 
     public function testResolveConstructorWithInjectCallback(): void
     {
         $creator = new Creator();
-        $tc = $creator->create(
+        $testobj = $creator->create(
             TestClassInjectCallback::class,
             constructor: 'create',
             injectCallback: function (Inject $inject): mixed {
@@ -79,55 +79,55 @@ final class CreatorTest extends TestCase
             },
         );
 
-        $this->assertSame('create callback injected id', $tc->callback);
+        $this->assertSame('create callback injected id', $testobj->callback);
     }
 
     public function testResolveWithPartialArgsAndDefaultValues(): void
     {
         $creator = new Creator($this->container());
-        $tc = $creator->create(TestClassDefault::class, ['number' => 73]);
+        $testobj = $creator->create(TestClassDefault::class, ['number' => 73]);
 
-        $this->assertInstanceOf(TestClassDefault::class, $tc);
-        $this->assertSame('default', $tc->name);
-        $this->assertSame(73, $tc->number);
-        $this->assertInstanceOf(TestClass::class, $tc->tc);
+        $this->assertInstanceOf(TestClassDefault::class, $testobj);
+        $this->assertSame('default', $testobj->name);
+        $this->assertSame(73, $testobj->number);
+        $this->assertInstanceOf(TestClass::class, $testobj->testobj);
     }
 
     public function testResolveWithSimpleFactoryMethod(): void
     {
         $creator = new Creator($this->container());
-        $tc = $creator->create(TestClassObjectArgs::class, constructor: 'fromDefaults');
+        $testobj = $creator->create(TestClassObjectArgs::class, constructor: 'fromDefaults');
 
-        $this->assertSame(true, $tc->tc instanceof TestClass);
-        $this->assertSame(true, $tc->app instanceof TestClassApp);
-        $this->assertSame('fromDefaults', $tc->app->app());
-        $this->assertSame('fromDefaults', $tc->test);
+        $this->assertSame(true, $testobj->testobj instanceof TestClass);
+        $this->assertSame(true, $testobj->app instanceof TestClassApp);
+        $this->assertSame('fromDefaults', $testobj->app->app());
+        $this->assertSame('fromDefaults', $testobj->test);
     }
 
     public function testResolveWithFactoryMethodAndArgs(): void
     {
         $creator = new Creator($this->container());
-        $tc = $creator->create(
+        $testobj = $creator->create(
             TestClassObjectArgs::class,
             ['test' => 'passed', 'app' => 'passed'],
             constructor: 'fromArgs'
         );
 
-        $this->assertSame(true, $tc->tc instanceof TestClass);
-        $this->assertSame(true, $tc->app instanceof TestClassApp);
-        $this->assertSame('passed', $tc->app->app());
-        $this->assertSame('passed', $tc->test);
+        $this->assertSame(true, $testobj->testobj instanceof TestClass);
+        $this->assertSame(true, $testobj->app instanceof TestClassApp);
+        $this->assertSame('passed', $testobj->app->app());
+        $this->assertSame('passed', $testobj->test);
     }
 
     public function testResolveWithNonAssocArgsArray(): void
     {
         $creator = new Creator($this->container());
-        $tc = $creator->create(TestClassObjectArgs::class, [new TestClass('non assoc'), 'passed']);
+        $testobj = $creator->create(TestClassObjectArgs::class, [new TestClass('non assoc'), 'passed']);
 
-        $this->assertSame(true, $tc->tc instanceof TestClass);
-        $this->assertSame('non assoc', $tc->tc->str);
-        $this->assertSame('passed', $tc->test);
-        $this->assertSame(true, $tc->app instanceof TestClassApp);
+        $this->assertSame(true, $testobj->testobj instanceof TestClass);
+        $this->assertSame('non assoc', $testobj->testobj->str);
+        $this->assertSame('passed', $testobj->test);
+        $this->assertSame(true, $testobj->app instanceof TestClassApp);
     }
 
     public function testResolveNestedClassesWithPredefinedAndInject(): void
@@ -166,10 +166,10 @@ final class CreatorTest extends TestCase
         $container = $this->container();
         $container->add(TestInterface::class, new TestClass('text'));
         $creator = new Creator($container);
-        $tc = $creator->create(TestInterface::class);
+        $testobj = $creator->create(TestInterface::class);
 
-        $this->assertInstanceof(TestClass::class, $tc);
-        $this->assertSame('text', $tc->str);
+        $this->assertInstanceof(TestClass::class, $testobj);
+        $this->assertSame('text', $testobj->str);
     }
 
     public function testTryToResolveUnresolvable(): void

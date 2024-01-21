@@ -8,7 +8,7 @@ class TestClassMultiConstructor
 {
     public function __construct(
         public readonly string $name,
-        public readonly TestClass $tc,
+        public readonly TestClass $testobj,
         public readonly int $number
     ) {
     }

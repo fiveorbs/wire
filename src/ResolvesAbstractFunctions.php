@@ -15,18 +15,18 @@ trait ResolvesAbstractFunctions
     abstract protected function creator(): CreatorInterface;
 
     protected function resolveArgs(
-        ReflectionFunctionAbstract $rf,
+        ReflectionFunctionAbstract $rfn,
         array $predefinedArgs,
         array $predefinedTypes,
         ?callable $injectCallback,
     ): array {
         $combinedArgs = array_merge(
-            $this->resolveInjectedArgs($rf, $predefinedTypes, $injectCallback),
+            $this->resolveInjectedArgs($rfn, $predefinedTypes, $injectCallback),
             $predefinedArgs
         );
 
         $args = [];
-        $parameters = $rf->getParameters();
+        $parameters = $rfn->getParameters();
         $countPredefined = count($combinedArgs);
 
         if (array_is_list($combinedArgs) && $countPredefined > 0) {
@@ -96,14 +96,14 @@ trait ResolvesAbstractFunctions
 
     /** @return array<non-empty-string, mixed> */
     protected function resolveInjectedArgs(
-        ReflectionFunctionAbstract $rf,
+        ReflectionFunctionAbstract $rfn,
         array $predefinedTypes,
         ?callable $injectCallback,
     ): array {
         /** @var array<non-empty-string, mixed> */
         $result = [];
 
-        foreach ($rf->getParameters() as $param) {
+        foreach ($rfn->getParameters() as $param) {
             $injectAttr = $param->getAttributes(Inject::class)[0] ?? null;
 
             if ($injectAttr) {

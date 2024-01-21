@@ -25,9 +25,9 @@ class CallableResolver
         ?callable $injectCallback = null,
     ): array {
         $callable = Closure::fromCallable($callable);
-        $rf = new ReflectionFunction($callable);
+        $rfn = new ReflectionFunction($callable);
 
-        return $this->resolveArgs($rf, $predefinedArgs, $predefinedTypes, $injectCallback);
+        return $this->resolveArgs($rfn, $predefinedArgs, $predefinedTypes, $injectCallback);
     }
 
     public function creator(): CreatorInterface

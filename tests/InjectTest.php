@@ -49,13 +49,13 @@ final class InjectTest extends TestCase
         $resolver = new CallableResolver($creator);
 
         $func =  function (
-            Container $r,
+            Container $container,
             #[Inject('injected')]
             TestClassApp $app,
             #[Inject('Chuck', Type::Literal)]
             string $name
         ): array {
-            return [$app->app, $name, $r];
+            return [$app->app, $name, $container];
         };
 
         $result = $func(...$resolver->resolve($func));
@@ -79,7 +79,7 @@ final class InjectTest extends TestCase
         $this->assertSame('arg1', $obj->arg1);
         $this->assertSame(13, $obj->arg2);
         $this->assertInstanceOf(Container::class, $obj->container);
-        $this->assertSame('Stringable extended', (string)$obj->tc);
+        $this->assertSame('Stringable extended', (string)$obj->testobj);
     }
 
     public function testInjectTypedArguments(): void

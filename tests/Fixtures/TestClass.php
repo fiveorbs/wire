@@ -17,7 +17,7 @@ class TestClass implements TestInterface
 
     public function __invoke(string $name = 'default', int $number = 13): string
     {
-        return '';
+        return $name . (string)$number;
     }
 
     public function test(): string

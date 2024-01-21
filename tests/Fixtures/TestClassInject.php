@@ -13,7 +13,7 @@ class TestClassInject
 {
     public ?Container $container = null;
     public ?TestClassApp $app = null;
-    public ?TestClass $tc = null;
+    public ?TestClass $testobj = null;
     public string $arg1 = '';
     public int $arg2 = 0;
     public string $calledArg1 = '';
@@ -28,13 +28,13 @@ class TestClassInject
         #[Inject(13)]
         int $arg2,
         #[Inject(TestClassExtended::class)]
-        TestClass $tc,
+        TestClass $testobj,
     ) {
         $this->container = $container;
         $this->app = $app;
         $this->arg1 = $arg1;
         $this->arg2 = $arg2;
-        $this->tc = $tc;
+        $this->testobj = $testobj;
     }
 
     public function callThis(

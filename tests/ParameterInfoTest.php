@@ -16,25 +16,29 @@ final class ParameterInfoTest extends TestCase
 {
     public function testParameterInfoClass(): void
     {
-        $rc = new ReflectionClass(TestClassUnionTypeConstructor::class);
-        $c = $rc->getConstructor();
-        $p = $c->getParameters()[0];
-        $s = 'Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor::__construct(' .
-            '..., Conia\Wire\Tests\Fixtures\TestClassApp|' .
-            'Conia\Wire\Tests\Fixtures\TestClassRequest $param, ...)';
+        $rcls = new ReflectionClass(TestClassUnionTypeConstructor::class);
+        $constructor = $rcls->getConstructor();
+        $param = $constructor->getParameters()[0];
 
-        $this->assertSame($s, ParameterInfo::info($p));
+        $this->assertSame(
+            'Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor::__construct(' .
+            '..., Conia\Wire\Tests\Fixtures\TestClassApp|' .
+            'Conia\Wire\Tests\Fixtures\TestClassRequest $param, ...)',
+            ParameterInfo::info($param)
+        );
     }
 
     public function testParameterInfoFunction(): void
     {
-        $rf = new ReflectionFunction(function (TestClassApp $app) {
+        $rfun = new ReflectionFunction(function (TestClassApp $app) {
             $app->debug();
         });
-        $p = $rf->getParameters()[0];
-        $s = 'Conia\Wire\Tests\ParameterInfoTest::Conia\Wire\Tests\{closure}' .
-            '(..., Conia\Wire\Tests\Fixtures\TestClassApp $app, ...)';
+        $param = $rfun->getParameters()[0];
 
-        $this->assertSame($s, ParameterInfo::info($p));
+        $this->assertSame(
+            'Conia\Wire\Tests\ParameterInfoTest::Conia\Wire\Tests\{closure}' .
+            '(..., Conia\Wire\Tests\Fixtures\TestClassApp $app, ...)',
+            ParameterInfo::info($param)
+        );
     }
 }
