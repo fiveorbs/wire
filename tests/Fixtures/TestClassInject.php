@@ -109,7 +109,7 @@ class TestClassInject
 	}
 
 	public static function injectEnvVarDoesNotExist(
-		#[Inject('CONIA_ENV_VAR_DOES_NOT_EXIST', Type::Env)]
+		#[Inject('ENV_VAR_DOES_NOT_EXIST', Type::Env)]
 		string|bool $env,
 	): string|bool {
 		return $env;
