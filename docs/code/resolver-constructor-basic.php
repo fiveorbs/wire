@@ -8,14 +8,12 @@ use FiveOrbs\Wire\Wire;
 
 class Value
 {
-    public string $str = 'value property';
+	public string $str = 'value property';
 }
 
 class Model
 {
-    public function __construct(public Value $value)
-    {
-    }
+	public function __construct(public Value $value) {}
 }
 
 $resolver = Wire::constructorResolver();

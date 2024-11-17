@@ -8,9 +8,7 @@ use FiveOrbs\Wire\Wire;
 
 class Model
 {
-    public function __construct(public string $str = 'default value')
-    {
-    }
+	public function __construct(public string $str = 'default value') {}
 }
 
 $creator = Wire::creator();

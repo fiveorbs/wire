@@ -9,22 +9,20 @@ use FiveOrbs\Wire\Wire;
 
 interface ValueInterface
 {
-    public function get(): string;
+	public function get(): string;
 }
 
 class Value implements ValueInterface
 {
-    public function get(): string
-    {
-        return 'From Value';
-    }
+	public function get(): string
+	{
+		return 'From Value';
+	}
 }
 
 class Model
 {
-    public function __construct(public ValueInterface $value)
-    {
-    }
+	public function __construct(public ValueInterface $value) {}
 }
 
 $container = new Container();

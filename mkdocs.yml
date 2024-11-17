@@ -12,15 +12,15 @@ nav:
     - changelog.md
     - license.md
 theme:
-    name: fiveorbs
+  name: fiveorbs
 repo_url: https://github.com/fiveorbs/wire
 extra:
-    project: Wire
+  project: Wire
 plugins:
-    - search
-    - macros:
-        module_name: docs/main
+  - search
+  - macros:
+      module_name: docs/main
 markdown_extensions:
-    - admonition
-    - pymdownx.snippets:
-        base_path: [".", "docs/code"]
+  - admonition
+  - pymdownx.snippets:
+      base_path: [".", "docs/code"]

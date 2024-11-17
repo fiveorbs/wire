@@ -6,18 +6,18 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 class Value
 {
-    public function get(): string
-    {
-        return 'Value';
-    }
+	public function get(): string
+	{
+		return 'Value';
+	}
 }
 
 class Model
 {
-    public ?Value $value = null;
+	public ?Value $value = null;
 
-    public function setValue(Value $value): void
-    {
-        $this->value = $value;
-    }
+	public function setValue(Value $value): void
+	{
+		$this->value = $value;
+	}
 }

@@ -9,19 +9,19 @@ use FiveOrbs\Wire\Type;
 
 class TestClassInjectCallback
 {
-    public readonly string $callback;
+	public readonly string $callback;
 
-    public function __construct(
-        #[Inject('callback', Type::Callback, id: 'injected id')]
-        string $callback,
-    ) {
-        $this->callback = $callback;
-    }
+	public function __construct(
+		#[Inject('callback', Type::Callback, id: 'injected id')]
+		string $callback,
+	) {
+		$this->callback = $callback;
+	}
 
-    public static function create(
-        #[Inject('create callback', Type::Callback, id: 'injected id')]
-        string $callback,
-    ): self {
-        return new self($callback);
-    }
+	public static function create(
+		#[Inject('create callback', Type::Callback, id: 'injected id')]
+		string $callback,
+	): self {
+		return new self($callback);
+	}
 }

@@ -7,24 +7,20 @@ require __DIR__ . '/../../vendor/autoload.php';
 use FiveOrbs\Wire\Inject;
 use FiveOrbs\Wire\Wire;
 
-class Model
-{
-}
+class Model {}
 
-class SubModel extends Model
-{
-}
+class SubModel extends Model {}
 
 function expectsModel(Model $model): Model
 {
-    return $model;
+	return $model;
 }
 
 function alsoExpectsModel(
-    #[Inject(SubModel::class)]
-    Model $model
+	#[Inject(SubModel::class)]
+	Model $model,
 ): Model {
-    return $model;
+	return $model;
 }
 
 $resolver = Wire::callableResolver();

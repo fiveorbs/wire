@@ -6,7 +6,5 @@ namespace FiveOrbs\Wire\Tests\Fixtures;
 
 class TestClassRequest
 {
-    public function __construct()
-    {
-    }
+	public function __construct() {}
 }

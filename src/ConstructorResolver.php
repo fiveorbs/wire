@@ -9,32 +9,31 @@ use ReflectionClass;
 /** @psalm-api */
 class ConstructorResolver
 {
-    use ResolvesAbstractFunctions;
+	use ResolvesAbstractFunctions;
 
-    public function __construct(
-        protected readonly CreatorInterface $creator,
-    ) {
-    }
+	public function __construct(
+		protected readonly CreatorInterface $creator,
+	) {}
 
-    /** @psalm-param ReflectionClass|class-string $class */
-    public function resolve(
-        ReflectionClass|string $class,
-        array $predefinedArgs = [],
-        array $predefinedTypes = [],
-        ?callable $injectCallback = null,
-    ): array {
-        $rcls = is_string($class) ? new ReflectionClass($class) : $class;
-        $constructor = $rcls->getConstructor();
+	/** @psalm-param ReflectionClass|class-string $class */
+	public function resolve(
+		ReflectionClass|string $class,
+		array $predefinedArgs = [],
+		array $predefinedTypes = [],
+		?callable $injectCallback = null,
+	): array {
+		$rcls = is_string($class) ? new ReflectionClass($class) : $class;
+		$constructor = $rcls->getConstructor();
 
-        if ($constructor) {
-            return $this->resolveArgs($constructor, $predefinedArgs, $predefinedTypes, $injectCallback);
-        }
+		if ($constructor) {
+			return $this->resolveArgs($constructor, $predefinedArgs, $predefinedTypes, $injectCallback);
+		}
 
-        return $predefinedArgs;
-    }
+		return $predefinedArgs;
+	}
 
-    public function creator(): CreatorInterface
-    {
-        return $this->creator;
-    }
+	public function creator(): CreatorInterface
+	{
+		return $this->creator;
+	}
 }

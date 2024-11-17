@@ -8,11 +8,11 @@ use FiveOrbs\Wire\Wire;
 
 class Value
 {
-    public string $str = 'value property';
+	public string $str = 'value property';
 }
 
 $closure =  function (Value $value): string {
-    return $value->str;
+	return $value->str;
 };
 $resolver = Wire::callableResolver();
 $args = $resolver->resolve($closure);

@@ -8,31 +8,31 @@ use FiveOrbs\Wire\Wire;
 
 class Value
 {
-    public string $str = 'value property';
+	public string $str = 'value property';
 }
 
 class Model
 {
-    public Value $value;
-    public string $arg;
-    public string $type;
+	public Value $value;
+	public string $arg;
+	public string $type;
 
-    public static function create(string $arg, string $type, Value $value)
-    {
-        $model = new self();
-        $model->value = $value;
-        $model->arg = $arg;
-        $model->type = $type;
+	public static function create(string $arg, string $type, Value $value)
+	{
+		$model = new self();
+		$model->value = $value;
+		$model->arg = $arg;
+		$model->type = $type;
 
-        return $model;
-    }
+		return $model;
+	}
 }
 
 $resolver = Wire::callableResolver();
 $args = $resolver->resolve(
-    [Model::class, 'create'],
-    predefinedArgs: ['arg' => 'predefined argument'],
-    predefinedTypes: ['string' => 'predefined type'],
+	[Model::class, 'create'],
+	predefinedArgs: ['arg' => 'predefined argument'],
+	predefinedTypes: ['string' => 'predefined type'],
 );
 $model = Model::create(...$args);
 

@@ -10,30 +10,30 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {
-    public function __construct(?string $name = null, array $data = [], $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
-    }
+	public function __construct(?string $name = null, array $data = [], $dataName = '')
+	{
+		parent::__construct($name, $data, $dataName);
+	}
 
-    public function container(): Container
-    {
-        $container = new Container();
-        $container->add(Container::class, $container);
+	public function container(): Container
+	{
+		$container = new Container();
+		$container->add(Container::class, $container);
 
-        return $container;
-    }
+		return $container;
+	}
 
-    public function creator(): Creator
-    {
-        return new Creator($this->container());
-    }
+	public function creator(): Creator
+	{
+		return new Creator($this->container());
+	}
 
-    public function throws(string $exception, string $message = null): void
-    {
-        $this->expectException($exception);
+	public function throws(string $exception, string $message = null): void
+	{
+		$this->expectException($exception);
 
-        if ($message) {
-            $this->expectExceptionMessage($message);
-        }
-    }
+		if ($message) {
+			$this->expectExceptionMessage($message);
+		}
+	}
 }

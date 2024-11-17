@@ -8,14 +8,14 @@ use Psr\Container\ContainerInterface as Container;
 
 interface CreatorInterface
 {
-    /** @psalm-param class-string $class */
-    public function create(
-        string $class,
-        array $predefinedArgs = [],
-        array $predefinedTypes = [],
-        ?callable $injectCallback = null,
-        string $constructor = '',
-    ): object;
+	/** @psalm-param class-string $class */
+	public function create(
+		string $class,
+		array $predefinedArgs = [],
+		array $predefinedTypes = [],
+		?callable $injectCallback = null,
+		string $constructor = '',
+	): object;
 
-    public function container(): ?Container;
+	public function container(): ?Container;
 }

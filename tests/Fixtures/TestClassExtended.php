@@ -6,8 +6,8 @@ namespace FiveOrbs\Wire\Tests\Fixtures;
 
 class TestClassExtended extends TestClass
 {
-    public function __toString(): string
-    {
-        return 'Stringable extended';
-    }
+	public function __toString(): string
+	{
+		return 'Stringable extended';
+	}
 }

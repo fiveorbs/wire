@@ -9,21 +9,21 @@ use FiveOrbs\Wire\Wire;
 
 class Value
 {
-    public function get(): string
-    {
-        return 'Autowired Value';
-    }
+	public function get(): string
+	{
+		return 'Autowired Value';
+	}
 }
 
 #[Call('setValue')]
 class Model
 {
-    public ?Value $value = null;
+	public ?Value $value = null;
 
-    public function setValue(Value $value): void
-    {
-        $this->value = $value;
-    }
+	public function setValue(Value $value): void
+	{
+		$this->value = $value;
+	}
 }
 
 $creator = Wire::creator();

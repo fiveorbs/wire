@@ -10,12 +10,12 @@ use FiveOrbs\Wire\Wire;
 #[Call('setString', str: 'Coming from attribute')]
 class Model
 {
-    public string $str = '';
+	public string $str = '';
 
-    public function setString(string $str): void
-    {
-        $this->str = $str;
-    }
+	public function setString(string $str): void
+	{
+		$this->str = $str;
+	}
 }
 
 $creator = Wire::creator();

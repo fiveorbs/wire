@@ -13,35 +13,35 @@ use FiveOrbs\Wire\Tests\Fixtures\TestClassUntypedConstructor;
 
 final class CreatorUnresolvableTest extends TestCase
 {
-    public function testTryToResolveUnresolvable(): void
-    {
-        $this->throws(WireException::class, 'Unresolvable');
+	public function testTryToResolveUnresolvable(): void
+	{
+		$this->throws(WireException::class, 'Unresolvable');
 
-        $creator = new Creator();
-        $creator->create(TestClassDefault::class);
-    }
+		$creator = new Creator();
+		$creator->create(TestClassDefault::class);
+	}
 
-    public function testRejectClassWithUntypedConstructor(): void
-    {
-        $this->throws(WireException::class, 'typed constructor parameters');
+	public function testRejectClassWithUntypedConstructor(): void
+	{
+		$this->throws(WireException::class, 'typed constructor parameters');
 
-        $creator = new Creator();
-        $creator->create(TestClassUntypedConstructor::class);
-    }
+		$creator = new Creator();
+		$creator->create(TestClassUntypedConstructor::class);
+	}
 
-    public function testRejectClassWithUnsupportedConstructorUnionTypes(): void
-    {
-        $this->throws(WireException::class, 'union or intersection');
+	public function testRejectClassWithUnsupportedConstructorUnionTypes(): void
+	{
+		$this->throws(WireException::class, 'union or intersection');
 
-        $creator = new Creator();
-        $creator->create(TestClassUnionTypeConstructor::class);
-    }
+		$creator = new Creator();
+		$creator->create(TestClassUnionTypeConstructor::class);
+	}
 
-    public function testRejectClassWithUnsupportedConstructorIntersectionTypes(): void
-    {
-        $this->throws(WireException::class, 'union or intersection');
+	public function testRejectClassWithUnsupportedConstructorIntersectionTypes(): void
+	{
+		$this->throws(WireException::class, 'union or intersection');
 
-        $creator = new Creator();
-        $creator->create(TestClassIntersectionTypeConstructor::class);
-    }
+		$creator = new Creator();
+		$creator->create(TestClassIntersectionTypeConstructor::class);
+	}
 }

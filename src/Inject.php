@@ -10,13 +10,13 @@ use Attribute;
 #[Attribute(Attribute::TARGET_PARAMETER)]
 readonly class Inject
 {
-    public array $meta;
+	public array $meta;
 
-    public function __construct(
-        public mixed $value,
-        public ?Type $type = null,
-        mixed ...$meta,
-    ) {
-        $this->meta = $meta;
-    }
+	public function __construct(
+		public mixed $value,
+		public ?Type $type = null,
+		mixed ...$meta,
+	) {
+		$this->meta = $meta;
+	}
 }

@@ -1,30 +1,29 @@
 <?xml version="1.0"?>
 <ruleset name="fiveorbs">
-    <description>coding standard</description>
+	<description>coding standard</description>
+	<rule ref="PSR12">
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed" />
+		<exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine" />
+		<exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore" />
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />
+	</rule>
+	<rule ref="Generic.Files.LineLength">
+		<properties>
+			<property name="lineLimit" value="120"/>
+			<property name="absoluteLineLimit" value="0"/>
+		</properties>
+	</rule>
+	<exclude-pattern>tests/templates/</exclude-pattern>
 
-    <rule ref="PSR12">
-        <!-- Allow empty constructors with curly brackets on the same line -->
-        <exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore"/>
-        <!-- Why do we have to shout CONSTANTS? -->
-        <exclude name="Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase"/>
-    </rule>
+	<rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+		<exclude-pattern>./docs/code/*\.php</exclude-pattern>
+	</rule>
 
-    <rule ref="Generic.Files.LineLength">
-        <properties>
-            <property name="lineLimit" value="120"/>
-            <property name="absoluteLineLimit" value="0"/>
-        </properties>
-    </rule>
+	<rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+		<exclude-pattern>./docs/code/*\.php</exclude-pattern>
+	</rule>
 
-    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
-        <exclude-pattern>./docs/code/*\.php</exclude-pattern>
-    </rule>
-
-    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
-        <exclude-pattern>./docs/code/*\.php</exclude-pattern>
-    </rule>
-
-    <rule ref="PSR1.Classes.ClassDeclaration.MultipleClasses">
-        <exclude-pattern>./docs/code/*\.php</exclude-pattern>
-    </rule>
+	<rule ref="PSR1.Classes.ClassDeclaration.MultipleClasses">
+		<exclude-pattern>./docs/code/*\.php</exclude-pattern>
+	</rule>
 </ruleset>

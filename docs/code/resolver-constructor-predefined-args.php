@@ -8,24 +8,23 @@ use FiveOrbs\Wire\Wire;
 
 class Value
 {
-    public string $str = 'value property';
+	public string $str = 'value property';
 }
 
 class Model
 {
-    public function __construct(
-        public string $arg,
-        public string $type,
-        public Value $value
-    ) {
-    }
+	public function __construct(
+		public string $arg,
+		public string $type,
+		public Value $value,
+	) {}
 }
 
 $resolver = Wire::constructorResolver();
 $args = $resolver->resolve(
-    Model::class,
-    predefinedArgs: ['arg' => 'predefined argument'],
-    predefinedTypes: ['string' => 'predefined type']
+	Model::class,
+	predefinedArgs: ['arg' => 'predefined argument'],
+	predefinedTypes: ['string' => 'predefined type'],
 );
 $model = new Model(...$args);
 

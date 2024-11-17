@@ -6,6 +6,4 @@ namespace FiveOrbs\Wire\Exception;
 
 use RuntimeException;
 
-class WireException extends RuntimeException
-{
-}
+class WireException extends RuntimeException {}

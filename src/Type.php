@@ -6,9 +6,9 @@ namespace FiveOrbs\Wire;
 
 enum Type
 {
-    case Literal;
-    case Env;
-    case Create;
-    case Entry;
-    case Callback;
+	case Literal;
+	case Env;
+	case Create;
+	case Entry;
+	case Callback;
 }

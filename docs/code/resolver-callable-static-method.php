@@ -8,15 +8,15 @@ use FiveOrbs\Wire\Wire;
 
 class Value
 {
-    public string $str = 'value property';
+	public string $str = 'value property';
 }
 
 class Model
 {
-    public static function readValue(Value $value): string
-    {
-        return $value->str;
-    }
+	public static function readValue(Value $value): string
+	{
+		return $value->str;
+	}
 }
 
 $resolver = Wire::callableResolver();

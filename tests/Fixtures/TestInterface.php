@@ -6,5 +6,5 @@ namespace FiveOrbs\Wire\Tests\Fixtures;
 
 interface TestInterface
 {
-    public function test(): string;
+	public function test(): string;
 }

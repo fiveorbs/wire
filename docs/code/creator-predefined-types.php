@@ -8,46 +8,39 @@ use FiveOrbs\Wire\Wire;
 
 class DeepValue
 {
-    public function __construct(public readonly string $value)
-    {
-    }
+	public function __construct(public readonly string $value) {}
 }
 
 class Value
 {
-    public function __construct(public readonly DeepValue $deep)
-    {
-    }
+	public function __construct(public readonly DeepValue $deep) {}
 
-    public function get(): string
-    {
-        return 'Autowired Value';
-    }
+	public function get(): string
+	{
+		return 'Autowired Value';
+	}
 }
 
 class AnotherValue
 {
-    public function __construct(public readonly string $str)
-    {
-    }
+	public function __construct(public readonly string $str) {}
 }
 
 class Model
 {
-    public function __construct(
-        public readonly Value $value,
-        public readonly AnotherValue $another,
-    ) {
-    }
+	public function __construct(
+		public readonly Value $value,
+		public readonly AnotherValue $another,
+	) {}
 }
 
 $creator = Wire::creator();
 $model = $creator->create(
-    Model::class,
-    predefinedTypes: [
-        AnotherValue::class => new AnotherValue('predefined value'),
-        DeepValue::class => new DeepValue('deep value'),
-    ]
+	Model::class,
+	predefinedTypes: [
+		AnotherValue::class => new AnotherValue('predefined value'),
+		DeepValue::class => new DeepValue('deep value'),
+	],
 );
 
 assert($model instanceof Model);

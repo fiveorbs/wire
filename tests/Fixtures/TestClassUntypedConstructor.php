@@ -6,7 +6,5 @@ namespace FiveOrbs\Wire\Tests\Fixtures;
 
 class TestClassUntypedConstructor
 {
-    public function __construct(public $param)
-    {
-    }
+	public function __construct(public $param) {}
 }

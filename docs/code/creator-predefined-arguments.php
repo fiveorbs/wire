@@ -8,24 +8,23 @@ use FiveOrbs\Wire\Wire;
 
 class Value
 {
-    public function get(): string
-    {
-        return 'Autowired Value';
-    }
+	public function get(): string
+	{
+		return 'Autowired Value';
+	}
 }
 
 class Model
 {
-    public function __construct(
-        protected string $str,
-        protected Value $value
-    ) {
-    }
+	public function __construct(
+		protected string $str,
+		protected Value $value,
+	) {}
 
-    public function value(): string
-    {
-        return $this->value->get() . ' ' . $this->str;
-    }
+	public function value(): string
+	{
+		return $this->value->get() . ' ' . $this->str;
+	}
 }
 
 $creator = Wire::creator();

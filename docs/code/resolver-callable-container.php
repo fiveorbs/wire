@@ -9,19 +9,17 @@ use FiveOrbs\Wire\Wire;
 
 class Value
 {
-    public function __construct(protected string $str)
-    {
-    }
+	public function __construct(protected string $str) {}
 
-    public function get(): string
-    {
-        return $this->str;
-    }
+	public function get(): string
+	{
+		return $this->str;
+	}
 }
 
 function readValue(Value $value): string
 {
-    return $value->get();
+	return $value->get();
 }
 
 $container = new Container();
