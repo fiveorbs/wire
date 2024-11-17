@@ -1,7 +1,7 @@
 ---
 title: Introduction
 ---
-Conia Wire
+FiveOrbs Wire
 ==========
 
 ***Wire*** provides an autowiring object creator that utilizes PHP's reflection
@@ -13,7 +13,7 @@ with a PSR-11 dependency injection container.
 Installation
 ------------
 
-    composer require conia/wire
+    composer require fiveorbs/wire
 
 How to create objects
 ---------------------

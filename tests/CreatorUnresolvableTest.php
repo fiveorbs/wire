@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Tests;
+namespace FiveOrbs\Wire\Tests;
 
-use Conia\Wire\Creator;
-use Conia\Wire\Exception\WireException;
-use Conia\Wire\Tests\Fixtures\TestClassDefault;
-use Conia\Wire\Tests\Fixtures\TestClassIntersectionTypeConstructor;
-use Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor;
-use Conia\Wire\Tests\Fixtures\TestClassUntypedConstructor;
+use FiveOrbs\Wire\Creator;
+use FiveOrbs\Wire\Exception\WireException;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassDefault;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassIntersectionTypeConstructor;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassUnionTypeConstructor;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassUntypedConstructor;
 
 final class CreatorUnresolvableTest extends TestCase
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Tests\Fixtures;
+namespace FiveOrbs\Wire\Tests\Fixtures;
 
-use Conia\Wire\Inject;
-use Conia\Wire\Type;
+use FiveOrbs\Wire\Inject;
+use FiveOrbs\Wire\Type;
 
 class TestClassInjectCallback
 {

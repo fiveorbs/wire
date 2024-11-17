@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Tests;
+namespace FiveOrbs\Wire\Tests;
 
-use Conia\Wire\ConstructorResolver;
-use Conia\Wire\Inject;
-use Conia\Wire\Tests\Fixtures\TestClass;
-use Conia\Wire\Tests\Fixtures\TestClassConstructor;
-use Conia\Wire\Tests\Fixtures\TestClassInjectCallback;
-use Conia\Wire\Tests\Fixtures\TestClassUsingNested;
+use FiveOrbs\Wire\ConstructorResolver;
+use FiveOrbs\Wire\Inject;
+use FiveOrbs\Wire\Tests\Fixtures\TestClass;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassConstructor;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassInjectCallback;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassUsingNested;
 
 final class ConstructorResolverTest extends TestCase
 {

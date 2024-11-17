@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Tests;
+namespace FiveOrbs\Wire\Tests;
 
-use Conia\Wire\CallableResolver;
-use Conia\Wire\ConstructorResolver;
-use Conia\Wire\Creator;
-use Conia\Wire\Exception\WireException;
-use Conia\Wire\Inject;
-use Conia\Wire\Tests\Fixtures\Container;
-use Conia\Wire\Tests\Fixtures\TestClass;
-use Conia\Wire\Tests\Fixtures\TestClassApp;
-use Conia\Wire\Tests\Fixtures\TestClassInject;
-use Conia\Wire\Tests\TestCase;
-use Conia\Wire\Type;
+use FiveOrbs\Wire\CallableResolver;
+use FiveOrbs\Wire\ConstructorResolver;
+use FiveOrbs\Wire\Creator;
+use FiveOrbs\Wire\Exception\WireException;
+use FiveOrbs\Wire\Inject;
+use FiveOrbs\Wire\Tests\Fixtures\Container;
+use FiveOrbs\Wire\Tests\Fixtures\TestClass;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassApp;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassInject;
+use FiveOrbs\Wire\Tests\TestCase;
+use FiveOrbs\Wire\Type;
 
 final class InjectTest extends TestCase
 {

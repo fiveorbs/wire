@@ -1,11 +1,11 @@
-Conia Wire
+FiveOrbs Wire
 ==========
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e0fec62285124af1bea3a00d64c120df)](https://app.codacy.com/gh/coniadev/wire/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/e0fec62285124af1bea3a00d64c120df)](https://app.codacy.com/gh/coniadev/wire/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
-[![Psalm level](https://shepherd.dev/github/coniadev/wire/level.svg?)](https://conia.dev/wire)
-[![Psalm coverage](https://shepherd.dev/github/coniadev/wire/coverage.svg?)](https://shepherd.dev/github/coniadev/wire)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e0fec62285124af1bea3a00d64c120df)](https://app.codacy.com/gh/fiveorbs/wire/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/e0fec62285124af1bea3a00d64c120df)](https://app.codacy.com/gh/fiveorbs/wire/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+[![Psalm level](https://shepherd.dev/github/fiveorbs/wire/level.svg?)](https://fiveorbs.dev/wire)
+[![Psalm coverage](https://shepherd.dev/github/fiveorbs/wire/coverage.svg?)](https://shepherd.dev/github/fiveorbs/wire)
 
 ***Wire*** provides an autowiring object creator that utilizes PHP's reflection
 capabilities to automatically resolve constructor arguments recursively. It
@@ -13,18 +13,18 @@ additionally comes with classes that assist in resolving arguments of callables
 such as functions, methods, closures or class constructors. It can be combined
 with a PSR-11 dependency injection container.
 
-Documentation can be found on the website: [conia.dev/wire](https://conia.dev/wire/)
+Documentation can be found on the website: [fiveorbs.dev/wire](https://fiveorbs.dev/wire/)
 
 Installation
 ------------
 
-    composer require conia/wire
+    composer require fiveorbs/wire
 
 Basic usage
 -----------
 
 ```php
-use Conia\Wire\Wire;
+use FiveOrbs\Wire\Wire;
 
 class Value
 {
@@ -54,6 +54,6 @@ assert($model->value() === 'Autowired Value');
 License
 -------
 
-Conia Wire is released under the MIT [license](LICENSE.md).
+FiveOrbs Wire is released under the MIT [license](LICENSE.md).
 
 Copyright © 2023-2024 ebene fünf GmbH. All rights reserved.

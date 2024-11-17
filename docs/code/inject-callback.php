@@ -6,10 +6,10 @@ declare(strict_types=1);
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use Conia\Wire\Inject;
-use Conia\Wire\Tests\Fixtures\Container;
-use Conia\Wire\Type;
-use Conia\Wire\Wire;
+use FiveOrbs\Wire\Inject;
+use FiveOrbs\Wire\Tests\Fixtures\Container;
+use FiveOrbs\Wire\Type;
+use FiveOrbs\Wire\Wire;
 
 class Value
 {

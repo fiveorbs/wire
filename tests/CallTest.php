@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Tests;
+namespace FiveOrbs\Wire\Tests;
 
-use Conia\Wire\Call;
-use Conia\Wire\Creator;
-use Conia\Wire\Exception\WireException;
-use Conia\Wire\Tests\Fixtures\Container;
-use Conia\Wire\Tests\Fixtures\TestClassApp;
-use Conia\Wire\Tests\Fixtures\TestClassCall;
-use Conia\Wire\Tests\Fixtures\TestClassInject;
-use Conia\Wire\Tests\Fixtures\TestClassRequest;
-use Conia\Wire\Tests\TestCase;
+use FiveOrbs\Wire\Call;
+use FiveOrbs\Wire\Creator;
+use FiveOrbs\Wire\Exception\WireException;
+use FiveOrbs\Wire\Tests\Fixtures\Container;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassApp;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassCall;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassInject;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassRequest;
+use FiveOrbs\Wire\Tests\TestCase;
 
 final class CallTest extends TestCase
 {

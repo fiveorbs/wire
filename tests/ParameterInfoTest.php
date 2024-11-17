@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Tests;
+namespace FiveOrbs\Wire\Tests;
 
-use Conia\Wire\ParameterInfo;
-use Conia\Wire\Tests\Fixtures\TestClassApp;
-use Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor;
+use FiveOrbs\Wire\ParameterInfo;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassApp;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassUnionTypeConstructor;
 use PHPUnit\Framework\Attributes\CoversClass;
 use ReflectionClass;
 use ReflectionFunction;
@@ -21,9 +21,9 @@ final class ParameterInfoTest extends TestCase
         $param = $constructor->getParameters()[0];
 
         $this->assertSame(
-            'Conia\Wire\Tests\Fixtures\TestClassUnionTypeConstructor::__construct(' .
-            '..., Conia\Wire\Tests\Fixtures\TestClassApp|' .
-            'Conia\Wire\Tests\Fixtures\TestClassRequest $param, ...)',
+            'FiveOrbs\Wire\Tests\Fixtures\TestClassUnionTypeConstructor::__construct(' .
+            '..., FiveOrbs\Wire\Tests\Fixtures\TestClassApp|' .
+            'FiveOrbs\Wire\Tests\Fixtures\TestClassRequest $param, ...)',
             ParameterInfo::info($param)
         );
     }
@@ -36,8 +36,8 @@ final class ParameterInfoTest extends TestCase
         $param = $rfun->getParameters()[0];
 
         $this->assertSame(
-            'Conia\Wire\Tests\ParameterInfoTest::Conia\Wire\Tests\{closure}' .
-            '(..., Conia\Wire\Tests\Fixtures\TestClassApp $app, ...)',
+            'FiveOrbs\Wire\Tests\ParameterInfoTest::FiveOrbs\Wire\Tests\{closure}' .
+            '(..., FiveOrbs\Wire\Tests\Fixtures\TestClassApp $app, ...)',
             ParameterInfo::info($param)
         );
     }

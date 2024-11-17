@@ -1,4 +1,4 @@
-site_name: Conia Wire
+site_name: FiveOrbs Wire
 copyright: © 2023-2024 ebene fünf GmbH
 nav:
   - Documentation:
@@ -12,8 +12,8 @@ nav:
     - changelog.md
     - license.md
 theme:
-    name: conia
-repo_url: https://github.com/coniadev/wire
+    name: fiveorbs
+repo_url: https://github.com/fiveorbs/wire
 extra:
     project: Wire
 plugins:

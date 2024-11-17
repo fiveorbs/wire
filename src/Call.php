@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire;
+namespace FiveOrbs\Wire;
 
 use Attribute;
-use Conia\Wire\Exception\WireException;
+use FiveOrbs\Wire\Exception\WireException;
 
 /** @psalm-api */
 #[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_CLASS)]

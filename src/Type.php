@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire;
+namespace FiveOrbs\Wire;
 
 enum Type
 {

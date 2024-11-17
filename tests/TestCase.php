@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Tests;
+namespace FiveOrbs\Wire\Tests;
 
-use Conia\Wire\Creator;
-use Conia\Wire\Tests\Fixtures\Container;
+use FiveOrbs\Wire\Creator;
+use FiveOrbs\Wire\Tests\Fixtures\Container;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase

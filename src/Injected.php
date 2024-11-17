@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire;
+namespace FiveOrbs\Wire;
 
-use Conia\Wire\Exception\WireException;
+use FiveOrbs\Wire\Exception\WireException;
 
 readonly class Injected
 {

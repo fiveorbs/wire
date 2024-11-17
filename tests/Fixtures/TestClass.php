@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Tests\Fixtures;
+namespace FiveOrbs\Wire\Tests\Fixtures;
 
 class TestClass implements TestInterface
 {

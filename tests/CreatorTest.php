@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Tests;
+namespace FiveOrbs\Wire\Tests;
 
-use Conia\Wire\Creator;
-use Conia\Wire\Inject;
-use Conia\Wire\Tests\Fixtures\TestClass;
-use Conia\Wire\Tests\Fixtures\TestClassApp;
-use Conia\Wire\Tests\Fixtures\TestClassConstructor;
-use Conia\Wire\Tests\Fixtures\TestClassDefault;
-use Conia\Wire\Tests\Fixtures\TestClassInjectCallback;
-use Conia\Wire\Tests\Fixtures\TestClassMultiConstructor;
-use Conia\Wire\Tests\Fixtures\TestClassObjectArgs;
-use Conia\Wire\Tests\Fixtures\TestClassUsingNested;
-use Conia\Wire\Tests\Fixtures\TestInterface;
+use FiveOrbs\Wire\Creator;
+use FiveOrbs\Wire\Inject;
+use FiveOrbs\Wire\Tests\Fixtures\TestClass;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassApp;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassConstructor;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassDefault;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassInjectCallback;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassMultiConstructor;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassObjectArgs;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassUsingNested;
+use FiveOrbs\Wire\Tests\Fixtures\TestInterface;
 
 final class CreatorTest extends TestCase
 {

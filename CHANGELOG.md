@@ -14,7 +14,7 @@ Unreleased
   instead of `string|null`. 
 
 
-[0.3.0](https://github.com/coniadev/wire/releases/tag/0.3.0) - 2024-01-18
+[0.3.0](https://github.com/fiveorbs/wire/releases/tag/0.3.0) - 2024-01-18
 -------------------------------------------------------------------------
 
 ### Breaking Changes
@@ -32,7 +32,7 @@ Unreleased
   exists. This way it supports instantiating interfaces if they are registered
   in the container.
 
-[0.2.0](https://github.com/coniadev/wire/releases/tag/0.2.0) - 2024-01-05
+[0.2.0](https://github.com/fiveorbs/wire/releases/tag/0.2.0) - 2024-01-05
 -------------------------------------------------------------------------
 
 Add predefined types.
@@ -43,7 +43,7 @@ Add predefined types.
 - The `predefinedTypes` parameter to `CallableResolver::resolve`.
 - The `predefinedTypes` parameter to `ConstructorResolver::resolve`.
 
-[0.1.0](https://github.com/coniadev/wire/releases/tag/0.1.0) - 2023-11-11
+[0.1.0](https://github.com/fiveorbs/wire/releases/tag/0.1.0) - 2023-11-11
 -------------------------------------------------------------------------
 
 Initial release.

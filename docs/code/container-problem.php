@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use Conia\Wire\Exception\WireException;
-use Conia\Wire\Wire;
+use FiveOrbs\Wire\Exception\WireException;
+use FiveOrbs\Wire\Wire;
 
 class Value
 {

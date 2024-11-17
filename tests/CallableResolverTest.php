@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Tests;
+namespace FiveOrbs\Wire\Tests;
 
-use Conia\Wire\CallableResolver;
-use Conia\Wire\Inject;
-use Conia\Wire\Tests\Fixtures\TestClass;
-use Conia\Wire\Tests\Fixtures\TestClassUsingNested;
+use FiveOrbs\Wire\CallableResolver;
+use FiveOrbs\Wire\Inject;
+use FiveOrbs\Wire\Tests\Fixtures\TestClass;
+use FiveOrbs\Wire\Tests\Fixtures\TestClassUsingNested;
 
 final class CallableResolverTest extends TestCase
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Exception;
+namespace FiveOrbs\Wire\Exception;
 
 use RuntimeException;
 

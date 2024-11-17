@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Tests;
+namespace FiveOrbs\Wire\Tests;
 
-use Conia\Wire\CallableResolver;
-use Conia\Wire\ConstructorResolver;
-use Conia\Wire\Creator;
-use Conia\Wire\Wire;
+use FiveOrbs\Wire\CallableResolver;
+use FiveOrbs\Wire\ConstructorResolver;
+use FiveOrbs\Wire\Creator;
+use FiveOrbs\Wire\Wire;
 use Psr\Container\ContainerInterface as Container;
 
 final class WireTest extends TestCase

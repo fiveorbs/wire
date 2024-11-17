@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use Conia\Wire\Inject;
-use Conia\Wire\Wire;
+use FiveOrbs\Wire\Inject;
+use FiveOrbs\Wire\Wire;
 
 class Model
 {

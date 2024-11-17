@@ -1,5 +1,5 @@
 {
-    "name": "conia/wire",
+    "name": "fiveorbs/wire",
     "description": "Autowiring object creator and callable argument resolver",
     "type": "library",
     "keywords": [
@@ -17,19 +17,19 @@
     ],
     "autoload": {
         "psr-4": {
-            "Conia\\Wire\\": "src/"
+            "FiveOrbs\\Wire\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Conia\\Wire\\Tests\\": "tests"
+            "FiveOrbs\\Wire\\Tests\\": "tests"
         }
     },
     "require": {
         "psr/container": "^2.0"
     },
     "require-dev": {
-        "conia/development": "^1.0",
+        "fiveorbs/dev": "^1.0",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
         "ernst/coverlyzer": "^0.1.1",
         "phpunit/phpunit": "^10.4",

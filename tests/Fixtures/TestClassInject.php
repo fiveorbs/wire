@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Conia\Wire\Tests\Fixtures;
+namespace FiveOrbs\Wire\Tests\Fixtures;
 
-use Conia\Wire\Call;
-use Conia\Wire\Inject;
-use Conia\Wire\Type;
+use FiveOrbs\Wire\Call;
+use FiveOrbs\Wire\Inject;
+use FiveOrbs\Wire\Type;
 
 #[Call('callThis')]
 class TestClassInject
