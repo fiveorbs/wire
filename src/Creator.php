@@ -36,7 +36,7 @@ class Creator implements CreatorInterface
 					injectCallback: $injectCallback,
 				);
 				$instance = $rmethod->invoke(null, ...$args);
-			} elseif ($this->container && $this->container->has($class)) {
+			} elseif ($this->container && !class_exists($class) && $this->container->has($class)) {
 				/** @psalm-suppress MixedAssignment */
 				$instance = $this->container->get($class);
 			} else {
