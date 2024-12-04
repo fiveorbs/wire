@@ -15,7 +15,7 @@ class Creator implements CreatorInterface
 {
 	use ResolvesAbstractFunctions;
 
-	public function __construct(protected readonly ?Container $container = null) {}
+	public function __construct(protected readonly Container|WireContainer|null $container = null) {}
 
 	/** @psalm-param class-string $class */
 	public function create(
@@ -36,20 +36,22 @@ class Creator implements CreatorInterface
 					injectCallback: $injectCallback,
 				);
 				$instance = $rmethod->invoke(null, ...$args);
-			} elseif ($this->container && !class_exists($class) && $this->container->has($class)) {
-				/** @psalm-suppress MixedAssignment */
-				$instance = $this->container->get($class);
-			} else {
-				$rcls = new ReflectionClass($class);
+			} elseif ($this->container && $this->container->has($class)) {
+				if (is_a($this->container, WireContainer::class)) {
+					$value = $this->container->getDefinition($class);
 
-				// Regular constructor
-				$args = (new ConstructorResolver($this))->resolve(
-					$rcls,
-					predefinedArgs: $predefinedArgs,
-					predefinedTypes: $predefinedTypes,
-					injectCallback: $injectCallback,
-				);
-				$instance = $rcls->newInstance(...$args);
+					if (is_string($value) && class_exists($value)) {
+						$instance = $this->resolveConstructor($class, $predefinedArgs, $predefinedTypes, $injectCallback);
+					} else {
+						/** @psalm-suppress MixedAssignment */
+						$instance = $this->container->get($class);
+					}
+				} else {
+					/** @psalm-suppress MixedAssignment */
+					$instance = $this->container->get($class);
+				}
+			} else {
+				$instance = $this->resolveConstructor($class, $predefinedArgs, $predefinedTypes, $injectCallback);
 			}
 
 			assert(is_object($instance));
@@ -60,6 +62,25 @@ class Creator implements CreatorInterface
 				'Unresolvable: ' . $class . ' Details: ' . $e::class . ' ' . $e->getMessage(),
 			);
 		}
+	}
+
+	protected function resolveConstructor(
+		string $class,
+		array $predefinedArgs,
+		array $predefinedTypes,
+		callable|null $injectCallback,
+	): object {
+		$rcls = new ReflectionClass($class);
+
+		// Regular constructor
+		$args = (new ConstructorResolver($this))->resolve(
+			$rcls,
+			predefinedArgs: $predefinedArgs,
+			predefinedTypes: $predefinedTypes,
+			injectCallback: $injectCallback,
+		);
+
+		return $rcls->newInstance(...$args);
 	}
 
 	protected function applyCallAttributes(
