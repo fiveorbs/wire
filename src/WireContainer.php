@@ -8,5 +8,5 @@ use Psr\Container\ContainerInterface as Container;
 
 interface WireContainer extends Container
 {
-	public function getDefinition(): mixed;
+	public function getDefinition(string $id): mixed;
 }
