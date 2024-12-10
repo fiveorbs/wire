@@ -6,6 +6,7 @@ namespace FiveOrbs\Wire\Tests;
 
 use FiveOrbs\Wire\Creator;
 use FiveOrbs\Wire\Tests\Fixtures\Container;
+use FiveOrbs\Wire\Tests\Fixtures\WireizedContainer;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
@@ -18,6 +19,14 @@ class TestCase extends BaseTestCase
 	public function container(): Container
 	{
 		$container = new Container();
+		$container->add(Container::class, $container);
+
+		return $container;
+	}
+
+	public function wireContainer(): WireizedContainer
+	{
+		$container = new WireizedContainer();
 		$container->add(Container::class, $container);
 
 		return $container;

@@ -167,4 +167,26 @@ final class CreatorTest extends TestCase
 		$this->assertInstanceof(TestClass::class, $testobj);
 		$this->assertSame('text', $testobj->str);
 	}
+
+	public function testResolveFromWireContainerNoInstance(): void
+	{
+		$container = $this->wireContainer();
+		$container->add(TestClass::class);
+		$creator = new Creator($container);
+		$testobj = $creator->create(TestClass::class);
+
+		$this->assertInstanceof(TestClass::class, $testobj);
+		$this->assertSame('', $testobj->str);
+	}
+
+	public function testResolveFromWireContainerInstance(): void
+	{
+		$container = $this->wireContainer();
+		$container->add(TestClass::class, new TestClass('text'));
+		$creator = new Creator($container);
+		$testobj = $creator->create(TestClass::class);
+
+		$this->assertInstanceof(TestClass::class, $testobj);
+		$this->assertSame('text', $testobj->str);
+	}
 }
