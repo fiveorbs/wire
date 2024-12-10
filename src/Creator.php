@@ -38,7 +38,7 @@ class Creator implements CreatorInterface
 				$instance = $rmethod->invoke(null, ...$args);
 			} elseif ($this->container && $this->container->has($class)) {
 				if (is_a($this->container, WireContainer::class)) {
-					$value = $this->container->getDefinition($class);
+					$value = $this->container->definition($class);
 
 					if (is_string($value) && class_exists($value)) {
 						$instance = $this->resolveConstructor($class, $predefinedArgs, $predefinedTypes, $injectCallback);

@@ -10,6 +10,7 @@ Unreleased
 
 ### Breaking Changes
 
+- Add and use the `WireContainer` interface. 
 - `CreatorInterface::create`'s parameter `$constructor` is now of type `string`
   instead of `string|null`. 
 
