@@ -47,11 +47,13 @@
 			"./vendor/bin/phpunit --testdox --coverage-clover=clover.xml --coverage-text --coverage-php=coverage/cover.php  --colors=always",
 			"./vendor/bin/coverlyzer coverage/cover.php"
 		],
+		"mdlint": "markdownlint README.md CHANGELOG.md LICENSE.md docs/",
 		"ci": [
 			"composer docstest",
 			"composer coverage",
 			"composer check",
-			"composer lint"
+			"composer lint",
+			"composer mdlint"
 		],
 		"github": [
 			"composer docstest",
