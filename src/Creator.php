@@ -38,10 +38,16 @@ class Creator implements CreatorInterface
 				$instance = $rmethod->invoke(null, ...$args);
 			} elseif ($this->container && $this->container->has($class)) {
 				if (is_a($this->container, WireContainer::class)) {
+					/** @psalm-suppress MixedAssignment */
 					$value = $this->container->definition($class);
 
 					if (is_string($value) && class_exists($value)) {
-						$instance = $this->resolveConstructor($class, $predefinedArgs, $predefinedTypes, $injectCallback);
+						$instance = $this->resolveConstructor(
+							$class,
+							$predefinedArgs,
+							$predefinedTypes,
+							$injectCallback,
+						);
 					} else {
 						/** @psalm-suppress MixedAssignment */
 						$instance = $this->container->get($class);
@@ -64,6 +70,7 @@ class Creator implements CreatorInterface
 		}
 	}
 
+	/** @psalm-param class-string $class */
 	protected function resolveConstructor(
 		string $class,
 		array $predefinedArgs,
